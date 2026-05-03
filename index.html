@@ -137,6 +137,36 @@
     animation: shimmer 2.6s linear infinite;
   }
 
+  /* ─── Services dynamic wave canvas background (light mode) ─── */
+  .services-shader {
+    background-color: #f6f9fa; /* matches body & hero fade-out for seamless flow */
+    overflow: hidden;
+  }
+  .services-shader-canvas {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    display: block;
+    image-rendering: auto;
+  }
+  .services-shader-grain {
+    position: absolute; inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 240 240' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.55'/%3E%3C/svg%3E");
+    opacity: 0.05;
+    mix-blend-mode: multiply;
+    pointer-events: none;
+  }
+  /* Veil fades the wave into paper at top/bottom so it bleeds out of the
+     marquee strip above and into the next section below — no hard seam. */
+  .services-shader-veil {
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(ellipse at center, transparent 50%, rgba(246,249,250,0.55) 100%),
+      linear-gradient(180deg, rgba(246,249,250,0.96) 0%, rgba(246,249,250,0.0) 14%, rgba(246,249,250,0.0) 86%, rgba(246,249,250,0.85) 100%);
+    pointer-events: none;
+  }
+
   /* Reduce motion */
   @media (prefers-reduced-motion: reduce) {
     .marquee-track, .live-dot, .float-y, .route-dash, .shimmer { animation: none !important; }
@@ -443,7 +473,7 @@
 <section class="hero-section">
   <video
     class="hero-video"
-    src="hero_vid_loop.mp4"
+    src="hero_vid.mp4"
     autoplay
     muted
     loop
@@ -526,166 +556,90 @@
   </div>
 </section>
 
-<!-- ======================== SERVICES BENTO ======================== -->
-<section id="services" class="py-20 lg:py-28">
-  <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+<!-- ======================== SERVICES (modern feature grid on shader background) ======================== -->
+<section id="services" class="relative py-20 lg:py-28 overflow-hidden isolate">
+  <!-- Dynamic wave canvas background (animated, brand cyan/teal palette) -->
+  <div class="services-shader absolute inset-0 -z-10" aria-hidden="true">
+    <canvas class="services-shader-canvas" data-services-wave></canvas>
+    <div class="services-shader-veil"></div>
+    <div class="services-shader-grain"></div>
+  </div>
 
-    <div class="grid lg:grid-cols-12 gap-6 lg:gap-10 mb-12">
-      <div class="lg:col-span-7 reveal">
-        <p class="text-[11px] font-mono uppercase tracking-[0.18em] text-brand-700">— Nos services</p>
-        <h2 class="mt-3 font-display text-3xl sm:text-5xl font-semibold tracking-tightest leading-[1.02] text-ink-900">
-          Une seule équipe pour la marchandise,<br class="hidden sm:block"/>la paperasse et la route.
-        </h2>
-      </div>
-      <div class="lg:col-span-5 lg:pt-3 reveal" style="transition-delay:.08s">
-        <p class="text-[16px] leading-relaxed text-ink-600 max-w-[55ch]">
-          Cinq prestations articulées autour d'un même opérateur — afin que vos délais, vos coûts et vos certificats soient gérés au même endroit, par les mêmes interlocuteurs.
-        </p>
-      </div>
+  <div class="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+
+    <!-- Header -->
+    <div class="flex flex-col gap-5 max-w-4xl reveal">
+      <p class="text-[11px] font-mono uppercase tracking-[0.18em] text-brand-700">— Nos services</p>
+      <h2 class="font-display text-3xl sm:text-4xl lg:text-5xl font-semibold tracking-tightest leading-[1.04] text-ink-900 text-balance">
+        Une seule équipe pour la marchandise, la paperasse et la route.
+      </h2>
+      <h3 class="text-xl sm:text-2xl font-light leading-snug text-ink-600 text-balance max-w-[58ch]">
+        Cinq prestations articulées autour d'un même opérateur — vos délais, vos coûts et vos certificats gérés au même endroit, par les mêmes interlocuteurs.
+      </h3>
     </div>
 
-    <!-- Bento -->
-    <div class="grid grid-cols-1 md:grid-cols-6 gap-4 lg:gap-5">
+    <!-- Feature grid -->
+    <div class="mt-12 lg:mt-16 grid gap-x-10 gap-y-12 sm:grid-cols-2 lg:grid-cols-3 lg:gap-y-14">
 
-      <!-- 1. Solution de fret en complet et groupage (wide, hero card) -->
-      <article class="md:col-span-4 row-span-2 group relative rounded-3xl overflow-hidden bg-gradient-to-br from-brand-950 to-brand-800 text-brand-50 p-6 sm:p-8 reveal min-h-[360px] shadow-lift">
-        <div class="absolute inset-0 opacity-30">
-          <svg class="absolute inset-0 w-full h-full" viewBox="0 0 600 360" preserveAspectRatio="none" aria-hidden="true">
-            <defs>
-              <pattern id="lines" width="28" height="28" patternUnits="userSpaceOnUse">
-                <path d="M0 28 L28 0" stroke="rgba(207,250,254,0.15)" stroke-width="1"/>
-              </pattern>
-            </defs>
-            <rect width="100%" height="100%" fill="url(#lines)"/>
-          </svg>
+      <!-- 01 · Fret routier -->
+      <div class="flex flex-col gap-4 reveal">
+        <div class="inline-flex h-11 w-11 items-center justify-center rounded-xl bg-white text-brand-700 ring-1 ring-ink-200/70 shadow-[0_1px_0_rgba(255,255,255,0.8)_inset,0_8px_18px_-12px_rgba(8,51,68,0.18)]">
+          <svg viewBox="0 0 24 24" class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 7h11v10H3z"/><path d="M14 10h4l3 3v4h-7z"/><circle cx="7.5" cy="18" r="1.6"/><circle cx="17.5" cy="18" r="1.6"/></svg>
         </div>
+        <div class="flex items-center gap-2 text-[11px] font-mono uppercase tracking-[0.18em] text-brand-700">01 — Fret routier</div>
+        <h4 class="font-display text-xl font-semibold tracking-crisp text-ink-900">Lots complets &amp; groupage Maroc ⇄ Europe</h4>
+        <p class="text-[15px] leading-relaxed text-ink-600">
+          Tractions régulières au départ de Tanger Med vers la Péninsule, la France, l'Italie et le Benelux. Vos palettes voyagent en propre ou regroupées — à la cadence et au tarif qui font sens.
+        </p>
+      </div>
 
-        <div class="relative flex flex-col h-full">
-          <div class="flex items-center gap-2 text-[11px] font-mono uppercase tracking-[0.18em] text-brand-300">
-            <svg viewBox="0 0 24 24" class="h-3.5 w-3.5" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="3" y="7" width="13" height="10" rx="1"/><path d="M16 10h3l2 3v4h-5z"/><circle cx="7" cy="18" r="1.5"/><circle cx="17" cy="18" r="1.5"/></svg>
-              01 — Fret routier
-          </div>
-          <h3 class="mt-4 font-display text-[26px] sm:text-[32px] font-semibold tracking-tightest leading-tight">Lots complets &amp; groupage<br/>Maroc ⇄ Europe</h3>
-          <p class="mt-3 text-[14.5px] text-brand-100/85 max-w-[44ch]">
-            Tractions régulières au départ de Tanger Med vers la Péninsule, l'Italie, le Benelux et l'Allemagne. Vos palettes voyagent en propre ou regroupées — au tarif et au délai qui font sens.
-          </p>
-
-          <div class="mt-auto pt-8 grid grid-cols-3 gap-4">
-            <div class="border-t border-brand-300/30 pt-3">
-              <div class="num text-[22px] font-semibold">52 h</div>
-              <div class="text-[11px] text-brand-200/80 mt-1">Tanger → Perpignan, transit moyen</div>
-            </div>
-            <div class="border-t border-brand-300/30 pt-3">
-              <div class="num text-[22px] font-semibold">≤ 1 t</div>
-              <div class="text-[11px] text-brand-200/80 mt-1">Lot minimum en groupage hebdo</div>
-            </div>
-            <div class="border-t border-brand-300/30 pt-3">
-              <div class="num text-[22px] font-semibold">x4 / sem.</div>
-              <div class="text-[11px] text-brand-200/80 mt-1">Départs réguliers vers la France</div>
-            </div>
-          </div>
+      <!-- 02 · Traçabilité -->
+      <div class="flex flex-col gap-4 reveal" style="transition-delay:.05s">
+        <div class="inline-flex h-11 w-11 items-center justify-center rounded-xl bg-white text-brand-700 ring-1 ring-ink-200/70 shadow-[0_1px_0_rgba(255,255,255,0.8)_inset,0_8px_18px_-12px_rgba(8,51,68,0.18)]">
+          <svg viewBox="0 0 24 24" class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12h3l2-5 4 10 2-5h7"/></svg>
         </div>
+        <div class="flex items-center gap-2 text-[11px] font-mono uppercase tracking-[0.18em] text-brand-700">02 — Traçabilité</div>
+        <h4 class="font-display text-xl font-semibold tracking-crisp text-ink-900">Suivi GPS &amp; température en temps réel</h4>
+        <p class="text-[15px] leading-relaxed text-ink-600">
+          Chaque ordre reçoit un lien partageable, horodaté et exportable. Vos clients voient l'avancement, vous voyez l'écart, et la chaîne du froid laisse une trace consultable.
+        </p>
+      </div>
 
-        <a href="#contact" class="absolute top-6 right-6 inline-flex items-center justify-center h-10 w-10 rounded-full bg-brand-50/10 hover:bg-brand-50/20 transition" aria-label="Demander une cotation fret">
-          <svg viewBox="0 0 24 24" class="h-4 w-4 text-brand-50" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M7 17L17 7M9 7h8v8"/></svg>
-        </a>
-      </article>
-
-      <!-- 2. Suivi & traçabilité (right top) -->
-      <article class="md:col-span-2 group relative rounded-3xl bg-white border border-ink-200/70 p-6 reveal shadow-card overflow-hidden">
-        <div class="flex items-center gap-2 text-[11px] font-mono uppercase tracking-[0.18em] text-brand-700">
-          <svg viewBox="0 0 24 24" class="h-3.5 w-3.5" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3"/></svg>
-          02 — Traçabilité
+      <!-- 03 · Dédouanement -->
+      <div class="flex flex-col gap-4 reveal" style="transition-delay:.1s">
+        <div class="inline-flex h-11 w-11 items-center justify-center rounded-xl bg-white text-brand-700 ring-1 ring-ink-200/70 shadow-[0_1px_0_rgba(255,255,255,0.8)_inset,0_8px_18px_-12px_rgba(8,51,68,0.18)]">
+          <svg viewBox="0 0 24 24" class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><path d="M14 3v6h6"/><path d="M9 14l2 2 4-4"/></svg>
         </div>
-        <h3 class="mt-3 font-display text-[20px] font-semibold tracking-crisp leading-snug">Suivi GPS &amp; température en temps réel</h3>
-        <p class="mt-2 text-[13.5px] text-ink-600">Chaque ordre reçoit un lien partageable. Vos clients voient l'avancement, vous voyez l'écart.</p>
+        <div class="flex items-center gap-2 text-[11px] font-mono uppercase tracking-[0.18em] text-brand-700">03 — Formalités</div>
+        <h4 class="font-display text-xl font-semibold tracking-crisp text-ink-900">Dédouanement à l'export et à l'import</h4>
+        <p class="text-[15px] leading-relaxed text-ink-600">
+          Équipe agréée ADII : DUM, EUR.1, certificats sanitaires &amp; phytosanitaires, T1, CMR. Tout est rédigé, déposé et suivi en interne — pas d'intermédiaire en série.
+        </p>
+      </div>
 
-        <!-- Mini line chart -->
-        <div class="mt-5 h-20 relative">
-          <svg viewBox="0 0 220 80" class="w-full h-full">
-            <defs>
-              <linearGradient id="g1" x1="0" x2="0" y1="0" y2="1">
-                <stop offset="0%" stop-color="#06b6d4" stop-opacity="0.35"/>
-                <stop offset="100%" stop-color="#06b6d4" stop-opacity="0"/>
-              </linearGradient>
-            </defs>
-            <path d="M0 60 L25 52 L52 56 L80 40 L108 44 L138 30 L172 36 L200 22 L220 28 L220 80 L0 80 Z" fill="url(#g1)"/>
-            <path d="M0 60 L25 52 L52 56 L80 40 L108 44 L138 30 L172 36 L200 22 L220 28" stroke="#0891b2" stroke-width="1.6" fill="none"/>
-            <circle cx="200" cy="22" r="3.5" fill="#fff" stroke="#0891b2" stroke-width="2"/>
-          </svg>
+      <!-- 04 · Chaîne du froid -->
+      <div class="flex flex-col gap-4 reveal" style="transition-delay:.15s">
+        <div class="inline-flex h-11 w-11 items-center justify-center rounded-xl bg-white text-brand-700 ring-1 ring-ink-200/70 shadow-[0_1px_0_rgba(255,255,255,0.8)_inset,0_8px_18px_-12px_rgba(8,51,68,0.18)]">
+          <svg viewBox="0 0 24 24" class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2v20"/><path d="M4.2 7l15.6 10"/><path d="M4.2 17l15.6-10"/><path d="M9 4l3 3 3-3"/><path d="M9 20l3-3 3 3"/></svg>
         </div>
-      </article>
+        <div class="flex items-center gap-2 text-[11px] font-mono uppercase tracking-[0.18em] text-brand-700">04 — Chaîne du froid</div>
+        <h4 class="font-display text-xl font-semibold tracking-crisp text-ink-900">Frais &amp; surgelés, sous température dirigée</h4>
+        <p class="text-[15px] leading-relaxed text-ink-600">
+          Remorques bi-température (+2 / +6 °C et −18 / −24 °C), sondes calibrées chaque trimestre, alarmes au-delà d'une dérive de 1,5 °C. Vos agrumes, produits laitiers et surgelés arrivent intacts.
+        </p>
+      </div>
 
-      <!-- 3. Dédouanement (right bottom) -->
-      <article class="md:col-span-2 group relative rounded-3xl bg-white border border-ink-200/70 p-6 reveal shadow-card">
-        <div class="flex items-center gap-2 text-[11px] font-mono uppercase tracking-[0.18em] text-brand-700">
-          <svg viewBox="0 0 24 24" class="h-3.5 w-3.5" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M4 7h16M4 12h16M4 17h10"/></svg>
-          03 — Formalités
+      <!-- 05 · Industriel -->
+      <div class="flex flex-col gap-4 reveal" style="transition-delay:.2s">
+        <div class="inline-flex h-11 w-11 items-center justify-center rounded-xl bg-white text-brand-700 ring-1 ring-ink-200/70 shadow-[0_1px_0_rgba(255,255,255,0.8)_inset,0_8px_18px_-12px_rgba(8,51,68,0.18)]">
+          <svg viewBox="0 0 24 24" class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13 2L4 14h7l-1 8 9-12h-7z"/></svg>
         </div>
-        <h3 class="mt-3 font-display text-[20px] font-semibold tracking-crisp leading-snug">Dédouanement à l'export et à l'import</h3>
-        <p class="mt-2 text-[13.5px] text-ink-600">Équipe agréée ADII : DUM, EUR.1, certificats sanitaires, T1, CMR — gérés en interne.</p>
-
-        <!-- Doc list -->
-        <ul class="mt-5 space-y-1.5 text-[12.5px] text-ink-700">
-          <li class="flex items-center justify-between border-t border-ink-100 pt-2"><span>DUM &amp; BAE</span><span class="num text-ink-500">en 24 h</span></li>
-          <li class="flex items-center justify-between border-t border-ink-100 pt-2"><span>EUR.1 / origine UE</span><span class="num text-ink-500">en 48 h</span></li>
-          <li class="flex items-center justify-between border-t border-ink-100 pt-2"><span>Sanitaire / phytosanitaire</span><span class="num text-ink-500">selon poste</span></li>
-        </ul>
-      </article>
-
-      <!-- 4. Chaîne du froid (wide, second row left) -->
-      <article class="md:col-span-3 group relative rounded-3xl bg-white border border-ink-200/70 p-6 sm:p-7 reveal shadow-card overflow-hidden">
-        <div class="grid sm:grid-cols-5 gap-5 items-center h-full">
-          <div class="sm:col-span-3">
-            <div class="flex items-center gap-2 text-[11px] font-mono uppercase tracking-[0.18em] text-brand-700">
-              <svg viewBox="0 0 24 24" class="h-3.5 w-3.5" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M12 2v20M5 5l14 14M5 19L19 5M2 12h20"/></svg>
-              04 — Chaîne du froid
-            </div>
-            <h3 class="mt-3 font-display text-[22px] font-semibold tracking-crisp leading-snug">Frais &amp; surgelés, sous température dirigée</h3>
-            <p class="mt-2 text-[13.5px] text-ink-600">Remorques bi-température, sondes calibrées chaque trimestre, alarmes en cas de dérive supérieure à 1,5 °C.</p>
-            <div class="mt-5 flex items-center gap-4 text-[12px] text-ink-700">
-              <span class="num">+2 °C / +6 °C</span>
-              <span class="h-3 w-px bg-ink-200"></span>
-              <span class="num">−18 °C / −24 °C</span>
-            </div>
-          </div>
-          <div class="sm:col-span-2">
-            <!-- Thermometer-ish viz -->
-            <div class="relative aspect-square rounded-2xl bg-brand-50/70 border border-brand-100 p-4 grid place-items-center">
-              <div class="text-center">
-                <div class="num text-[34px] font-semibold text-brand-800">+4,2°</div>
-                <div class="text-[11px] uppercase tracking-[0.18em] text-brand-700/70 font-mono mt-1">Température nominale</div>
-              </div>
-              <svg class="absolute inset-0 w-full h-full" viewBox="0 0 200 200" fill="none">
-                <circle cx="100" cy="100" r="78" stroke="#a5f3fc" stroke-width="2"/>
-                <circle cx="100" cy="100" r="78" stroke="#0891b2" stroke-width="2" stroke-dasharray="490" stroke-dashoffset="120" stroke-linecap="round" transform="rotate(-90 100 100)"/>
-              </svg>
-            </div>
-          </div>
-        </div>
-      </article>
-
-      <!-- 5. Câblages électriques (right) -->
-      <article class="md:col-span-3 group relative rounded-3xl bg-ink-900 text-brand-50 p-6 sm:p-7 reveal shadow-lift overflow-hidden">
-        <div class="absolute -right-10 -bottom-10 h-56 w-56 rounded-full bg-brand-700/30 blur-3xl"></div>
-        <div class="relative grid sm:grid-cols-5 gap-5 items-center">
-          <div class="sm:col-span-3">
-            <div class="flex items-center gap-2 text-[11px] font-mono uppercase tracking-[0.18em] text-brand-300">
-              <svg viewBox="0 0 24 24" class="h-3.5 w-3.5" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M13 2L4 14h7l-1 8 9-12h-7z"/></svg>
-              05 — Industriel
-            </div>
-            <h3 class="mt-3 font-display text-[22px] font-semibold tracking-crisp leading-snug">Câblages, équipements électriques &amp; matériel sensible</h3>
-            <p class="mt-2 text-[13.5px] text-brand-100/80">Bobines lourdes, transformateurs, palettes anti-statiques. Calage, sanglage et plan de chargement validés avant départ.</p>
-          </div>
-          <div class="sm:col-span-2">
-            <ul class="space-y-2 text-[12.5px]">
-              <li class="flex items-center justify-between border-t border-brand-300/20 pt-2"><span class="text-brand-200/80">Charge utile max</span><span class="num">26 t</span></li>
-              <li class="flex items-center justify-between border-t border-brand-300/20 pt-2"><span class="text-brand-200/80">Hayon hydraulique</span><span class="num">2 500 kg</span></li>
-              <li class="flex items-center justify-between border-t border-brand-300/20 pt-2"><span class="text-brand-200/80">Assurance ad-valorem</span><span class="num">jusqu'à 480 k€</span></li>
-            </ul>
-          </div>
-        </div>
-      </article>
+        <div class="flex items-center gap-2 text-[11px] font-mono uppercase tracking-[0.18em] text-brand-700">05 — Industriel</div>
+        <h4 class="font-display text-xl font-semibold tracking-crisp text-ink-900">Câblages, équipements électriques &amp; matériel sensible</h4>
+        <p class="text-[15px] leading-relaxed text-ink-600">
+          Bobines lourdes, transformateurs, armoires et palettes anti-statiques. Calage, sanglage et plan de chargement validés avant départ — assurance ad-valorem jusqu'à 480 k€.
+        </p>
+      </div>
 
     </div>
   </div>
@@ -1294,6 +1248,135 @@
         content.style.transform = 'translateY(0)';
       }, 200);
     });
+  })();
+
+  // Services dynamic wave canvas background — animated per-pixel renderer
+  // Adapted to the site's cyan/teal brand palette (instead of the demo's purple/blue).
+  (() => {
+    const canvas = document.querySelector('[data-services-wave]');
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d', { alpha: false });
+    if (!ctx) return;
+
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const SCALE = 4; // lower-res internal buffer, upscaled to canvas size — ~16x fewer pixels
+
+    let cw = 0, ch = 0, w = 0, h = 0, imageData = null, data = null;
+
+    const resize = () => {
+      const parent = canvas.parentElement;
+      const rect = parent.getBoundingClientRect();
+      cw = Math.max(1, Math.floor(rect.width));
+      ch = Math.max(1, Math.floor(rect.height));
+      canvas.width = cw;
+      canvas.height = ch;
+      w = Math.max(1, Math.floor(cw / SCALE));
+      h = Math.max(1, Math.floor(ch / SCALE));
+      imageData = ctx.createImageData(w, h);
+      data = imageData.data;
+      // Pre-fill alpha
+      for (let i = 3; i < data.length; i += 4) data[i] = 255;
+    };
+    resize();
+
+    if ('ResizeObserver' in window) {
+      new ResizeObserver(resize).observe(canvas.parentElement);
+    } else {
+      window.addEventListener('resize', resize);
+    }
+
+    // Trig lookup tables
+    const SIN = new Float32Array(1024);
+    const COS = new Float32Array(1024);
+    for (let i = 0; i < 1024; i++) {
+      const a = (i / 1024) * Math.PI * 2;
+      SIN[i] = Math.sin(a);
+      COS[i] = Math.cos(a);
+    }
+    const TAU = Math.PI * 2;
+    const fSin = (x) => SIN[(((x / TAU) * 1024) | 0) & 1023];
+    const fCos = (x) => COS[(((x / TAU) * 1024) | 0) & 1023];
+
+    const startTime = performance.now();
+    let visible = true;
+    let running = false;
+
+    const renderFrame = () => {
+      const t = (performance.now() - startTime) * 0.001;
+
+      for (let y = 0; y < h; y++) {
+        const u_y = (2 * y - h) / h;
+        for (let x = 0; x < w; x++) {
+          const u_x = (2 * x - w) / h;
+
+          let a = 0, d = 0;
+          for (let i = 0; i < 4; i++) {
+            a += fCos(i - d + t * 0.5 - a * u_x);
+            d += fSin(i * u_y + a);
+          }
+
+          const wave = (fSin(a) + fCos(d)) * 0.5;
+          const intensity = 0.32 + 0.55 * wave;
+          const baseVal = 0.10 + 0.18 * fCos(u_x + u_y + t * 0.3);
+          const cyanAccent = 0.28 * fSin(a * 1.5 + t * 0.2);
+          const tealAccent = 0.20 * fCos(d * 2 + t * 0.1);
+
+          // Light-mode mapping: same wave field, but used as a cyan/teal tint
+          // *subtracted* from a paper background so the animation reads as
+          // flowing brand-colored shadows on #f6f9fa rather than glow on black.
+          let waveB = (baseVal + cyanAccent * 1.30 + tealAccent * 0.65) * intensity;
+          if (waveB < 0) waveB = 0; else if (waveB > 1) waveB = 1;
+
+          // Paper base (matches body / hero fade-out): rgb(246,249,250)
+          // R drops most → leaves cyan; G mid; B nearly untouched → keeps lightness.
+          let r = 0.965 - waveB * 0.52 - cyanAccent * 0.04;
+          let g = 0.976 - waveB * 0.13 + tealAccent * 0.015;
+          let b = 0.984 - waveB * 0.03 + cyanAccent * 0.02;
+
+          if (r < 0) r = 0; else if (r > 1) r = 1;
+          if (g < 0) g = 0; else if (g > 1) g = 1;
+          if (b < 0) b = 0; else if (b > 1) b = 1;
+
+          const idx = (y * w + x) * 4;
+          data[idx]     = (r * 255) | 0;
+          data[idx + 1] = (g * 255) | 0;
+          data[idx + 2] = (b * 255) | 0;
+        }
+      }
+
+      // Paint small buffer at (0,0) then upscale to fill canvas.
+      ctx.putImageData(imageData, 0, 0);
+      ctx.imageSmoothingEnabled = true;
+      ctx.imageSmoothingQuality = 'low';
+      ctx.drawImage(canvas, 0, 0, w, h, 0, 0, cw, ch);
+    };
+
+    const tick = () => {
+      if (!visible) { running = false; return; }
+      renderFrame();
+      requestAnimationFrame(tick);
+    };
+    const start = () => {
+      if (running || reduce) return;
+      running = true;
+      tick();
+    };
+
+    // Pause when offscreen for performance
+    if ('IntersectionObserver' in window) {
+      const io = new IntersectionObserver((entries) => {
+        visible = entries[0].isIntersecting;
+        if (visible) start();
+      }, { rootMargin: '120px' });
+      io.observe(canvas.parentElement);
+    }
+
+    if (reduce) {
+      // Single static frame for reduced-motion users
+      renderFrame();
+    } else {
+      start();
+    }
   })();
 </script>
 

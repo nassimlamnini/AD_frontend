@@ -1,0 +1,1301 @@
+<!doctype html>
+<html lang="fr" class="scroll-smooth">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>AD Logistique — Transport international & consignation depuis Tanger</title>
+<meta name="description" content="AD Logistique relie le Maroc et l'Europe : transport routier, groupage, dédouanement et chaîne du froid pour les marchandises sensibles." />
+<meta name="theme-color" content="#0a1414" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
+<script src="https://cdn.tailwindcss.com?plugins=forms"></script>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        fontFamily: {
+          sans: ['Geist', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+          mono: ['Geist Mono', 'ui-monospace', 'monospace'],
+        },
+        colors: {
+          ink: {
+            DEFAULT: '#0a1414',
+            900: '#0c1a1d',
+            800: '#13262a',
+            700: '#1d3338',
+            600: '#395059',
+            500: '#5a6f78',
+            400: '#8a9aa1',
+            300: '#b6c2c7',
+            200: '#d6dee2',
+            100: '#e8eef0',
+            50:  '#f3f6f7',
+          },
+          paper: '#f6f9fa',
+          brand: {
+            50:  '#ecfeff',
+            100: '#cffafe',
+            200: '#a5f3fc',
+            300: '#67e8f9',
+            400: '#22d3ee',
+            500: '#06b6d4',
+            600: '#0891b2',
+            700: '#0e7490',
+            800: '#155e75',
+            900: '#164e63',
+            950: '#083344',
+          },
+        },
+        boxShadow: {
+          'lift': '0 22px 50px -28px rgba(8, 51, 68, 0.45), 0 6px 18px -10px rgba(8, 51, 68, 0.18)',
+          'card': '0 1px 0 rgba(255,255,255,0.6) inset, 0 18px 40px -22px rgba(8, 51, 68, 0.22)',
+          'innerline': 'inset 0 1px 0 rgba(255,255,255,0.7), inset 0 0 0 1px rgba(8, 51, 68, 0.06)',
+        },
+        letterSpacing: {
+          'crisp': '-0.025em',
+          'tightest': '-0.04em',
+        },
+      }
+    }
+  };
+</script>
+
+<style>
+  :root {
+    --grid-line: rgba(8, 51, 68, 0.06);
+  }
+  html, body { background: #f6f9fa; color: #0a1414; }
+  body { font-feature-settings: "ss01", "cv11"; -webkit-font-smoothing: antialiased; }
+  .font-display { font-family: 'Geist', system-ui, sans-serif; letter-spacing: -0.035em; }
+  .num { font-family: 'Geist Mono', ui-monospace, monospace; font-variant-numeric: tabular-nums; letter-spacing: -0.02em; }
+
+  /* Subtle dotted grid wash for hero */
+  .bg-mesh {
+    background-image:
+      radial-gradient(900px 380px at 88% -10%, rgba(34, 211, 238, 0.18), transparent 60%),
+      radial-gradient(700px 420px at 8% 110%, rgba(8, 145, 178, 0.16), transparent 65%),
+      linear-gradient(rgba(8, 51, 68, 0.05) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(8, 51, 68, 0.05) 1px, transparent 1px);
+    background-size: auto, auto, 56px 56px, 56px 56px;
+    background-position: 0 0, 0 0, -1px -1px, -1px -1px;
+  }
+
+  /* Reveal animation */
+  .reveal { opacity: 0; transform: translateY(14px); transition: opacity .7s cubic-bezier(0.16,1,0.3,1), transform .7s cubic-bezier(0.16,1,0.3,1); }
+  .reveal.in { opacity: 1; transform: none; }
+
+  /* Marquee */
+  @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+  .marquee-track { animation: marquee 38s linear infinite; }
+
+  /* Live dot */
+  @keyframes pulseDot {
+    0%   { box-shadow: 0 0 0 0 rgba(6, 182, 212, 0.55); }
+    70%  { box-shadow: 0 0 0 14px rgba(6, 182, 212, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(6, 182, 212, 0); }
+  }
+  .live-dot { animation: pulseDot 2.2s cubic-bezier(0.16,1,0.3,1) infinite; }
+
+  /* Truck float */
+  @keyframes float-y { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
+  .float-y { animation: float-y 6s ease-in-out infinite; }
+
+  /* Route dash */
+  @keyframes dashflow { to { stroke-dashoffset: -120; } }
+  .route-dash { animation: dashflow 6s linear infinite; }
+
+  /* Tilted ribbon */
+  .ribbon-mask {
+    -webkit-mask-image: linear-gradient(90deg, transparent, black 12%, black 88%, transparent);
+            mask-image: linear-gradient(90deg, transparent, black 12%, black 88%, transparent);
+  }
+
+  /* Spotlight border card */
+  .spotlight {
+    position: relative;
+    background:
+      radial-gradient(600px circle at var(--mx, 50%) var(--my, 50%), rgba(34, 211, 238, 0.10), transparent 40%),
+      #ffffff;
+  }
+  .spotlight::before {
+    content: ""; position: absolute; inset: 0; border-radius: inherit; padding: 1px;
+    background: linear-gradient(140deg, rgba(34, 211, 238, 0.35), rgba(8, 51, 68, 0.06) 40%, rgba(8, 51, 68, 0.06));
+    -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+            mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor; mask-composite: exclude;
+    pointer-events: none;
+  }
+
+  /* Scroll-driven shimmer for skeletal lines */
+  @keyframes shimmer { 0% { background-position: -160px 0; } 100% { background-position: 320px 0; } }
+  .shimmer {
+    background: linear-gradient(90deg, rgba(8, 51, 68, 0.05) 0%, rgba(34, 211, 238, 0.18) 40%, rgba(8, 51, 68, 0.05) 80%);
+    background-size: 480px 100%;
+    animation: shimmer 2.6s linear infinite;
+  }
+
+  /* Reduce motion */
+  @media (prefers-reduced-motion: reduce) {
+    .marquee-track, .live-dot, .float-y, .route-dash, .shimmer { animation: none !important; }
+    .reveal { transition: none; opacity: 1; transform: none; }
+  }
+
+  /* Selection */
+  ::selection { background: #0e7490; color: #ecfeff; }
+
+  /* Buttons */
+  .btn-primary {
+    background: linear-gradient(180deg, #0891b2, #0e7490);
+    color: #ecfeff;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.18), 0 12px 24px -12px rgba(14, 116, 144, 0.55);
+    transition: transform .2s cubic-bezier(0.16,1,0.3,1), box-shadow .2s ease, background .2s ease;
+  }
+  .btn-primary:hover { transform: translateY(-1px); box-shadow: inset 0 1px 0 rgba(255,255,255,0.22), 0 18px 32px -14px rgba(14, 116, 144, 0.6); }
+  .btn-primary:active { transform: translateY(0) scale(0.985); }
+
+  .btn-ghost {
+    background: rgba(255,255,255,0.6);
+    border: 1px solid rgba(8, 51, 68, 0.10);
+    color: #0a1414;
+    backdrop-filter: blur(10px);
+    transition: all .2s ease;
+  }
+  .btn-ghost:hover { border-color: rgba(8, 51, 68, 0.18); background: #ffffff; }
+
+  /* Focus */
+  :focus-visible { outline: 2px solid #0891b2; outline-offset: 3px; border-radius: 8px; }
+
+  /* Hide scrollbars on horizontal panes */
+  .no-scrollbar::-webkit-scrollbar { display: none; }
+  .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+  /* Utility: tabular numerals */
+  .tnum { font-variant-numeric: tabular-nums; }
+
+  /* ─── HERO (cinematic) ─── */
+  .hero-section {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    min-height: 640px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #083344;
+    color: white;
+  }
+  .hero-video {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+  }
+  .hero-overlay {
+    position: absolute;
+    inset: 0;
+    background:
+      linear-gradient(
+        160deg,
+        rgba(8, 51, 68, 0.72) 0%,
+        rgba(6, 78, 99, 0.60) 40%,
+        rgba(8, 51, 68, 0.80) 100%
+      );
+  }
+  .hero-overlay::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+    opacity: 0.4;
+    pointer-events: none;
+  }
+  .hero-fade {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 180px;
+    background: linear-gradient(to bottom, transparent, #f6f9fa);
+    pointer-events: none;
+    z-index: 1;
+  }
+  .hero-content {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    padding: 0 1.5rem;
+    max-width: 860px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .hero-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: #67e8f9;
+    margin-bottom: 1.5rem;
+  }
+  .hero-eyebrow::before,
+  .hero-eyebrow::after {
+    content: '';
+    display: block;
+    width: 28px;
+    height: 1px;
+    background: #06b6d4;
+    opacity: 0.7;
+  }
+  .hero-title {
+    font-family: 'Geist', system-ui, sans-serif;
+    font-size: clamp(3.5rem, 10vw, 8rem);
+    font-weight: 800;
+    line-height: 0.9;
+    letter-spacing: -0.04em;
+    text-transform: uppercase;
+    margin: 0 0 0.6rem;
+  }
+  .hero-title .line1 {
+    display: block;
+    color: rgba(255,255,255,0.35);
+    font-weight: 300;
+    letter-spacing: -0.03em;
+  }
+  .hero-title .line2 {
+    display: block;
+    background: linear-gradient(90deg, #a5f3fc, #22d3ee);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-top: -0.08em;
+  }
+  .hero-divider {
+    width: 48px;
+    height: 2px;
+    background: linear-gradient(90deg, #06b6d4, #67e8f9);
+    border-radius: 2px;
+    margin: 1.6rem auto;
+  }
+  .hero-subtitle {
+    font-size: clamp(1rem, 2.5vw, 1.25rem);
+    font-weight: 400;
+    color: rgba(255,255,255,0.65);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    line-height: 1.6;
+    max-width: 520px;
+    margin: 0 0 2.4rem;
+  }
+  .hero-subtitle strong {
+    color: #67e8f9;
+    font-weight: 600;
+  }
+  .hero-tagline {
+    font-size: clamp(0.85rem, 1.5vw, 0.95rem);
+    font-weight: 300;
+    font-style: italic;
+    color: rgba(255,255,255,0.45);
+    margin: 0 0 2.8rem;
+    letter-spacing: 0.04em;
+  }
+  .hero-buttons {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .hero-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 14px 32px;
+    border-radius: 100px;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-decoration: none;
+    cursor: pointer;
+    border: none;
+    transition: background .22s ease, transform .18s ease, box-shadow .22s ease, color .22s ease, border-color .22s ease;
+  }
+  .hero-cta:hover { transform: translateY(-2px); }
+  .hero-cta-primary {
+    background: #06b6d4;
+    color: white;
+    box-shadow: 0 4px 24px rgba(6, 182, 212, 0.35);
+  }
+  .hero-cta-primary:hover {
+    background: #22d3ee;
+    box-shadow: 0 6px 32px rgba(6, 182, 212, 0.5);
+  }
+  .hero-cta-outline {
+    background: rgba(255,255,255,0.07);
+    color: rgba(255,255,255,0.85);
+    border: 1.5px solid rgba(6, 182, 212, 0.35);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+  }
+  .hero-cta-outline:hover {
+    background: rgba(6, 182, 212, 0.12);
+    color: white;
+    border-color: #22d3ee;
+  }
+  .hero-cta-arrow {
+    width: 16px;
+    height: 16px;
+    opacity: 0.85;
+  }
+  .hero-scroll {
+    position: absolute;
+    bottom: 2.5rem;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 3;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    color: rgba(255,255,255,0.45);
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    font-weight: 500;
+  }
+  .hero-scroll-mouse {
+    width: 22px;
+    height: 34px;
+    border: 1.5px solid rgba(6, 182, 212, 0.35);
+    border-radius: 11px;
+    display: flex;
+    justify-content: center;
+    padding-top: 6px;
+  }
+  .hero-scroll-dot {
+    width: 3px;
+    height: 7px;
+    background: #22d3ee;
+    border-radius: 2px;
+    animation: heroScrollDot 2s ease-in-out infinite;
+  }
+  @keyframes heroScrollDot {
+    0%   { transform: translateY(0); opacity: 1; }
+    60%  { transform: translateY(8px); opacity: 0.2; }
+    100% { transform: translateY(0); opacity: 1; }
+  }
+  @media (max-width: 768px) {
+    .hero-title { letter-spacing: -0.03em; }
+    .hero-scroll { bottom: 1.5rem; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .hero-scroll-dot { animation: none; }
+  }
+</style>
+</head>
+
+<body class="antialiased font-sans text-ink">
+
+<!-- ======================== TOP NAV ======================== -->
+<header id="top" class="fixed top-0 inset-x-0 z-50">
+  <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 mt-3 sm:mt-4">
+    <nav class="relative flex items-center gap-3 rounded-2xl border border-ink-200/70 bg-white/70 backdrop-blur-xl px-3.5 sm:px-5 py-2.5 shadow-[0_8px_24px_-12px_rgba(8,51,68,0.18)]">
+      <a href="#top" class="flex items-center gap-2 group">
+        <span class="relative grid place-items-center h-9 w-9 rounded-xl bg-gradient-to-br from-brand-700 to-brand-950 text-brand-50 font-display font-semibold tracking-tightest">
+          AD
+          <span class="absolute -right-0.5 -bottom-0.5 h-2 w-2 rounded-full bg-brand-300 ring-2 ring-white"></span>
+        </span>
+        <span class="hidden sm:block leading-none">
+          <span class="block font-display font-semibold tracking-crisp text-[15px]">Logistique</span>
+          <span class="block text-[10px] uppercase tracking-[0.18em] text-ink-500 font-mono">Tanger · MAR</span>
+        </span>
+      </a>
+
+      <ul class="hidden lg:flex items-center gap-1 ml-6 text-[13.5px] text-ink-700">
+        <li><a class="px-3 py-2 rounded-xl hover:bg-ink-50 transition" href="#services">Services</a></li>
+        <li><a class="px-3 py-2 rounded-xl hover:bg-ink-50 transition" href="#capacite">Capacité</a></li>
+        <li><a class="px-3 py-2 rounded-xl hover:bg-ink-50 transition" href="#reseau">Réseau</a></li>
+        <li><a class="px-3 py-2 rounded-xl hover:bg-ink-50 transition" href="#references">Références</a></li>
+        <li><a class="px-3 py-2 rounded-xl hover:bg-ink-50 transition" href="#a-propos">À propos</a></li>
+      </ul>
+
+      <div class="ml-auto flex items-center gap-2">
+        <a href="#contact" class="hidden sm:inline-flex items-center gap-2 btn-ghost rounded-xl px-3.5 py-2 text-[13px] font-medium">
+          <svg viewBox="0 0 24 24" class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></svg>
+          Suivre une expédition
+        </a>
+        <a href="#contact" class="inline-flex items-center gap-2 btn-primary rounded-xl px-3.5 py-2 text-[13px] font-medium">
+          Demander une cotation
+          <svg viewBox="0 0 24 24" class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+        </a>
+      </div>
+    </nav>
+  </div>
+</header>
+
+<!-- ======================== HERO ======================== -->
+<section class="hero-section">
+  <video
+    class="hero-video"
+    src="hero_vid_loop.mp4"
+    autoplay
+    muted
+    loop
+    playsinline
+    aria-hidden="true"
+  ></video>
+  <div class="hero-overlay"></div>
+  <div class="hero-fade"></div>
+
+  <div class="hero-content">
+    <div class="hero-eyebrow">Transport International</div>
+
+    <h1 class="hero-title">
+      <span class="line1">AD</span>
+      <span class="line2">Logistique</span>
+    </h1>
+
+    <div class="hero-divider"></div>
+
+    <p class="hero-subtitle">
+      <strong>Transport International</strong> &amp; Consignation
+    </p>
+
+    <p class="hero-tagline">
+      « Efficacité, compétitivité et assistance à chaque étape de votre chaîne logistique »
+    </p>
+
+    <div class="hero-buttons">
+      <a href="#services" class="hero-cta hero-cta-primary">
+        Nos Services
+        <svg class="hero-cta-arrow" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M3 8h10M9 4l4 4-4 4"/>
+        </svg>
+      </a>
+      <a href="#contact" class="hero-cta hero-cta-outline">Contactez-nous</a>
+    </div>
+  </div>
+
+  <div class="hero-scroll" aria-hidden="true">
+    <div class="hero-scroll-mouse">
+      <div class="hero-scroll-dot"></div>
+    </div>
+    <span>Défiler</span>
+  </div>
+</section>
+
+<!-- ======================== TRUST STRIP / MARQUEE ======================== -->
+<section aria-label="Marchandises prises en charge" class="border-y border-ink-200/70 bg-white/60">
+  <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-5 grid sm:grid-cols-12 items-center gap-6">
+    <div class="sm:col-span-3 lg:col-span-3">
+      <p class="text-[11px] font-mono uppercase tracking-[0.18em] text-ink-500">Cargaisons traitées chaque semaine</p>
+    </div>
+    <div class="sm:col-span-9 lg:col-span-9 overflow-hidden ribbon-mask">
+      <div class="marquee-track flex gap-10 whitespace-nowrap">
+        <!-- duplicated set for seamless loop -->
+        <div class="flex gap-10 items-center text-ink-700 text-[14px]">
+          <span class="inline-flex items-center gap-2"><span class="h-1.5 w-1.5 rounded-full bg-brand-500"></span> Agrumes — Souss</span>
+          <span class="inline-flex items-center gap-2"><span class="h-1.5 w-1.5 rounded-full bg-brand-500"></span> Tomates cerises</span>
+          <span class="inline-flex items-center gap-2"><span class="h-1.5 w-1.5 rounded-full bg-brand-500"></span> Fromages frais</span>
+          <span class="inline-flex items-center gap-2"><span class="h-1.5 w-1.5 rounded-full bg-brand-500"></span> Câbles HT — bobines 8 t</span>
+          <span class="inline-flex items-center gap-2"><span class="h-1.5 w-1.5 rounded-full bg-brand-500"></span> Fleurs coupées Casablanca</span>
+          <span class="inline-flex items-center gap-2"><span class="h-1.5 w-1.5 rounded-full bg-brand-500"></span> Fraises surgelées −22 °C</span>
+          <span class="inline-flex items-center gap-2"><span class="h-1.5 w-1.5 rounded-full bg-brand-500"></span> Emballages PET vierges</span>
+          <span class="inline-flex items-center gap-2"><span class="h-1.5 w-1.5 rounded-full bg-brand-500"></span> Viandes carrées sous vide</span>
+          <span class="inline-flex items-center gap-2"><span class="h-1.5 w-1.5 rounded-full bg-brand-500"></span> Composants automobiles</span>
+        </div>
+        <div class="flex gap-10 items-center text-ink-700 text-[14px]" aria-hidden="true">
+          <span class="inline-flex items-center gap-2"><span class="h-1.5 w-1.5 rounded-full bg-brand-500"></span> Agrumes — Souss</span>
+          <span class="inline-flex items-center gap-2"><span class="h-1.5 w-1.5 rounded-full bg-brand-500"></span> Tomates cerises</span>
+          <span class="inline-flex items-center gap-2"><span class="h-1.5 w-1.5 rounded-full bg-brand-500"></span> Fromages frais</span>
+          <span class="inline-flex items-center gap-2"><span class="h-1.5 w-1.5 rounded-full bg-brand-500"></span> Câbles HT — bobines 8 t</span>
+          <span class="inline-flex items-center gap-2"><span class="h-1.5 w-1.5 rounded-full bg-brand-500"></span> Fleurs coupées Casablanca</span>
+          <span class="inline-flex items-center gap-2"><span class="h-1.5 w-1.5 rounded-full bg-brand-500"></span> Fraises surgelées −22 °C</span>
+          <span class="inline-flex items-center gap-2"><span class="h-1.5 w-1.5 rounded-full bg-brand-500"></span> Emballages PET vierges</span>
+          <span class="inline-flex items-center gap-2"><span class="h-1.5 w-1.5 rounded-full bg-brand-500"></span> Viandes carrées sous vide</span>
+          <span class="inline-flex items-center gap-2"><span class="h-1.5 w-1.5 rounded-full bg-brand-500"></span> Composants automobiles</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================== SERVICES BENTO ======================== -->
+<section id="services" class="py-20 lg:py-28">
+  <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+
+    <div class="grid lg:grid-cols-12 gap-6 lg:gap-10 mb-12">
+      <div class="lg:col-span-7 reveal">
+        <p class="text-[11px] font-mono uppercase tracking-[0.18em] text-brand-700">— Nos services</p>
+        <h2 class="mt-3 font-display text-3xl sm:text-5xl font-semibold tracking-tightest leading-[1.02] text-ink-900">
+          Une seule équipe pour la marchandise,<br class="hidden sm:block"/>la paperasse et la route.
+        </h2>
+      </div>
+      <div class="lg:col-span-5 lg:pt-3 reveal" style="transition-delay:.08s">
+        <p class="text-[16px] leading-relaxed text-ink-600 max-w-[55ch]">
+          Cinq prestations articulées autour d'un même opérateur — afin que vos délais, vos coûts et vos certificats soient gérés au même endroit, par les mêmes interlocuteurs.
+        </p>
+      </div>
+    </div>
+
+    <!-- Bento -->
+    <div class="grid grid-cols-1 md:grid-cols-6 gap-4 lg:gap-5">
+
+      <!-- 1. Solution de fret en complet et groupage (wide, hero card) -->
+      <article class="md:col-span-4 row-span-2 group relative rounded-3xl overflow-hidden bg-gradient-to-br from-brand-950 to-brand-800 text-brand-50 p-6 sm:p-8 reveal min-h-[360px] shadow-lift">
+        <div class="absolute inset-0 opacity-30">
+          <svg class="absolute inset-0 w-full h-full" viewBox="0 0 600 360" preserveAspectRatio="none" aria-hidden="true">
+            <defs>
+              <pattern id="lines" width="28" height="28" patternUnits="userSpaceOnUse">
+                <path d="M0 28 L28 0" stroke="rgba(207,250,254,0.15)" stroke-width="1"/>
+              </pattern>
+            </defs>
+            <rect width="100%" height="100%" fill="url(#lines)"/>
+          </svg>
+        </div>
+
+        <div class="relative flex flex-col h-full">
+          <div class="flex items-center gap-2 text-[11px] font-mono uppercase tracking-[0.18em] text-brand-300">
+            <svg viewBox="0 0 24 24" class="h-3.5 w-3.5" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="3" y="7" width="13" height="10" rx="1"/><path d="M16 10h3l2 3v4h-5z"/><circle cx="7" cy="18" r="1.5"/><circle cx="17" cy="18" r="1.5"/></svg>
+              01 — Fret routier
+          </div>
+          <h3 class="mt-4 font-display text-[26px] sm:text-[32px] font-semibold tracking-tightest leading-tight">Lots complets &amp; groupage<br/>Maroc ⇄ Europe</h3>
+          <p class="mt-3 text-[14.5px] text-brand-100/85 max-w-[44ch]">
+            Tractions régulières au départ de Tanger Med vers la Péninsule, l'Italie, le Benelux et l'Allemagne. Vos palettes voyagent en propre ou regroupées — au tarif et au délai qui font sens.
+          </p>
+
+          <div class="mt-auto pt-8 grid grid-cols-3 gap-4">
+            <div class="border-t border-brand-300/30 pt-3">
+              <div class="num text-[22px] font-semibold">52 h</div>
+              <div class="text-[11px] text-brand-200/80 mt-1">Tanger → Perpignan, transit moyen</div>
+            </div>
+            <div class="border-t border-brand-300/30 pt-3">
+              <div class="num text-[22px] font-semibold">≤ 1 t</div>
+              <div class="text-[11px] text-brand-200/80 mt-1">Lot minimum en groupage hebdo</div>
+            </div>
+            <div class="border-t border-brand-300/30 pt-3">
+              <div class="num text-[22px] font-semibold">x4 / sem.</div>
+              <div class="text-[11px] text-brand-200/80 mt-1">Départs réguliers vers la France</div>
+            </div>
+          </div>
+        </div>
+
+        <a href="#contact" class="absolute top-6 right-6 inline-flex items-center justify-center h-10 w-10 rounded-full bg-brand-50/10 hover:bg-brand-50/20 transition" aria-label="Demander une cotation fret">
+          <svg viewBox="0 0 24 24" class="h-4 w-4 text-brand-50" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M7 17L17 7M9 7h8v8"/></svg>
+        </a>
+      </article>
+
+      <!-- 2. Suivi & traçabilité (right top) -->
+      <article class="md:col-span-2 group relative rounded-3xl bg-white border border-ink-200/70 p-6 reveal shadow-card overflow-hidden">
+        <div class="flex items-center gap-2 text-[11px] font-mono uppercase tracking-[0.18em] text-brand-700">
+          <svg viewBox="0 0 24 24" class="h-3.5 w-3.5" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3"/></svg>
+          02 — Traçabilité
+        </div>
+        <h3 class="mt-3 font-display text-[20px] font-semibold tracking-crisp leading-snug">Suivi GPS &amp; température en temps réel</h3>
+        <p class="mt-2 text-[13.5px] text-ink-600">Chaque ordre reçoit un lien partageable. Vos clients voient l'avancement, vous voyez l'écart.</p>
+
+        <!-- Mini line chart -->
+        <div class="mt-5 h-20 relative">
+          <svg viewBox="0 0 220 80" class="w-full h-full">
+            <defs>
+              <linearGradient id="g1" x1="0" x2="0" y1="0" y2="1">
+                <stop offset="0%" stop-color="#06b6d4" stop-opacity="0.35"/>
+                <stop offset="100%" stop-color="#06b6d4" stop-opacity="0"/>
+              </linearGradient>
+            </defs>
+            <path d="M0 60 L25 52 L52 56 L80 40 L108 44 L138 30 L172 36 L200 22 L220 28 L220 80 L0 80 Z" fill="url(#g1)"/>
+            <path d="M0 60 L25 52 L52 56 L80 40 L108 44 L138 30 L172 36 L200 22 L220 28" stroke="#0891b2" stroke-width="1.6" fill="none"/>
+            <circle cx="200" cy="22" r="3.5" fill="#fff" stroke="#0891b2" stroke-width="2"/>
+          </svg>
+        </div>
+      </article>
+
+      <!-- 3. Dédouanement (right bottom) -->
+      <article class="md:col-span-2 group relative rounded-3xl bg-white border border-ink-200/70 p-6 reveal shadow-card">
+        <div class="flex items-center gap-2 text-[11px] font-mono uppercase tracking-[0.18em] text-brand-700">
+          <svg viewBox="0 0 24 24" class="h-3.5 w-3.5" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M4 7h16M4 12h16M4 17h10"/></svg>
+          03 — Formalités
+        </div>
+        <h3 class="mt-3 font-display text-[20px] font-semibold tracking-crisp leading-snug">Dédouanement à l'export et à l'import</h3>
+        <p class="mt-2 text-[13.5px] text-ink-600">Équipe agréée ADII : DUM, EUR.1, certificats sanitaires, T1, CMR — gérés en interne.</p>
+
+        <!-- Doc list -->
+        <ul class="mt-5 space-y-1.5 text-[12.5px] text-ink-700">
+          <li class="flex items-center justify-between border-t border-ink-100 pt-2"><span>DUM &amp; BAE</span><span class="num text-ink-500">en 24 h</span></li>
+          <li class="flex items-center justify-between border-t border-ink-100 pt-2"><span>EUR.1 / origine UE</span><span class="num text-ink-500">en 48 h</span></li>
+          <li class="flex items-center justify-between border-t border-ink-100 pt-2"><span>Sanitaire / phytosanitaire</span><span class="num text-ink-500">selon poste</span></li>
+        </ul>
+      </article>
+
+      <!-- 4. Chaîne du froid (wide, second row left) -->
+      <article class="md:col-span-3 group relative rounded-3xl bg-white border border-ink-200/70 p-6 sm:p-7 reveal shadow-card overflow-hidden">
+        <div class="grid sm:grid-cols-5 gap-5 items-center h-full">
+          <div class="sm:col-span-3">
+            <div class="flex items-center gap-2 text-[11px] font-mono uppercase tracking-[0.18em] text-brand-700">
+              <svg viewBox="0 0 24 24" class="h-3.5 w-3.5" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M12 2v20M5 5l14 14M5 19L19 5M2 12h20"/></svg>
+              04 — Chaîne du froid
+            </div>
+            <h3 class="mt-3 font-display text-[22px] font-semibold tracking-crisp leading-snug">Frais &amp; surgelés, sous température dirigée</h3>
+            <p class="mt-2 text-[13.5px] text-ink-600">Remorques bi-température, sondes calibrées chaque trimestre, alarmes en cas de dérive supérieure à 1,5 °C.</p>
+            <div class="mt-5 flex items-center gap-4 text-[12px] text-ink-700">
+              <span class="num">+2 °C / +6 °C</span>
+              <span class="h-3 w-px bg-ink-200"></span>
+              <span class="num">−18 °C / −24 °C</span>
+            </div>
+          </div>
+          <div class="sm:col-span-2">
+            <!-- Thermometer-ish viz -->
+            <div class="relative aspect-square rounded-2xl bg-brand-50/70 border border-brand-100 p-4 grid place-items-center">
+              <div class="text-center">
+                <div class="num text-[34px] font-semibold text-brand-800">+4,2°</div>
+                <div class="text-[11px] uppercase tracking-[0.18em] text-brand-700/70 font-mono mt-1">Température nominale</div>
+              </div>
+              <svg class="absolute inset-0 w-full h-full" viewBox="0 0 200 200" fill="none">
+                <circle cx="100" cy="100" r="78" stroke="#a5f3fc" stroke-width="2"/>
+                <circle cx="100" cy="100" r="78" stroke="#0891b2" stroke-width="2" stroke-dasharray="490" stroke-dashoffset="120" stroke-linecap="round" transform="rotate(-90 100 100)"/>
+              </svg>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- 5. Câblages électriques (right) -->
+      <article class="md:col-span-3 group relative rounded-3xl bg-ink-900 text-brand-50 p-6 sm:p-7 reveal shadow-lift overflow-hidden">
+        <div class="absolute -right-10 -bottom-10 h-56 w-56 rounded-full bg-brand-700/30 blur-3xl"></div>
+        <div class="relative grid sm:grid-cols-5 gap-5 items-center">
+          <div class="sm:col-span-3">
+            <div class="flex items-center gap-2 text-[11px] font-mono uppercase tracking-[0.18em] text-brand-300">
+              <svg viewBox="0 0 24 24" class="h-3.5 w-3.5" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M13 2L4 14h7l-1 8 9-12h-7z"/></svg>
+              05 — Industriel
+            </div>
+            <h3 class="mt-3 font-display text-[22px] font-semibold tracking-crisp leading-snug">Câblages, équipements électriques &amp; matériel sensible</h3>
+            <p class="mt-2 text-[13.5px] text-brand-100/80">Bobines lourdes, transformateurs, palettes anti-statiques. Calage, sanglage et plan de chargement validés avant départ.</p>
+          </div>
+          <div class="sm:col-span-2">
+            <ul class="space-y-2 text-[12.5px]">
+              <li class="flex items-center justify-between border-t border-brand-300/20 pt-2"><span class="text-brand-200/80">Charge utile max</span><span class="num">26 t</span></li>
+              <li class="flex items-center justify-between border-t border-brand-300/20 pt-2"><span class="text-brand-200/80">Hayon hydraulique</span><span class="num">2 500 kg</span></li>
+              <li class="flex items-center justify-between border-t border-brand-300/20 pt-2"><span class="text-brand-200/80">Assurance ad-valorem</span><span class="num">jusqu'à 480 k€</span></li>
+            </ul>
+          </div>
+        </div>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<!-- ======================== STATS / CAPACITY ======================== -->
+<section id="capacite" class="relative py-20 lg:py-28 bg-white border-y border-ink-200/70">
+  <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <div class="grid lg:grid-cols-12 gap-10 items-end mb-12">
+      <div class="lg:col-span-6 reveal">
+        <p class="text-[11px] font-mono uppercase tracking-[0.18em] text-brand-700">— Capacité opérationnelle</p>
+        <h2 class="mt-3 font-display text-3xl sm:text-5xl font-semibold tracking-tightest leading-[1.02]">
+          Les chiffres qui rassurent<br/>les directions logistiques.
+        </h2>
+      </div>
+      <div class="lg:col-span-5 lg:col-start-8 reveal" style="transition-delay:.08s">
+        <p class="text-[15.5px] leading-relaxed text-ink-600">
+          Mesurés sur 2025 — vérifiables sur demande, à l'occasion d'un audit fournisseur ou d'un appel d'offres.
+        </p>
+      </div>
+    </div>
+
+    <!-- divide-y/border-t style, no card boxes -->
+    <div class="grid grid-cols-2 lg:grid-cols-5 gap-y-10 gap-x-6 reveal">
+      <div class="border-t border-ink-200 pt-5">
+        <div class="num text-[40px] sm:text-[52px] font-semibold tracking-tightest text-ink-900 leading-none">47 820</div>
+        <div class="mt-3 text-[12px] uppercase tracking-[0.16em] text-ink-500 font-mono">Colis livrés en 2025</div>
+        <p class="mt-2 text-[13px] text-ink-600 max-w-[28ch]">Du carton de 12 kg à la palette EUR.1 complète.</p>
+      </div>
+      <div class="border-t border-ink-200 pt-5">
+        <div class="num text-[40px] sm:text-[52px] font-semibold tracking-tightest text-ink-900 leading-none">3,2 M</div>
+        <div class="mt-3 text-[12px] uppercase tracking-[0.16em] text-ink-500 font-mono">km parcourus / an</div>
+        <p class="mt-2 text-[13px] text-ink-600 max-w-[28ch]">Tracteurs Euro 6, conduite éco-responsable.</p>
+      </div>
+      <div class="border-t border-ink-200 pt-5">
+        <div class="num text-[40px] sm:text-[52px] font-semibold tracking-tightest text-ink-900 leading-none">84 500 t</div>
+        <div class="mt-3 text-[12px] uppercase tracking-[0.16em] text-ink-500 font-mono">Tonnes acheminées</div>
+        <p class="mt-2 text-[13px] text-ink-600 max-w-[28ch]">Dont 61 % en chaîne du froid contrôlée.</p>
+      </div>
+      <div class="border-t border-ink-200 pt-5">
+        <div class="num text-[40px] sm:text-[52px] font-semibold tracking-tightest text-ink-900 leading-none">247</div>
+        <div class="mt-3 text-[12px] uppercase tracking-[0.16em] text-ink-500 font-mono">Comptes actifs</div>
+        <p class="mt-2 text-[13px] text-ink-600 max-w-[28ch]">Producteurs, industriels, négoces, distributeurs.</p>
+      </div>
+      <div class="border-t border-ink-200 pt-5">
+        <div class="num text-[40px] sm:text-[52px] font-semibold tracking-tightest text-ink-900 leading-none">18 ans</div>
+        <div class="mt-3 text-[12px] uppercase tracking-[0.16em] text-ink-500 font-mono">D'expérience</div>
+        <p class="mt-2 text-[13px] text-ink-600 max-w-[28ch]">Au service du corridor Maghreb-Europe.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================== ROUTE / NETWORK ======================== -->
+<section id="reseau" class="py-20 lg:py-28 relative overflow-hidden">
+  <div class="absolute inset-0 -z-10 bg-mesh opacity-70"></div>
+  <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <div class="grid lg:grid-cols-12 gap-10 lg:gap-12">
+
+      <div class="lg:col-span-5 reveal">
+        <p class="text-[11px] font-mono uppercase tracking-[0.18em] text-brand-700">— Notre réseau</p>
+        <h2 class="mt-3 font-display text-3xl sm:text-5xl font-semibold tracking-tightest leading-[1.02]">
+          Une ligne directe<br/>du détroit aux quais européens.
+        </h2>
+        <p class="mt-5 text-[15.5px] text-ink-600 max-w-[52ch] leading-relaxed">
+          Tanger Med est notre port-pivot. Nos rotations s'articulent autour des escales d'Algésiras et Marseille, avec une couverture régulière jusqu'à Rotterdam, Lyon, Madrid, Milan et Paris.
+        </p>
+
+        <ul class="mt-8 space-y-3.5 text-[14px]">
+          <li class="flex items-start gap-3">
+            <span class="mt-1 inline-flex h-5 w-5 items-center justify-center rounded-full bg-brand-50 text-brand-700">
+              <svg viewBox="0 0 24 24" class="h-3.5 w-3.5" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12l4 4L19 7"/></svg>
+            </span>
+            <span><strong class="text-ink-900">4 départs hebdomadaires</strong> vers la France et l'Espagne, deux vers l'Italie et le Benelux.</span>
+          </li>
+          <li class="flex items-start gap-3">
+            <span class="mt-1 inline-flex h-5 w-5 items-center justify-center rounded-full bg-brand-50 text-brand-700">
+              <svg viewBox="0 0 24 24" class="h-3.5 w-3.5" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12l4 4L19 7"/></svg>
+            </span>
+            <span><strong class="text-ink-900">Hub de cross-docking</strong> à Perpignan pour redistribution Europe du Sud sous 24 h.</span>
+          </li>
+          <li class="flex items-start gap-3">
+            <span class="mt-1 inline-flex h-5 w-5 items-center justify-center rounded-full bg-brand-50 text-brand-700">
+              <svg viewBox="0 0 24 24" class="h-3.5 w-3.5" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12l4 4L19 7"/></svg>
+            </span>
+            <span><strong class="text-ink-900">Accords ferries</strong> avec FRS, Balearia et GNV — réservations prioritaires en haute saison agrumes.</span>
+          </li>
+        </ul>
+
+        <a href="#contact" class="mt-9 inline-flex items-center gap-2 btn-primary rounded-xl px-5 py-3 text-[14px] font-medium">
+          Étudier votre flux régulier
+          <svg viewBox="0 0 24 24" class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+        </a>
+      </div>
+
+      <!-- Map -->
+      <div class="lg:col-span-7 reveal" style="transition-delay:.1s">
+        <div class="relative rounded-3xl bg-white border border-ink-200/70 shadow-card p-5 sm:p-7">
+          <div class="flex items-center justify-between mb-4">
+            <div class="flex items-center gap-2 text-[11px] font-mono uppercase tracking-[0.18em] text-ink-500">
+              <span class="h-1.5 w-1.5 rounded-full bg-brand-500 live-dot"></span>
+              Réseau actif · S18-2026
+            </div>
+            <div class="hidden sm:flex items-center gap-3 text-[11px] text-ink-500 font-mono">
+              <span class="inline-flex items-center gap-1.5"><span class="h-2 w-3 rounded-sm bg-brand-600"></span> Régulier</span>
+              <span class="inline-flex items-center gap-1.5"><span class="h-2 w-3 rounded-sm border border-brand-400 border-dashed"></span> À la demande</span>
+            </div>
+          </div>
+
+          <svg viewBox="0 0 760 460" class="w-full h-auto" role="img" aria-label="Carte stylisée Maroc-Europe">
+            <defs>
+              <linearGradient id="land" x1="0" x2="0" y1="0" y2="1">
+                <stop offset="0%" stop-color="#eef4f5"/>
+                <stop offset="100%" stop-color="#e1ebee"/>
+              </linearGradient>
+              <linearGradient id="sea" x1="0" x2="0" y1="0" y2="1">
+                <stop offset="0%" stop-color="#f7fbfc"/>
+                <stop offset="100%" stop-color="#eaf6f9"/>
+              </linearGradient>
+            </defs>
+            <rect width="760" height="460" fill="url(#sea)"/>
+
+            <!-- Stylized Iberian peninsula -->
+            <path d="M120 90 L260 70 L360 100 L420 130 L470 200 L420 260 L300 290 L210 270 L130 220 Z" fill="url(#land)" stroke="#cfdde1" stroke-width="1"/>
+            <!-- France -->
+            <path d="M380 60 L520 40 L600 90 L640 160 L590 230 L500 250 L430 220 L400 160 Z" fill="url(#land)" stroke="#cfdde1" stroke-width="1"/>
+            <!-- Italy boot -->
+            <path d="M620 130 L660 110 L690 150 L700 230 L680 270 L660 300 L650 340 L640 360 L630 340 L620 290 Z" fill="url(#land)" stroke="#cfdde1" stroke-width="1"/>
+            <!-- North Africa / Morocco -->
+            <path d="M40 320 L150 300 L250 320 L360 340 L460 360 L520 390 L520 450 L40 450 Z" fill="url(#land)" stroke="#cfdde1" stroke-width="1"/>
+            <!-- Strait gap line -->
+            <line x1="180" y1="295" x2="200" y2="305" stroke="#bcd1d6" stroke-width="1" stroke-dasharray="2 3"/>
+
+            <!-- Routes from Tanger Med -->
+            <g class="route-dash" stroke-linecap="round" fill="none" stroke-dasharray="6 6">
+              <path d="M195 312 C 240 250, 290 200, 380 160" stroke="#0891b2" stroke-width="2.2"/>
+              <path d="M195 312 C 280 280, 380 230, 460 175" stroke="#0891b2" stroke-width="2.2"/>
+              <path d="M195 312 C 340 300, 470 250, 560 180" stroke="#0891b2" stroke-width="2.2"/>
+              <path d="M195 312 C 420 320, 560 270, 640 240" stroke="#0e7490" stroke-width="2.2"/>
+              <path d="M195 312 C 380 340, 520 360, 600 330" stroke="#22d3ee" stroke-width="2" stroke-dasharray="3 5"/>
+            </g>
+
+            <!-- Tanger Med (origin) -->
+            <g>
+              <circle cx="195" cy="312" r="8" fill="#06b6d4" opacity="0.18"/>
+              <circle cx="195" cy="312" r="4.5" fill="#0e7490" stroke="#fff" stroke-width="2"/>
+              <text x="170" y="338" font-family="Geist Mono" font-size="11" fill="#0a1414">Tanger Med</text>
+            </g>
+            <!-- Algeciras -->
+            <g><circle cx="225" cy="292" r="3.5" fill="#0a1414"/><text x="232" y="290" font-family="Geist Mono" font-size="10" fill="#395059">Algésiras</text></g>
+            <!-- Madrid -->
+            <g><circle cx="280" cy="200" r="3.5" fill="#0a1414"/><text x="288" y="198" font-family="Geist Mono" font-size="10" fill="#395059">Madrid</text></g>
+            <!-- Barcelona -->
+            <g><circle cx="380" cy="160" r="3.5" fill="#0a1414"/><text x="388" y="158" font-family="Geist Mono" font-size="10" fill="#395059">Barcelone</text></g>
+            <!-- Perpignan (hub) -->
+            <g>
+              <rect x="412" y="140" width="9" height="9" fill="#06b6d4" stroke="#fff" stroke-width="2"/>
+              <text x="427" y="148" font-family="Geist Mono" font-size="10.5" fill="#0a1414" font-weight="600">Perpignan · hub</text>
+            </g>
+            <!-- Marseille -->
+            <g><circle cx="460" cy="175" r="3.5" fill="#0a1414"/><text x="468" y="173" font-family="Geist Mono" font-size="10" fill="#395059">Marseille</text></g>
+            <!-- Lyon -->
+            <g><circle cx="490" cy="130" r="3.5" fill="#0a1414"/><text x="498" y="128" font-family="Geist Mono" font-size="10" fill="#395059">Lyon</text></g>
+            <!-- Paris -->
+            <g><circle cx="510" cy="80" r="3.5" fill="#0a1414"/><text x="518" y="78" font-family="Geist Mono" font-size="10" fill="#395059">Paris</text></g>
+            <!-- Milan -->
+            <g><circle cx="600" cy="115" r="3.5" fill="#0a1414"/><text x="608" y="113" font-family="Geist Mono" font-size="10" fill="#395059">Milan</text></g>
+            <!-- Rotterdam -->
+            <g><circle cx="560" cy="50" r="3.5" fill="#0a1414"/><text x="496" y="42" font-family="Geist Mono" font-size="10" fill="#395059">Rotterdam</text></g>
+            <!-- Genova / Genoa -->
+            <g><circle cx="560" cy="180" r="3.5" fill="#0a1414"/><text x="568" y="178" font-family="Geist Mono" font-size="10" fill="#395059">Gênes</text></g>
+
+            <!-- Compass -->
+            <g transform="translate(700,40)" opacity="0.7">
+              <circle r="14" fill="#fff" stroke="#cfdde1"/>
+              <path d="M0 -10 L3 0 L0 10 L-3 0 Z" fill="#0e7490"/>
+              <text x="-3" y="-16" font-family="Geist Mono" font-size="8.5" fill="#395059">N</text>
+            </g>
+          </svg>
+
+          <!-- Bottom data row -->
+          <div class="mt-5 grid grid-cols-2 sm:grid-cols-4 gap-4 pt-5 border-t border-ink-100">
+            <div><div class="num text-[18px] font-semibold">11 pays</div><div class="text-[11px] text-ink-500 mt-0.5 font-mono uppercase tracking-[0.16em]">Couverts</div></div>
+            <div><div class="num text-[18px] font-semibold">52 h</div><div class="text-[11px] text-ink-500 mt-0.5 font-mono uppercase tracking-[0.16em]">Vers Perpignan</div></div>
+            <div><div class="num text-[18px] font-semibold">14 routes</div><div class="text-[11px] text-ink-500 mt-0.5 font-mono uppercase tracking-[0.16em]">Régulières</div></div>
+            <div><div class="num text-[18px] font-semibold">7 / 7</div><div class="text-[11px] text-ink-500 mt-0.5 font-mono uppercase tracking-[0.16em]">Astreinte transit</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================== SPECIALIZATIONS / ZIGZAG ======================== -->
+<section id="a-propos" class="py-20 lg:py-28 bg-white border-t border-ink-200/70">
+  <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+
+    <div class="max-w-3xl reveal">
+      <p class="text-[11px] font-mono uppercase tracking-[0.18em] text-brand-700">— Spécialisations</p>
+      <h2 class="mt-3 font-display text-3xl sm:text-5xl font-semibold tracking-tightest leading-[1.02]">
+        Trois savoir-faire, calibrés depuis 2008.
+      </h2>
+    </div>
+
+    <!-- Zigzag 1 -->
+    <div class="mt-16 grid lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+      <div class="lg:col-span-7 order-2 lg:order-1 reveal">
+        <div class="text-[11px] font-mono uppercase tracking-[0.18em] text-ink-500">01</div>
+        <h3 class="mt-2 font-display text-2xl sm:text-3xl font-semibold tracking-crisp leading-tight">Périssables &amp; produits frais</h3>
+        <p class="mt-4 text-[15.5px] text-ink-600 leading-relaxed max-w-[58ch]">
+          Agrumes du Souss, tomates de Dakhla, fromages d'Aïn Aouda, fleurs coupées de Casablanca — nos remorques bi-température maintiennent la chaîne du froid d'un quai à l'autre, avec relevés horodatés à chaque kilomètre.
+        </p>
+        <div class="mt-7 grid grid-cols-2 sm:grid-cols-3 gap-5 max-w-xl">
+          <div class="border-t border-ink-200 pt-3"><div class="num text-[18px] font-semibold">+2 / +6 °C</div><div class="text-[12px] text-ink-500">Frais</div></div>
+          <div class="border-t border-ink-200 pt-3"><div class="num text-[18px] font-semibold">−18 / −24 °C</div><div class="text-[12px] text-ink-500">Surgelé</div></div>
+          <div class="border-t border-ink-200 pt-3"><div class="num text-[18px] font-semibold">≤ 1,5 °C</div><div class="text-[12px] text-ink-500">Tolérance d'écart</div></div>
+        </div>
+      </div>
+      <div class="lg:col-span-5 order-1 lg:order-2 reveal" style="transition-delay:.06s">
+        <div class="relative rounded-3xl overflow-hidden border border-ink-200/70 aspect-[4/3]">
+          <img src="https://picsum.photos/seed/ad-cold-citrus-2026/720/540" alt="Caisses d'agrumes en chambre froide, prêtes au chargement" class="absolute inset-0 h-full w-full object-cover" loading="lazy" />
+          <div class="absolute inset-0 bg-gradient-to-t from-ink-950/55 to-transparent"></div>
+          <div class="absolute bottom-4 left-4 right-4 text-brand-50">
+            <div class="text-[11px] font-mono uppercase tracking-[0.18em] text-brand-200/90">Saison agrumes · S15-S22</div>
+            <div class="num text-[20px] mt-0.5">12 800 t / saison</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Zigzag 2 -->
+    <div class="mt-20 grid lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+      <div class="lg:col-span-5 reveal">
+        <div class="relative rounded-3xl overflow-hidden border border-ink-200/70 aspect-[4/3]">
+          <img src="https://picsum.photos/seed/ad-electrical-cable-2026/720/540" alt="Bobines de câbles industriels arrimées sur remorque" class="absolute inset-0 h-full w-full object-cover" loading="lazy" />
+          <div class="absolute inset-0 bg-gradient-to-t from-ink-950/55 to-transparent"></div>
+          <div class="absolute bottom-4 left-4 right-4 text-brand-50">
+            <div class="text-[11px] font-mono uppercase tracking-[0.18em] text-brand-200/90">Industriel · sur-mesure</div>
+            <div class="num text-[20px] mt-0.5">jusqu'à 26 t / chargement</div>
+          </div>
+        </div>
+      </div>
+      <div class="lg:col-span-7 reveal" style="transition-delay:.06s">
+        <div class="text-[11px] font-mono uppercase tracking-[0.18em] text-ink-500">02</div>
+        <h3 class="mt-2 font-display text-2xl sm:text-3xl font-semibold tracking-crisp leading-tight">Câblages &amp; matériel électrique</h3>
+        <p class="mt-4 text-[15.5px] text-ink-600 leading-relaxed max-w-[58ch]">
+          Bobines lourdes, transformateurs, armoires de distribution — chaque chargement est documenté par un plan d'arrimage signé. Calage bois, sangles 4 t, et inspection contradictoire avant scellement.
+        </p>
+        <ul class="mt-7 grid sm:grid-cols-2 gap-x-8 gap-y-3 text-[14px] text-ink-700 max-w-xl">
+          <li class="flex items-center gap-2"><span class="h-1.5 w-1.5 rounded-full bg-brand-500"></span> Plan de chargement validé</li>
+          <li class="flex items-center gap-2"><span class="h-1.5 w-1.5 rounded-full bg-brand-500"></span> Hayon hydraulique 2,5 t</li>
+          <li class="flex items-center gap-2"><span class="h-1.5 w-1.5 rounded-full bg-brand-500"></span> Assurance ad-valorem</li>
+          <li class="flex items-center gap-2"><span class="h-1.5 w-1.5 rounded-full bg-brand-500"></span> Convoi exceptionnel sur demande</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Zigzag 3 -->
+    <div class="mt-20 grid lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+      <div class="lg:col-span-7 order-2 lg:order-1 reveal">
+        <div class="text-[11px] font-mono uppercase tracking-[0.18em] text-ink-500">03</div>
+        <h3 class="mt-2 font-display text-2xl sm:text-3xl font-semibold tracking-crisp leading-tight">Dédouanement &amp; conformité</h3>
+        <p class="mt-4 text-[15.5px] text-ink-600 leading-relaxed max-w-[58ch]">
+          Notre cellule agréée ADII pré-saisit les déclarations dès la préparation du chargement : DUM, EUR.1, certificats sanitaires et phytosanitaires, T1, CMR. Vos camions ne perdent pas une heure sur le port.
+        </p>
+        <div class="mt-7 rounded-2xl border border-ink-200 bg-paper p-5 max-w-xl">
+          <div class="flex items-center gap-2 text-[11px] uppercase tracking-[0.18em] font-mono text-ink-500">Indicateur opérationnel</div>
+          <div class="mt-3 flex items-baseline gap-3">
+            <div class="num text-[34px] font-semibold text-ink-900">96 %</div>
+            <div class="text-[13px] text-ink-600">de dossiers libérés sous 24 h, sans réserve.</div>
+          </div>
+          <div class="mt-4 h-1.5 rounded-full bg-ink-100 overflow-hidden">
+            <div class="h-full w-[96%] bg-gradient-to-r from-brand-500 to-brand-700 rounded-full"></div>
+          </div>
+        </div>
+      </div>
+      <div class="lg:col-span-5 order-1 lg:order-2 reveal" style="transition-delay:.06s">
+        <div class="relative rounded-3xl overflow-hidden border border-ink-200/70 aspect-[4/3]">
+          <img src="https://picsum.photos/seed/ad-customs-port-tanger-2026/720/540" alt="Vue du port de Tanger Med au lever du jour" class="absolute inset-0 h-full w-full object-cover" loading="lazy" />
+          <div class="absolute inset-0 bg-gradient-to-t from-ink-950/55 to-transparent"></div>
+          <div class="absolute bottom-4 left-4 right-4 text-brand-50">
+            <div class="text-[11px] font-mono uppercase tracking-[0.18em] text-brand-200/90">Tanger Med · port pivot</div>
+            <div class="num text-[20px] mt-0.5">9,8 M EVP traités / an</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ======================== TESTIMONIALS / REFERENCES ======================== -->
+<section id="references" class="py-20 lg:py-28 bg-paper">
+  <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+
+    <div class="grid lg:grid-cols-12 gap-10 items-end mb-12">
+      <div class="lg:col-span-7 reveal">
+        <p class="text-[11px] font-mono uppercase tracking-[0.18em] text-brand-700">— Ils nous confient leurs flux</p>
+        <h2 class="mt-3 font-display text-3xl sm:text-5xl font-semibold tracking-tightest leading-[1.02]">
+          Des partenaires fidèles,<br/>certains depuis plus de dix ans.
+        </h2>
+      </div>
+      <div class="lg:col-span-4 lg:col-start-9 reveal" style="transition-delay:.08s">
+        <p class="text-[15.5px] leading-relaxed text-ink-600">
+          Industriels, négoces et producteurs qui mesurent la performance logistique au pourcentage et au degré près.
+        </p>
+      </div>
+    </div>
+
+    <!-- Logos line (text-set, no fake brand assets) -->
+    <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-y-6 gap-x-8 items-center mb-16 reveal">
+      <div class="font-display text-[18px] font-semibold tracking-crisp text-ink-700">Marotrans</div>
+      <div class="font-display text-[18px] font-semibold tracking-crisp text-ink-700">Fromagerie Bel Maroc</div>
+      <div class="font-display text-[18px] font-semibold tracking-crisp text-ink-700">Lymouna&middot;Matysha</div>
+      <div class="font-display text-[18px] font-semibold tracking-crisp text-ink-700">Domaines Souss</div>
+      <div class="font-display text-[18px] font-semibold tracking-crisp text-ink-700">Câbleries Atlantique</div>
+      <div class="font-display text-[18px] font-semibold tracking-crisp text-ink-700">Frigo Med</div>
+    </div>
+
+    <!-- Quotes — staggered, not 3-equal -->
+    <div class="grid lg:grid-cols-12 gap-5 lg:gap-6">
+
+      <figure class="lg:col-span-7 lg:row-span-2 rounded-3xl bg-white border border-ink-200/70 shadow-card p-7 sm:p-9 reveal">
+        <svg viewBox="0 0 24 24" class="h-7 w-7 text-brand-500" fill="currentColor"><path d="M9 7c-3 0-5 2-5 5v6h6v-6H7c0-2 1-3 3-3V7zm9 0c-3 0-5 2-5 5v6h6v-6h-3c0-2 1-3 3-3V7z"/></svg>
+        <blockquote class="mt-5 font-display text-[22px] sm:text-[26px] leading-[1.25] tracking-crisp text-ink-900 max-w-[42ch]">
+          « Sur la saison agrumes, AD a tenu 98 % de nos départs à l'heure. Pas une réclamation client, pas une rupture de chaîne du froid — c'est ce qu'on attend d'un partenaire long terme. »
+        </blockquote>
+        <figcaption class="mt-7 flex items-center gap-3.5">
+          <div class="h-11 w-11 rounded-full bg-gradient-to-br from-brand-700 to-brand-950 grid place-items-center text-brand-50 font-mono text-sm">KE</div>
+          <div>
+            <div class="font-medium text-[14px] text-ink-900">Kamal Elhaimer</div>
+            <div class="text-[12.5px] text-ink-500">Directeur logistique · Marotrans</div>
+          </div>
+        </figcaption>
+      </figure>
+
+      <figure class="lg:col-span-5 rounded-3xl bg-white border border-ink-200/70 shadow-card p-6 sm:p-7 reveal" style="transition-delay:.05s">
+        <blockquote class="font-display text-[18px] leading-snug tracking-crisp text-ink-900">
+          « L'équipe douane d'AD pré-instruit nos DUM et nos EUR.1 avant même que le camion arrive au port. Nos délais ont chuté de 30 %. »
+        </blockquote>
+        <figcaption class="mt-5 flex items-center gap-3">
+          <div class="h-9 w-9 rounded-full bg-gradient-to-br from-brand-600 to-brand-800 grid place-items-center text-brand-50 font-mono text-xs">NB</div>
+          <div>
+            <div class="font-medium text-[13.5px] text-ink-900">Nadia Bendida</div>
+            <div class="text-[12px] text-ink-500">Responsable supply chain · Fromagerie Bel Maroc</div>
+          </div>
+        </figcaption>
+      </figure>
+
+      <figure class="lg:col-span-5 rounded-3xl bg-ink-900 text-brand-50 p-6 sm:p-7 reveal" style="transition-delay:.1s">
+        <blockquote class="font-display text-[18px] leading-snug tracking-crisp">
+          « Les bobines de 7,2 t arrivent à Lyon parfaitement arrimées, plan de chargement à l'appui. Aucun autre transporteur ne nous propose ce niveau de rigueur sur le corridor. »
+        </blockquote>
+        <figcaption class="mt-5 flex items-center gap-3">
+          <div class="h-9 w-9 rounded-full bg-brand-50/15 grid place-items-center font-mono text-xs">YF</div>
+          <div>
+            <div class="font-medium text-[13.5px]">Yasmine El Fassi</div>
+            <div class="text-[12px] text-brand-200/80">Directrice opérations · Câbleries Atlantique</div>
+          </div>
+        </figcaption>
+      </figure>
+    </div>
+
+    <!-- Certifications -->
+    <div class="mt-16 grid lg:grid-cols-12 gap-6 items-center reveal">
+      <div class="lg:col-span-4">
+        <p class="text-[11px] font-mono uppercase tracking-[0.18em] text-ink-500">Certifications &amp; agréments</p>
+        <p class="mt-3 text-[14px] text-ink-700 max-w-[40ch] leading-relaxed">
+          Documents disponibles sur demande, transmis sous NDA dans le cadre d'un audit fournisseur.
+        </p>
+      </div>
+      <div class="lg:col-span-8 grid grid-cols-2 sm:grid-cols-4 gap-3">
+        <div class="rounded-2xl border border-ink-200 bg-white p-4">
+          <div class="text-[11px] font-mono uppercase tracking-[0.18em] text-ink-500">ISO 9001</div>
+          <div class="mt-1 text-[14px] text-ink-900 font-medium">Management qualité</div>
+        </div>
+        <div class="rounded-2xl border border-ink-200 bg-white p-4">
+          <div class="text-[11px] font-mono uppercase tracking-[0.18em] text-ink-500">ISO 14001</div>
+          <div class="mt-1 text-[14px] text-ink-900 font-medium">Management environnemental</div>
+        </div>
+        <div class="rounded-2xl border border-ink-200 bg-white p-4">
+          <div class="text-[11px] font-mono uppercase tracking-[0.18em] text-ink-500">Agrément ADII</div>
+          <div class="mt-1 text-[14px] text-ink-900 font-medium">Transitaire en douane</div>
+        </div>
+        <div class="rounded-2xl border border-ink-200 bg-white p-4">
+          <div class="text-[11px] font-mono uppercase tracking-[0.18em] text-ink-500">CEMT / CMR</div>
+          <div class="mt-1 text-[14px] text-ink-900 font-medium">Licences communautaires</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================== CONTACT / CTA ======================== -->
+<section id="contact" class="py-20 lg:py-28 relative overflow-hidden">
+  <div class="absolute inset-0 -z-10 bg-gradient-to-br from-brand-950 via-ink-900 to-brand-900"></div>
+  <div class="absolute inset-0 -z-10 opacity-30">
+    <svg class="w-full h-full" preserveAspectRatio="none" viewBox="0 0 1400 600" aria-hidden="true">
+      <defs>
+        <pattern id="dots" width="22" height="22" patternUnits="userSpaceOnUse">
+          <circle cx="1" cy="1" r="1" fill="rgba(207,250,254,0.18)"/>
+        </pattern>
+      </defs>
+      <rect width="100%" height="100%" fill="url(#dots)"/>
+    </svg>
+  </div>
+
+  <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <div class="grid lg:grid-cols-12 gap-10 items-start text-brand-50">
+
+      <div class="lg:col-span-6 reveal">
+        <p class="text-[11px] font-mono uppercase tracking-[0.18em] text-brand-300">— Parlons fret</p>
+        <h2 class="mt-3 font-display text-3xl sm:text-5xl font-semibold tracking-tightest leading-[1.02]">
+          Décrivez-nous votre flux.<br/>
+          On revient vers vous<br/>
+          <span class="text-brand-300">en moins de 4 h ouvrées.</span>
+        </h2>
+        <p class="mt-5 text-[15.5px] text-brand-100/85 max-w-[52ch] leading-relaxed">
+          Cotation, audit de chaîne logistique existante, ou simple échange — nos chargés de compte parlent français, arabe, espagnol et anglais.
+        </p>
+
+        <ul class="mt-8 space-y-4 text-[14.5px]">
+          <li class="flex items-start gap-3">
+            <span class="mt-0.5 inline-flex h-9 w-9 rounded-xl bg-brand-50/10 items-center justify-center">
+              <svg viewBox="0 0 24 24" class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M3 5l3-2 4 5-3 2a14 14 0 0 0 7 7l2-3 5 4-2 3a3 3 0 0 1-3 1A18 18 0 0 1 2 8a3 3 0 0 1 1-3z"/></svg>
+            </span>
+            <div>
+              <div class="text-brand-200/80 text-[12px] font-mono uppercase tracking-[0.16em]">Téléphone</div>
+              <a href="tel:+212539312487" class="num text-brand-50 hover:underline">+212 539 31 24 87</a>
+            </div>
+          </li>
+          <li class="flex items-start gap-3">
+            <span class="mt-0.5 inline-flex h-9 w-9 rounded-xl bg-brand-50/10 items-center justify-center">
+              <svg viewBox="0 0 24 24" class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M4 6h16v12H4z"/><path d="M4 6l8 7 8-7"/></svg>
+            </span>
+            <div>
+              <div class="text-brand-200/80 text-[12px] font-mono uppercase tracking-[0.16em]">E-mail</div>
+              <a href="mailto:operations@adlogistique-sarl.com" class="text-brand-50 hover:underline">operations@adlogistique-sarl.com</a>
+            </div>
+          </li>
+          <li class="flex items-start gap-3">
+            <span class="mt-0.5 inline-flex h-9 w-9 rounded-xl bg-brand-50/10 items-center justify-center">
+              <svg viewBox="0 0 24 24" class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M12 21s7-7 7-12a7 7 0 1 0-14 0c0 5 7 12 7 12z"/><circle cx="12" cy="9" r="2.5"/></svg>
+            </span>
+            <div>
+              <div class="text-brand-200/80 text-[12px] font-mono uppercase tracking-[0.16em]">Siège opérationnel</div>
+              <div class="text-brand-50">Zone logistique Tanger Med · Ksar Sghir, 90120 Tanger — Maroc</div>
+            </div>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Form -->
+      <div class="lg:col-span-6 reveal" style="transition-delay:.1s">
+        <form class="rounded-3xl bg-white text-ink p-6 sm:p-7 shadow-lift border border-white/30">
+          <div class="flex items-center justify-between">
+            <div class="text-[11px] font-mono uppercase tracking-[0.18em] text-brand-700">Demande de cotation</div>
+            <div class="text-[11px] font-mono text-ink-500">Étape 1 / 1</div>
+          </div>
+
+          <div class="mt-5 grid sm:grid-cols-2 gap-4">
+            <div class="flex flex-col gap-2">
+              <label for="f-name" class="text-[12px] font-medium text-ink-700">Nom complet</label>
+              <input id="f-name" type="text" placeholder="Sophie Martin" class="rounded-xl border-ink-200 focus:border-brand-600 focus:ring-2 focus:ring-brand-500/30 px-3.5 py-2.5 text-[14px]" />
+            </div>
+            <div class="flex flex-col gap-2">
+              <label for="f-co" class="text-[12px] font-medium text-ink-700">Société</label>
+              <input id="f-co" type="text" placeholder="Domaines Souss SA" class="rounded-xl border-ink-200 focus:border-brand-600 focus:ring-2 focus:ring-brand-500/30 px-3.5 py-2.5 text-[14px]" />
+            </div>
+            <div class="flex flex-col gap-2">
+              <label for="f-mail" class="text-[12px] font-medium text-ink-700">E-mail professionnel</label>
+              <input id="f-mail" type="email" placeholder="vous@domaine.com" class="rounded-xl border-ink-200 focus:border-brand-600 focus:ring-2 focus:ring-brand-500/30 px-3.5 py-2.5 text-[14px]" />
+            </div>
+            <div class="flex flex-col gap-2">
+              <label for="f-phone" class="text-[12px] font-medium text-ink-700">Téléphone</label>
+              <input id="f-phone" type="tel" placeholder="+212 …" class="rounded-xl border-ink-200 focus:border-brand-600 focus:ring-2 focus:ring-brand-500/30 px-3.5 py-2.5 text-[14px]" />
+            </div>
+            <div class="flex flex-col gap-2 sm:col-span-2">
+              <label for="f-route" class="text-[12px] font-medium text-ink-700">Origine → destination</label>
+              <input id="f-route" type="text" placeholder="Ex. Agadir → Perpignan, palettes frais" class="rounded-xl border-ink-200 focus:border-brand-600 focus:ring-2 focus:ring-brand-500/30 px-3.5 py-2.5 text-[14px]" />
+            </div>
+            <div class="flex flex-col gap-2 sm:col-span-2">
+              <label for="f-msg" class="text-[12px] font-medium text-ink-700">Détails de la cargaison</label>
+              <textarea id="f-msg" rows="3" placeholder="Tonnage, fréquence, contraintes de température, échéance souhaitée…" class="rounded-xl border-ink-200 focus:border-brand-600 focus:ring-2 focus:ring-brand-500/30 px-3.5 py-2.5 text-[14px]"></textarea>
+              <span class="text-[11px] text-ink-500">Vos données sont traitées uniquement pour répondre à votre demande.</span>
+            </div>
+          </div>
+
+          <div class="mt-6 flex flex-col-reverse sm:flex-row sm:items-center sm:justify-between gap-3">
+            <p class="text-[12px] text-ink-500 inline-flex items-center gap-2">
+              <svg viewBox="0 0 24 24" class="h-3.5 w-3.5 text-brand-700" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 2l8 4v6c0 5-3.5 8.5-8 10-4.5-1.5-8-5-8-10V6l8-4z"/></svg>
+              Données chiffrées · usage limité à votre cotation
+            </p>
+            <button type="submit" class="btn-primary inline-flex items-center justify-center gap-2 rounded-xl px-5 py-3 text-[14px] font-medium">
+              Envoyer la demande
+              <svg viewBox="0 0 24 24" class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+            </button>
+          </div>
+        </form>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ======================== FOOTER ======================== -->
+<footer class="bg-ink-900 text-brand-100/80 pt-16 pb-10">
+  <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <div class="grid grid-cols-2 lg:grid-cols-12 gap-10">
+      <div class="col-span-2 lg:col-span-5">
+        <a href="#top" class="flex items-center gap-3">
+          <span class="grid place-items-center h-11 w-11 rounded-xl bg-brand-50 text-ink-900 font-display font-semibold">AD</span>
+          <span>
+            <span class="block font-display font-semibold text-brand-50 text-[16px] tracking-crisp">AD Logistique</span>
+            <span class="block text-[11px] uppercase tracking-[0.2em] text-brand-200/60 font-mono">Transport international &amp; consignation</span>
+          </span>
+        </a>
+        <p class="mt-5 text-[14px] leading-relaxed max-w-[44ch]">
+          Opérateur logistique basé à Tanger Med, spécialisé dans le fret routier Maroc–Europe, la chaîne du froid et le dédouanement.
+        </p>
+
+        <!-- Languages -->
+        <div class="mt-6 flex items-center gap-2 text-[12px] font-mono">
+          <span class="text-brand-200/50">Langues :</span>
+          <span class="rounded-full border border-brand-50/15 px-2 py-1">Français</span>
+          <span class="rounded-full border border-brand-50/15 px-2 py-1">العربية</span>
+          <span class="rounded-full border border-brand-50/15 px-2 py-1">Español</span>
+          <span class="rounded-full border border-brand-50/15 px-2 py-1">English</span>
+        </div>
+      </div>
+
+      <div class="lg:col-span-3">
+        <div class="text-[11px] font-mono uppercase tracking-[0.18em] text-brand-200/60">Services</div>
+        <ul class="mt-4 space-y-2.5 text-[14px]">
+          <li><a class="hover:text-brand-50" href="#services">Fret routier &amp; groupage</a></li>
+          <li><a class="hover:text-brand-50" href="#services">Suivi &amp; traçabilité</a></li>
+          <li><a class="hover:text-brand-50" href="#services">Dédouanement</a></li>
+          <li><a class="hover:text-brand-50" href="#services">Chaîne du froid</a></li>
+          <li><a class="hover:text-brand-50" href="#services">Câblages &amp; matériel électrique</a></li>
+        </ul>
+      </div>
+
+      <div class="lg:col-span-2">
+        <div class="text-[11px] font-mono uppercase tracking-[0.18em] text-brand-200/60">Société</div>
+        <ul class="mt-4 space-y-2.5 text-[14px]">
+          <li><a class="hover:text-brand-50" href="#a-propos">À propos</a></li>
+          <li><a class="hover:text-brand-50" href="#references">Références</a></li>
+          <li><a class="hover:text-brand-50" href="#reseau">Réseau</a></li>
+          <li><a class="hover:text-brand-50" href="#contact">Carrières</a></li>
+        </ul>
+      </div>
+
+      <div class="lg:col-span-2">
+        <div class="text-[11px] font-mono uppercase tracking-[0.18em] text-brand-200/60">Contact</div>
+        <ul class="mt-4 space-y-2.5 text-[14px]">
+          <li><a class="num hover:text-brand-50" href="tel:+212539312487">+212 539 31 24 87</a></li>
+          <li><a class="hover:text-brand-50 break-words" href="mailto:operations@adlogistique-sarl.com">operations@adlogistique-sarl.com</a></li>
+          <li class="text-brand-200/70">Tanger Med · Ksar Sghir<br/>90120 Tanger, Maroc</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="mt-14 pt-6 border-t border-brand-50/10 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 text-[12px] text-brand-200/60">
+      <div class="num">© 2026 AD Logistique SARL — RC Tanger 47.821</div>
+      <div class="flex items-center gap-4">
+        <a class="hover:text-brand-50" href="#">Mentions légales</a>
+        <a class="hover:text-brand-50" href="#">Confidentialité</a>
+        <a class="hover:text-brand-50" href="#">CGV transport</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- ======================== SCRIPTS ======================== -->
+<script>
+  // Reveal on scroll (respects reduced-motion automatically via CSS)
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, { rootMargin: '0px 0px -8% 0px', threshold: 0.08 });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+  // Spotlight cursor for tracking card
+  document.querySelectorAll('[data-spotlight]').forEach(card => {
+    card.addEventListener('pointermove', (ev) => {
+      const r = card.getBoundingClientRect();
+      card.style.setProperty('--mx', ((ev.clientX - r.left) / r.width) * 100 + '%');
+      card.style.setProperty('--my', ((ev.clientY - r.top) / r.height) * 100 + '%');
+    });
+    card.addEventListener('pointerleave', () => {
+      card.style.setProperty('--mx', '50%'); card.style.setProperty('--my', '50%');
+    });
+  });
+
+  // Hero entrance animation (respects reduced-motion)
+  (() => {
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (reduce) return;
+    const content = document.querySelector('.hero-content');
+    if (!content) return;
+    content.style.opacity = '0';
+    content.style.transform = 'translateY(28px)';
+    content.style.transition = 'opacity .9s ease, transform .9s ease';
+    requestAnimationFrame(() => {
+      setTimeout(() => {
+        content.style.opacity = '1';
+        content.style.transform = 'translateY(0)';
+      }, 200);
+    });
+  })();
+</script>
+
+</body>
+</html>

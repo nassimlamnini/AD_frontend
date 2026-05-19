@@ -9,7 +9,7 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Barlow:wght@300;400;500;600&family=Familjen+Grotesk:wght@400;500;600;700&family=Geist+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet" />
 
 <script src="https://cdn.tailwindcss.com?plugins=forms"></script>
 <script>
@@ -17,7 +17,10 @@
     theme: {
       extend: {
         fontFamily: {
-          sans: ['Geist', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+          sans: ['Manrope', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+          body: ['Barlow', 'Manrope', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+          heading: ['Instrument Serif', 'serif'],
+          display: ['Familjen Grotesk', 'Manrope', 'ui-sans-serif', 'system-ui', 'sans-serif'],
           mono: ['Geist Mono', 'ui-monospace', 'monospace'],
         },
         colors: {
@@ -68,9 +71,18 @@
     --grid-line: rgba(8, 51, 68, 0.06);
   }
   html, body { background: #f6f9fa; color: #0a1414; }
-  body { font-feature-settings: "ss01", "cv11"; -webkit-font-smoothing: antialiased; }
-  .font-display { font-family: 'Geist', system-ui, sans-serif; letter-spacing: -0.035em; }
-  .num { font-family: 'Geist Mono', ui-monospace, monospace; font-variant-numeric: tabular-nums; letter-spacing: -0.02em; }
+  body {
+    font-family: 'Manrope', ui-sans-serif, system-ui, sans-serif;
+    font-feature-settings: "kern", "liga", "ss01";
+    font-kerning: normal;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: geometricPrecision;
+  }
+  .font-display {
+    font-family: 'Familjen Grotesk', 'Manrope', system-ui, sans-serif;
+    letter-spacing: 0;
+  }
+  .num { font-family: 'Geist Mono', ui-monospace, monospace; font-variant-numeric: tabular-nums; letter-spacing: 0; }
 
   /* Subtle dotted grid wash for hero */
   .bg-mesh {
@@ -137,7 +149,7 @@
     animation: shimmer 2.6s linear infinite;
   }
 
-  /* ─── Services dynamic wave canvas background (light mode) ─── */
+  /* ─── Dynamic wave canvas background (light mode) ─── */
   .services-shader {
     background-color: #f6f9fa; /* matches body & hero fade-out for seamless flow */
     overflow: hidden;
@@ -157,14 +169,310 @@
     mix-blend-mode: multiply;
     pointer-events: none;
   }
-  /* Veil fades the wave into paper at top/bottom so it bleeds out of the
-     marquee strip above and into the next section below — no hard seam. */
+  /* Veil fades the wave into paper at top/bottom so repeated sections avoid hard seams. */
   .services-shader-veil {
     position: absolute; inset: 0;
     background:
       radial-gradient(ellipse at center, transparent 50%, rgba(246,249,250,0.55) 100%),
       linear-gradient(180deg, rgba(246,249,250,0.96) 0%, rgba(246,249,250,0.0) 14%, rgba(246,249,250,0.0) 86%, rgba(246,249,250,0.85) 100%);
     pointer-events: none;
+  }
+
+  /* ─── Capacity banner: liquid-glass panel ─── */
+  .capacity-section {
+    /* Plain white core with paper-tone fades top/bottom so the band
+       eases into the wave-shaded sections above and below.
+       Top + bottom hairlines fade at the horizontal edges so the
+       border defines the band without ever cutting hard into it. */
+    background:
+      linear-gradient(90deg,
+        transparent 0%,
+        rgba(8, 51, 68, 0.08) 12%,
+        rgba(34, 211, 238, 0.55) 50%,
+        rgba(8, 51, 68, 0.08) 88%,
+        transparent 100%) top / 100% 1px no-repeat,
+      linear-gradient(90deg,
+        transparent 0%,
+        rgba(8, 51, 68, 0.08) 12%,
+        rgba(34, 211, 238, 0.55) 50%,
+        rgba(8, 51, 68, 0.08) 88%,
+        transparent 100%) bottom / 100% 1px no-repeat,
+      linear-gradient(180deg,
+        #f6f9fa 0%,
+        #ffffff 9%,
+        #ffffff 91%,
+        #f6f9fa 100%);
+  }
+  .capacity-section::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(90deg, rgba(8, 51, 68, 0.035) 1px, transparent 1px),
+      linear-gradient(180deg, rgba(8, 51, 68, 0.028) 1px, transparent 1px);
+    background-size: 96px 96px;
+    mask-image: linear-gradient(180deg, transparent 0%, black 22%, black 78%, transparent 100%);
+    -webkit-mask-image: linear-gradient(180deg, transparent 0%, black 22%, black 78%, transparent 100%);
+    pointer-events: none;
+  }
+  .capacity-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.65rem;
+    font-family: 'Geist Mono', ui-monospace, monospace;
+    font-size: 0.68rem;
+    font-weight: 500;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: oklch(42% 0.105 210);
+  }
+  .capacity-eyebrow::before {
+    content: "";
+    width: 28px;
+    height: 1px;
+    background: currentColor;
+    opacity: 0.7;
+  }
+
+  /* Liquid-glass panel for stats */
+  .capacity-glass {
+    position: relative;
+    border-radius: 22px;
+    background: rgba(255, 255, 255, 0.42);
+    backdrop-filter: blur(22px) saturate(160%);
+    -webkit-backdrop-filter: blur(22px) saturate(160%);
+    box-shadow:
+      0 1px 0 rgba(255,255,255,0.85) inset,
+      0 24px 60px -28px rgba(8, 51, 68, 0.28),
+      0 8px 22px -12px rgba(8, 51, 68, 0.14);
+    overflow: hidden;
+    isolation: isolate;
+  }
+  .capacity-glass::before {
+    content: "";
+    position: absolute; inset: 0;
+    border-radius: inherit;
+    padding: 1.4px;
+    background: linear-gradient(135deg,
+      rgba(255,255,255,0.85) 0%,
+      rgba(167, 243, 252, 0.55) 28%,
+      rgba(255,255,255,0.15) 50%,
+      rgba(255,255,255,0) 72%,
+      rgba(167, 243, 252, 0.45) 100%);
+    -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+            mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+            mask-composite: exclude;
+    pointer-events: none;
+    z-index: 2;
+  }
+  .capacity-glass::after {
+    content: "";
+    position: absolute;
+    inset: 0 0 auto;
+    height: 1px;
+    background: linear-gradient(90deg,
+      transparent 0%,
+      rgba(34, 211, 238, 0.55) 50%,
+      transparent 100%);
+    z-index: 3;
+  }
+
+  .capacity-stats {
+    position: relative;
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 1px;
+    background: rgba(8, 51, 68, 0.08);
+  }
+  .capacity-stat {
+    position: relative;
+    min-width: 0;
+    padding: clamp(1.05rem, 1.8vw, 1.4rem) clamp(0.95rem, 1.5vw, 1.25rem);
+    background: rgba(255, 255, 255, 0.20);
+    transition: background .4s cubic-bezier(0.16,1,0.3,1);
+  }
+  .capacity-stat:hover { background: rgba(255, 255, 255, 0.42); }
+  .capacity-index {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: 'Geist Mono', ui-monospace, monospace;
+    font-size: 0.62rem;
+    font-weight: 500;
+    letter-spacing: 0.18em;
+    color: oklch(46% 0.10 205);
+  }
+  .capacity-index::after {
+    content: "";
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, oklch(82% 0.06 205 / 0.55), transparent 80%);
+  }
+  .capacity-number {
+    position: relative;
+    display: inline-flex;
+    align-items: flex-start;
+    margin-top: 0.85rem;
+    max-width: 100%;
+    color: oklch(18% 0.025 215);
+    font-family: 'Geist Mono', ui-monospace, monospace;
+    font-feature-settings: "tnum";
+    font-variant-numeric: tabular-nums;
+    font-size: clamp(1.55rem, 2.6vw, 2.3rem);
+    font-weight: 500;
+    line-height: 0.94;
+    letter-spacing: -0.02em;
+    white-space: nowrap;
+  }
+  .capacity-number::before {
+    content: attr(data-count-prefix);
+    margin-right: 0.06em;
+    color: oklch(54% 0.14 200);
+    font-family: 'Familjen Grotesk', 'Manrope', system-ui, sans-serif;
+    font-size: 0.55em;
+    font-weight: 700;
+    line-height: 1;
+    transform: translateY(0.2em);
+    letter-spacing: -0.01em;
+  }
+  .capacity-label {
+    position: relative;
+    margin-top: 0.85rem;
+    color: oklch(20% 0.025 215);
+    font-family: 'Familjen Grotesk', 'Manrope', system-ui, sans-serif;
+    font-size: 0.74rem;
+    font-weight: 700;
+    letter-spacing: 0.045em;
+    line-height: 1.2;
+    text-transform: uppercase;
+  }
+  .capacity-label::after {
+    content: "";
+    display: block;
+    width: 18px;
+    height: 1px;
+    margin-top: 0.65rem;
+    background: oklch(56% 0.14 200);
+    opacity: 0.85;
+    transition: width .4s cubic-bezier(0.16,1,0.3,1);
+  }
+  .capacity-stat:hover .capacity-label::after { width: 44px; }
+
+  @media (max-width: 1180px) {
+    .capacity-stats { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  }
+  @media (max-width: 640px) {
+    .capacity-glass { border-radius: 18px; }
+    .capacity-stats { grid-template-columns: 1fr; }
+    .capacity-stat { padding: 1.1rem 1.15rem; }
+    .capacity-number { font-size: clamp(2rem, 9vw, 2.6rem); }
+  }
+
+  /* Word-by-word heading reveal (spring-ish bezier with overshoot) */
+  .word-reveal__w {
+    display: inline-block;
+    opacity: 0;
+    transform: translateY(20px);
+    transition:
+      opacity .55s cubic-bezier(0.34, 1.5, 0.45, 1),
+      transform .55s cubic-bezier(0.34, 1.5, 0.45, 1);
+    transition-delay: calc(var(--i, 0) * 0.1s);
+    will-change: transform, opacity;
+  }
+  [data-word-reveal].in .word-reveal__w {
+    opacity: 1;
+    transform: none;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .word-reveal__w { opacity: 1; transform: none; transition: none; }
+  }
+
+  /* ─── Spotlight glass cards (Services) ─── */
+  /* Mouse position is tracked on <html> as --x/--y/--xp/--yp (page coords);
+     fixed-attachment backgrounds let one virtual "flashlight" sweep across
+     every card at once. Hue is clamped to the brand cyan/teal range. */
+  .glow-card {
+    --base: 182;                  /* cyan baseline */
+    --spread: 36;                 /* hue ranges 182–218 — stays in cyan/teal */
+    --radius: 22;
+    --border: 1.5;
+    --backdrop: rgba(255, 255, 255, 0.55);
+    --backup-border: rgba(8, 51, 68, 0.10);
+    --size: 220;
+    --border-size: calc(var(--border) * 1px);
+    --spotlight-size: calc(var(--size) * 1px);
+    --hue: calc(var(--base) + (var(--xp, 0.5) * var(--spread)));
+
+    position: relative;
+    isolation: isolate;
+    border-radius: calc(var(--radius) * 1px);
+    background-color: var(--backdrop);
+    background-image: radial-gradient(
+      var(--spotlight-size) var(--spotlight-size) at
+      calc(var(--x, 0) * 1px) calc(var(--y, 0) * 1px),
+      hsl(var(--hue) 90% 60% / 0.18),
+      transparent 70%
+    );
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    border: var(--border-size) solid var(--backup-border);
+    backdrop-filter: blur(14px) saturate(140%);
+    -webkit-backdrop-filter: blur(14px) saturate(140%);
+    box-shadow:
+      0 1px 0 rgba(255,255,255,0.7) inset,
+      0 22px 50px -28px rgba(8, 51, 68, 0.28),
+      0 4px 12px -6px rgba(8, 51, 68, 0.10);
+    transition: box-shadow .35s cubic-bezier(0.16,1,0.3,1);
+  }
+  .glow-card:hover {
+    box-shadow:
+      0 1px 0 rgba(255,255,255,0.85) inset,
+      0 32px 60px -28px rgba(8, 51, 68, 0.35),
+      0 6px 16px -6px rgba(8, 51, 68, 0.14);
+  }
+  /* Border-only paint for pseudo elements: standard "padding + mask exclude" trick. */
+  .glow-card::before,
+  .glow-card::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    padding: var(--border-size);
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    -webkit-mask:
+      linear-gradient(#000, #000) content-box,
+      linear-gradient(#000, #000);
+    -webkit-mask-composite: xor;
+            mask:
+      linear-gradient(#000, #000) content-box,
+      linear-gradient(#000, #000);
+            mask-composite: exclude;
+    pointer-events: none;
+  }
+  /* Coloured border-glow that follows the cursor */
+  .glow-card::before {
+    background-image: radial-gradient(
+      calc(var(--spotlight-size) * 0.8) calc(var(--spotlight-size) * 0.8) at
+      calc(var(--x, 0) * 1px) calc(var(--y, 0) * 1px),
+      hsl(var(--hue) 95% 52% / 0.95),
+      transparent 100%
+    );
+    filter: brightness(1.4);
+  }
+  /* White highlight on top, smaller — gives the rim its specular pop */
+  .glow-card::after {
+    background-image: radial-gradient(
+      calc(var(--spotlight-size) * 0.5) calc(var(--spotlight-size) * 0.5) at
+      calc(var(--x, 0) * 1px) calc(var(--y, 0) * 1px),
+      hsla(0, 0%, 100%, 0.85),
+      transparent 100%
+    );
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .glow-card { transition: none; }
   }
 
   /* Reduce motion */
@@ -195,6 +503,113 @@
   }
   .btn-ghost:hover { border-color: rgba(8, 51, 68, 0.18); background: #ffffff; }
 
+  /* Liquid-glass navigation chrome */
+  .liquid-glass {
+    background: rgba(255,255,255,0.01);
+    background-blend-mode: luminosity;
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    border: none;
+    box-shadow: inset 0 1px 1px rgba(255,255,255,0.1);
+    position: relative;
+    overflow: hidden;
+  }
+  .liquid-glass::before {
+    content: "";
+    position: absolute; inset: 0;
+    border-radius: inherit;
+    padding: 1.4px;
+    background: linear-gradient(180deg,
+      rgba(255,255,255,0.45) 0%,
+      rgba(255,255,255,0.15) 20%,
+      rgba(255,255,255,0) 40%,
+      rgba(255,255,255,0) 60%,
+      rgba(255,255,255,0.15) 80%,
+      rgba(255,255,255,0.45) 100%);
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+  }
+  .liquid-glass-strong {
+    background: rgba(255,255,255,0.01);
+    background-blend-mode: luminosity;
+    backdrop-filter: blur(50px);
+    -webkit-backdrop-filter: blur(50px);
+    border: none;
+    box-shadow: 4px 4px 4px rgba(0,0,0,0.05), inset 0 1px 1px rgba(255,255,255,0.15);
+    position: relative;
+    overflow: hidden;
+  }
+  .liquid-glass-strong::before {
+    content: "";
+    position: absolute; inset: 0;
+    border-radius: inherit;
+    padding: 1.4px;
+    background: linear-gradient(180deg,
+      rgba(255,255,255,0.5) 0%,
+      rgba(255,255,255,0.2) 20%,
+      rgba(255,255,255,0) 40%,
+      rgba(255,255,255,0) 60%,
+      rgba(255,255,255,0.2) 80%,
+      rgba(255,255,255,0.5) 100%);
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+  }
+  .top-glass-nav {
+    text-shadow: 0 1px 16px rgba(0,0,0,0.35);
+  }
+  .top-glass-nav .liquid-glass,
+  .top-glass-nav .liquid-glass-strong {
+    transition:
+      background-color .28s cubic-bezier(0.16,1,0.3,1),
+      box-shadow .28s cubic-bezier(0.16,1,0.3,1),
+      backdrop-filter .28s cubic-bezier(0.16,1,0.3,1),
+      -webkit-backdrop-filter .28s cubic-bezier(0.16,1,0.3,1);
+  }
+  .top-glass-link {
+    transition: color .18s ease, background-color .18s ease;
+  }
+  .top-glass-link:hover {
+    background: rgba(255,255,255,0.08);
+    color: rgba(255,255,255,1);
+  }
+  .top-glass-logo img {
+    width: 32px;
+    height: auto;
+    display: block;
+  }
+  .top-glass-nav.is-scrolled {
+    text-shadow: none;
+  }
+  .top-glass-nav.is-scrolled .liquid-glass {
+    background: rgba(246,249,250,0.64);
+    backdrop-filter: blur(18px) saturate(150%);
+    -webkit-backdrop-filter: blur(18px) saturate(150%);
+    box-shadow:
+      inset 0 1px 1px rgba(255,255,255,0.72),
+      0 18px 44px -28px rgba(8,51,68,0.45),
+      0 1px 0 rgba(8,51,68,0.08);
+  }
+  .top-glass-nav.is-scrolled .top-glass-link {
+    color: rgba(10,20,20,0.78) !important;
+  }
+  .top-glass-nav.is-scrolled .top-glass-link:hover {
+    background: rgba(8,51,68,0.06);
+    color: rgba(10,20,20,1) !important;
+  }
+  .top-glass-nav.is-scrolled .top-glass-logo {
+    background: rgba(8,51,68,0.88);
+  }
+  .top-glass-nav.is-scrolled .liquid-glass-strong {
+    background: rgba(8,51,68,0.88);
+    box-shadow:
+      inset 0 1px 1px rgba(255,255,255,0.18),
+      0 18px 38px -26px rgba(8,51,68,0.65);
+  }
+
   /* Focus */
   :focus-visible { outline: 2px solid #0891b2; outline-offset: 3px; border-radius: 8px; }
 
@@ -216,7 +631,7 @@
     align-items: center;
     justify-content: center;
     background: #083344;
-    color: white;
+    color: #f4fbfc;
   }
   .hero-video {
     position: absolute;
@@ -230,11 +645,12 @@
     position: absolute;
     inset: 0;
     background:
+      radial-gradient(880px 420px at 54% 42%, rgba(246, 251, 252, 0.12), transparent 62%),
       linear-gradient(
-        160deg,
-        rgba(8, 51, 68, 0.72) 0%,
-        rgba(6, 78, 99, 0.60) 40%,
-        rgba(8, 51, 68, 0.80) 100%
+        112deg,
+        rgba(4, 26, 34, 0.86) 0%,
+        rgba(8, 51, 68, 0.56) 46%,
+        rgba(3, 18, 24, 0.86) 100%
       );
   }
   .hero-overlay::after {
@@ -257,100 +673,120 @@
     position: relative;
     z-index: 2;
     text-align: center;
-    padding: 0 1.5rem;
-    max-width: 860px;
+    padding: clamp(5rem, 9vh, 7rem) 1.5rem 0;
+    width: min(100%, 1040px);
+    max-width: 1040px;
     margin: 0 auto;
     display: flex;
     flex-direction: column;
     align-items: center;
   }
-  .hero-eyebrow {
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-    font-size: 11px;
-    font-weight: 600;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: #67e8f9;
-    margin-bottom: 1.5rem;
-  }
-  .hero-eyebrow::before,
-  .hero-eyebrow::after {
-    content: '';
-    display: block;
-    width: 28px;
-    height: 1px;
-    background: #06b6d4;
-    opacity: 0.7;
-  }
-  .hero-title {
-    font-family: 'Geist', system-ui, sans-serif;
-    font-size: clamp(3.5rem, 10vw, 8rem);
-    font-weight: 800;
-    line-height: 0.9;
-    letter-spacing: -0.04em;
-    text-transform: uppercase;
-    margin: 0 0 0.6rem;
-  }
-  .hero-title .line1 {
-    display: block;
-    color: rgba(255,255,255,0.35);
-    font-weight: 300;
-    letter-spacing: -0.03em;
-  }
-  .hero-title .line2 {
-    display: block;
-    background: linear-gradient(90deg, #a5f3fc, #22d3ee);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    margin-top: -0.08em;
-  }
-  .hero-divider {
-    width: 48px;
-    height: 2px;
-    background: linear-gradient(90deg, #06b6d4, #67e8f9);
-    border-radius: 2px;
-    margin: 1.6rem auto;
-  }
-  .hero-subtitle {
-    font-size: clamp(1rem, 2.5vw, 1.25rem);
-    font-weight: 400;
-    color: rgba(255,255,255,0.65);
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    line-height: 1.6;
-    max-width: 520px;
-    margin: 0 0 2.4rem;
-  }
-  .hero-subtitle strong {
-    color: #67e8f9;
-    font-weight: 600;
-  }
-  .hero-tagline {
-    font-size: clamp(0.85rem, 1.5vw, 0.95rem);
-    font-weight: 300;
+  /* Hero statement */
+  .hero-wordmark {
+    margin: 0 0 clamp(0.9rem, 2vw, 1.25rem);
+    max-width: min(92vw, 980px);
+    font-family: 'Instrument Serif', serif;
     font-style: italic;
-    color: rgba(255,255,255,0.45);
-    margin: 0 0 2.8rem;
-    letter-spacing: 0.04em;
+    font-weight: 400;
+    font-size: clamp(3rem, 6.8vw, 6rem);
+    line-height: 0.88;
+    letter-spacing: 0;
+    color: #f4fbfc;
+    white-space: normal;
+    text-wrap: balance;
+    text-shadow: 0 22px 60px rgba(0, 0, 0, 0.55);
+  }
+  .hero-subline {
+    margin: 0 0 clamp(1.8rem, 3.8vw, 2.6rem);
+    max-width: min(88vw, 640px);
+    font-family: 'Barlow', 'Manrope', ui-sans-serif, system-ui, sans-serif;
+    font-size: clamp(0.98rem, 1.55vw, 1.14rem);
+    font-weight: 300;
+    line-height: 1.18;
+    letter-spacing: 0;
+    color: rgba(244, 251, 252, 0.92);
+    text-wrap: balance;
+    text-shadow: 0 14px 40px rgba(0, 0, 0, 0.48);
+  }
+  .hero-subline span {
+    display: block;
+  }
+  .hero-buttons {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  .hero-content.hero-effect-ready .hero-buttons {
+    animation: heroControlsReveal .64s cubic-bezier(0.16, 1, 0.3, 1) 1.12s forwards;
+  }
+  .hero-effect-word,
+  .hero-effect-line-inner {
+    opacity: 0;
+    transform: translate3d(0, var(--effect-y, 0.58em), 0) scale(var(--effect-scale, 1.018));
+    animation: heroTextEffect var(--effect-duration, 780ms) cubic-bezier(0.19, 1, 0.22, 1) forwards;
+    animation-delay: var(--effect-delay, 0ms);
+    will-change: opacity, transform;
+    backface-visibility: hidden;
+  }
+  .hero-wordmark .hero-effect-word {
+    --effect-y: 0.64em;
+    --effect-scale: 1.024;
+    --effect-duration: 860ms;
+  }
+  .hero-effect-word {
+    display: inline-block;
+    transform-origin: 50% 85%;
+    white-space: nowrap;
+  }
+  .hero-effect-line {
+    display: block;
+    overflow: hidden;
+  }
+  .hero-effect-line-inner {
+    display: block;
+    --effect-y: 110%;
+    --effect-scale: 1;
+    --effect-duration: 680ms;
+  }
+  @keyframes heroTextEffect {
+    0% {
+      opacity: 0;
+      transform: translate3d(0, var(--effect-y, 0.58em), 0) scale(var(--effect-scale, 1.018));
+    }
+    62% {
+      opacity: 0.9;
+      transform: translate3d(0, -0.035em, 0) scale(1);
+    }
+    100% {
+      opacity: 1;
+      transform: translate3d(0, 0, 0) scale(1);
+    }
+  }
+  @keyframes heroControlsReveal {
+    from {
+      opacity: 0;
+      transform: translateY(14px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
   }
   .hero-buttons {
     display: flex;
-    gap: 1rem;
+    gap: 0.75rem;
     flex-wrap: wrap;
     justify-content: center;
   }
   .hero-cta {
     display: inline-flex;
     align-items: center;
-    gap: 8px;
-    padding: 14px 32px;
+    gap: 10px;
+    min-height: 48px;
+    padding: 0.85rem 1.55rem;
     border-radius: 100px;
-    font-size: 14px;
-    font-weight: 600;
-    letter-spacing: 0.04em;
+    font-size: 0.88rem;
+    font-weight: 700;
+    letter-spacing: 0;
     text-decoration: none;
     cursor: pointer;
     border: none;
@@ -358,74 +794,205 @@
   }
   .hero-cta:hover { transform: translateY(-2px); }
   .hero-cta-primary {
-    background: #06b6d4;
-    color: white;
-    box-shadow: 0 4px 24px rgba(6, 182, 212, 0.35);
+    background: #f4fbfc;
+    color: #073542;
+    box-shadow: 0 18px 42px -22px rgba(244, 251, 252, 0.55), inset 0 1px 0 rgba(244,251,252,0.62);
   }
   .hero-cta-primary:hover {
-    background: #22d3ee;
-    box-shadow: 0 6px 32px rgba(6, 182, 212, 0.5);
+    background: #cffafe;
+    box-shadow: 0 22px 48px -22px rgba(165, 243, 252, 0.62), inset 0 1px 0 rgba(244,251,252,0.72);
   }
   .hero-cta-outline {
-    background: rgba(255,255,255,0.07);
-    color: rgba(255,255,255,0.85);
-    border: 1.5px solid rgba(6, 182, 212, 0.35);
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
+    background: rgba(244,251,252,0.08);
+    color: rgba(244,251,252,0.90);
+    border: 1px solid rgba(244,251,252,0.28);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
   }
   .hero-cta-outline:hover {
-    background: rgba(6, 182, 212, 0.12);
-    color: white;
-    border-color: #22d3ee;
+    background: rgba(244,251,252,0.14);
+    color: #f4fbfc;
+    border-color: rgba(157, 235, 243, 0.72);
   }
   .hero-cta-arrow {
     width: 16px;
     height: 16px;
     opacity: 0.85;
   }
-  .hero-scroll {
-    position: absolute;
-    bottom: 2.5rem;
-    left: 50%;
-    transform: translateX(-50%);
-    z-index: 3;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 8px;
-    color: rgba(255,255,255,0.45);
-    font-size: 10px;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    font-weight: 500;
-  }
-  .hero-scroll-mouse {
-    width: 22px;
-    height: 34px;
-    border: 1.5px solid rgba(6, 182, 212, 0.35);
-    border-radius: 11px;
-    display: flex;
-    justify-content: center;
-    padding-top: 6px;
-  }
-  .hero-scroll-dot {
-    width: 3px;
-    height: 7px;
-    background: #22d3ee;
-    border-radius: 2px;
-    animation: heroScrollDot 2s ease-in-out infinite;
-  }
-  @keyframes heroScrollDot {
-    0%   { transform: translateY(0); opacity: 1; }
-    60%  { transform: translateY(8px); opacity: 0.2; }
-    100% { transform: translateY(0); opacity: 1; }
-  }
   @media (max-width: 768px) {
-    .hero-title { letter-spacing: -0.03em; }
-    .hero-scroll { bottom: 1.5rem; }
+    .hero-section { min-height: 620px; }
+    .hero-content { padding-top: 4.4rem; }
+    .hero-wordmark {
+      max-width: min(92vw, 680px);
+      font-size: clamp(2.6rem, 11.5vw, 4.35rem);
+      letter-spacing: 0;
+      margin-bottom: clamp(0.85rem, 3vw, 1.15rem);
+    }
+    .hero-subline {
+      max-width: min(88vw, 430px);
+      font-size: clamp(0.95rem, 4.1vw, 1.05rem);
+      margin-bottom: clamp(1.55rem, 5vw, 2rem);
+    }
+    .hero-buttons { width: min(100%, 360px); }
+    .hero-cta {
+      flex: 1 1 100%;
+      justify-content: center;
+    }
   }
   @media (prefers-reduced-motion: reduce) {
-    .hero-scroll-dot { animation: none; }
+    .hero-buttons,
+    .hero-content.hero-effect-ready .hero-buttons,
+    .hero-effect-word,
+    .hero-effect-line-inner {
+      opacity: 1;
+      filter: none;
+      transform: none;
+      animation: none;
+    }
+  }
+
+  /* ─── Network section: full-bleed page with COBE globe ─── */
+  #reseau {
+    height: 100vh;
+    height: 100dvh;
+    display: flex;
+    align-items: stretch;
+    padding: 0;
+    position: relative;
+    overflow: hidden;
+  }
+  #reseau::before,
+  #reseau::after {
+    content: "";
+    position: absolute;
+    left: 0; right: 0;
+    height: 1px;
+    background: linear-gradient(90deg,
+      transparent 0%,
+      rgba(8, 51, 68, 0.10) 18%,
+      rgba(8, 51, 68, 0.18) 50%,
+      rgba(8, 51, 68, 0.10) 82%,
+      transparent 100%);
+    pointer-events: none;
+    z-index: 4;
+  }
+  #reseau::before { top: 0; }
+  #reseau::after  { bottom: 0; }
+  .network-shell {
+    width: 100%;
+    display: flex;
+  }
+  .network-card {
+    height: 100%;
+    display: flex;
+    width: 100%;
+    background: transparent;
+    border: 0;
+    border-radius: 0;
+    box-shadow: none;
+    padding: 0;
+    isolation: isolate;
+  }
+  .network-card__layout {
+    flex: 1;
+    height: 100%;
+    display: grid;
+    grid-template-columns: minmax(0, 0.85fr) minmax(420px, 1.15fr);
+    align-items: center;
+    width: 100%;
+    max-width: 1500px;
+    margin-inline: auto;
+    padding: 0 clamp(1.5rem, 5vw, 4rem);
+  }
+  .network-card__content {
+    position: relative;
+    z-index: 3;
+    max-width: 42rem;
+  }
+  .network-card__halo {
+    position: absolute; inset: 0;
+    pointer-events: none;
+    background-image:
+      linear-gradient(rgba(8, 51, 68, 0.028) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(8, 51, 68, 0.028) 1px, transparent 1px);
+    background-size: 48px 48px;
+    -webkit-mask-image: linear-gradient(90deg, rgba(0,0,0,0.32), transparent 60%);
+            mask-image: linear-gradient(90deg, rgba(0,0,0,0.32), transparent 60%);
+    opacity: 0.32;
+  }
+
+  .network-globe-frame {
+    position: absolute;
+    z-index: 1;
+    inset: 0;
+    pointer-events: none;
+    overflow: hidden;
+  }
+
+  .network-globe {
+    position: absolute;
+    right: clamp(-32rem, -20vw, -14rem);
+    top: 50%;
+    transform: translateY(-50%);
+    width: clamp(800px, 78vw, 1280px);
+    aspect-ratio: 1 / 1;
+    filter:
+      drop-shadow(0 0 18px rgba(34, 211, 238, 0.22))
+      drop-shadow(0 34px 90px rgba(8, 51, 68, 0.12));
+  }
+
+  .network-globe canvas {
+    width: 100%;
+    height: 100%;
+    display: block;
+    opacity: 0;
+    transition: opacity 700ms cubic-bezier(0.16, 1, 0.3, 1);
+    cursor: grab;
+    contain: layout paint size;
+    touch-action: none;
+    pointer-events: auto;
+  }
+  .network-globe canvas:active { cursor: grabbing; }
+
+  @media (max-width: 1023px) {
+    #reseau {
+      min-height: auto;
+    }
+    .network-card {
+      min-height: auto;
+      padding: clamp(2.5rem, 7vw, 4rem) clamp(1.25rem, 5vw, 2.5rem);
+    }
+    .network-card__layout {
+      min-height: 0;
+      display: block;
+      padding-top: clamp(240px, 42vw, 340px);
+    }
+    .network-globe-frame {
+      inset: 0;
+      height: clamp(320px, 50vw, 420px);
+    }
+    .network-globe {
+      right: clamp(-18rem, -28vw, -8rem);
+      top: clamp(-9rem, -16vw, -4rem);
+      transform: none;
+      width: clamp(520px, 104vw, 760px);
+    }
+  }
+  @media (max-width: 640px) {
+    .network-card__layout {
+      padding-top: clamp(260px, 64vw, 320px);
+    }
+    .network-globe-frame {
+      height: 280px;
+      opacity: 0.86;
+    }
+    .network-card__content {
+      max-width: none;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .network-globe canvas { transition: none; }
   }
 </style>
 </head>
@@ -433,7 +1000,40 @@
 <body class="antialiased font-sans text-ink">
 
 <!-- ======================== TOP NAV ======================== -->
-<header id="top" class="fixed top-0 inset-x-0 z-50">
+<header id="top" class="fixed top-4 inset-x-0 z-50 px-8 lg:px-16">
+  <nav class="top-glass-nav relative mx-auto flex max-w-7xl items-center justify-between">
+    <a href="#top" aria-label="AD Logistique" class="top-glass-logo liquid-glass grid h-12 w-12 place-items-center rounded-full">
+      <img src="logo.png" alt="AD Logistique" />
+    </a>
+
+    <div class="hidden lg:flex liquid-glass items-center gap-1.5 rounded-full px-1.5 py-1.5">
+      <a class="top-glass-link rounded-full px-3 py-2 font-body text-sm font-medium text-white/90" href="#top">Accueil</a>
+      <a class="top-glass-link rounded-full px-3 py-2 font-body text-sm font-medium text-white/90" href="#services">Services</a>
+      <a class="top-glass-link rounded-full px-3 py-2 font-body text-sm font-medium text-white/90" href="#capacite">Capacité</a>
+      <a class="top-glass-link rounded-full px-3 py-2 font-body text-sm font-medium text-white/90" href="#reseau">Réseau</a>
+      <a class="top-glass-link rounded-full px-3 py-2 font-body text-sm font-medium text-white/90" href="#references">Références</a>
+      <a href="#contact" class="ml-1 inline-flex items-center gap-2 whitespace-nowrap rounded-full bg-white px-4 py-2 text-sm font-semibold text-black shadow-[0_1px_20px_rgba(255,255,255,0.18)]">
+        Demander une cotation
+        <svg viewBox="0 0 24 24" class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M7 17L17 7" />
+          <path d="M7 7h10v10" />
+        </svg>
+      </a>
+    </div>
+
+    <a href="#contact" class="liquid-glass-strong inline-flex items-center gap-2 rounded-full px-4 py-3 text-sm font-medium text-white lg:hidden">
+      Cotation
+      <svg viewBox="0 0 24 24" class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M7 17L17 7" />
+        <path d="M7 7h10v10" />
+      </svg>
+    </a>
+
+    <div class="hidden h-12 w-12 lg:block" aria-hidden="true"></div>
+  </nav>
+</header>
+
+<!-- Legacy nav replaced by the liquid-glass banner above.
   <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 mt-3 sm:mt-4">
     <nav class="relative flex items-center gap-3 rounded-2xl border border-ink-200/70 bg-white/70 backdrop-blur-xl px-3.5 sm:px-5 py-2.5 shadow-[0_8px_24px_-12px_rgba(8,51,68,0.18)]">
       <a href="#top" class="flex items-center gap-2 group">
@@ -452,7 +1052,6 @@
         <li><a class="px-3 py-2 rounded-xl hover:bg-ink-50 transition" href="#capacite">Capacité</a></li>
         <li><a class="px-3 py-2 rounded-xl hover:bg-ink-50 transition" href="#reseau">Réseau</a></li>
         <li><a class="px-3 py-2 rounded-xl hover:bg-ink-50 transition" href="#references">Références</a></li>
-        <li><a class="px-3 py-2 rounded-xl hover:bg-ink-50 transition" href="#a-propos">À propos</a></li>
       </ul>
 
       <div class="ml-auto flex items-center gap-2">
@@ -467,7 +1066,7 @@
       </div>
     </nav>
   </div>
-</header>
+-->
 
 <!-- ======================== HERO ======================== -->
 <section class="hero-section">
@@ -483,22 +1082,12 @@
   <div class="hero-overlay"></div>
   <div class="hero-fade"></div>
 
+
   <div class="hero-content">
-    <div class="hero-eyebrow">Transport International</div>
-
-    <h1 class="hero-title">
-      <span class="line1">AD</span>
-      <span class="line2">Logistique</span>
-    </h1>
-
-    <div class="hero-divider"></div>
-
-    <p class="hero-subtitle">
-      <strong>Transport International</strong> &amp; Consignation
-    </p>
-
-    <p class="hero-tagline">
-      « Efficacité, compétitivité et assistance à chaque étape de votre chaîne logistique »
+    <h1 class="hero-wordmark" data-text-effect="word" data-effect-delay="180" data-effect-stagger="58">Solutions logistiques pour vos transports internationaux</h1>
+    <p class="hero-subline" data-text-effect="line" data-effect-delay="620" data-effect-stagger="110">
+      <span>Transport routier, maritime et aérien pour vos marchandises.</span>
+      <span>entre le Maroc et l’international.</span>
     </p>
 
     <div class="hero-buttons">
@@ -512,12 +1101,6 @@
     </div>
   </div>
 
-  <div class="hero-scroll" aria-hidden="true">
-    <div class="hero-scroll-mouse">
-      <div class="hero-scroll-dot"></div>
-    </div>
-    <span>Défiler</span>
-  </div>
 </section>
 
 <!-- ======================== TRUST STRIP / MARQUEE ======================== -->
@@ -557,7 +1140,7 @@
 </section>
 
 <!-- ======================== SERVICES (modern feature grid on shader background) ======================== -->
-<section id="services" class="relative py-20 lg:py-28 overflow-hidden isolate">
+<section id="services" class="relative py-14 lg:py-20 overflow-hidden isolate">
   <!-- Dynamic wave canvas background (animated, brand cyan/teal palette) -->
   <div class="services-shader absolute inset-0 -z-10" aria-hidden="true">
     <canvas class="services-shader-canvas" data-services-wave></canvas>
@@ -568,7 +1151,7 @@
   <div class="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
 
     <!-- Header -->
-    <div class="flex flex-col gap-5 max-w-4xl reveal">
+    <div class="flex flex-col items-center text-center gap-3 max-w-4xl mx-auto reveal">
       <p class="text-[11px] font-mono uppercase tracking-[0.18em] text-brand-700">— Nos services</p>
       <h2 class="font-display text-3xl sm:text-4xl lg:text-5xl font-semibold tracking-tightest leading-[1.04] text-ink-900 text-balance">
         Une seule équipe pour la marchandise, la paperasse et la route.
@@ -578,65 +1161,65 @@
       </h3>
     </div>
 
-    <!-- Feature grid -->
-    <div class="mt-12 lg:mt-16 grid gap-x-10 gap-y-12 sm:grid-cols-2 lg:grid-cols-3 lg:gap-y-14">
+    <!-- Feature grid — locked 3+2 with row 2 centered (6-col track on lg) -->
+    <div class="mt-9 lg:mt-12 mx-auto max-w-[940px] grid gap-4 lg:gap-5 grid-cols-1 sm:grid-cols-2 lg:grid-cols-6">
 
       <!-- 01 · Fret routier -->
-      <div class="flex flex-col gap-4 reveal">
-        <div class="inline-flex h-11 w-11 items-center justify-center rounded-xl bg-white text-brand-700 ring-1 ring-ink-200/70 shadow-[0_1px_0_rgba(255,255,255,0.8)_inset,0_8px_18px_-12px_rgba(8,51,68,0.18)]">
-          <svg viewBox="0 0 24 24" class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 7h11v10H3z"/><path d="M14 10h4l3 3v4h-7z"/><circle cx="7.5" cy="18" r="1.6"/><circle cx="17.5" cy="18" r="1.6"/></svg>
+      <div class="glow-card flex flex-col gap-3 p-5 sm:p-6 w-full max-w-[280px] mx-auto lg:col-span-2 reveal">
+        <div class="inline-flex h-9 w-9 items-center justify-center rounded-lg bg-white text-brand-700 ring-1 ring-ink-200/70 shadow-[0_1px_0_rgba(255,255,255,0.8)_inset,0_6px_14px_-10px_rgba(8,51,68,0.18)]">
+          <svg viewBox="0 0 24 24" class="h-[18px] w-[18px]" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 7h11v10H3z"/><path d="M14 10h4l3 3v4h-7z"/><circle cx="7.5" cy="18" r="1.6"/><circle cx="17.5" cy="18" r="1.6"/></svg>
         </div>
         <div class="flex items-center gap-2 text-[11px] font-mono uppercase tracking-[0.18em] text-brand-700">01 — Fret routier</div>
-        <h4 class="font-display text-xl font-semibold tracking-crisp text-ink-900">Lots complets &amp; groupage Maroc ⇄ Europe</h4>
-        <p class="text-[15px] leading-relaxed text-ink-600">
+        <h4 class="font-display text-[17px] font-semibold tracking-crisp text-ink-900 leading-snug">Lots complets &amp; groupage Maroc ⇄ Europe</h4>
+        <p class="text-[13.5px] leading-relaxed text-ink-600">
           Tractions régulières au départ de Tanger Med vers la Péninsule, la France, l'Italie et le Benelux. Vos palettes voyagent en propre ou regroupées — à la cadence et au tarif qui font sens.
         </p>
       </div>
 
       <!-- 02 · Traçabilité -->
-      <div class="flex flex-col gap-4 reveal" style="transition-delay:.05s">
-        <div class="inline-flex h-11 w-11 items-center justify-center rounded-xl bg-white text-brand-700 ring-1 ring-ink-200/70 shadow-[0_1px_0_rgba(255,255,255,0.8)_inset,0_8px_18px_-12px_rgba(8,51,68,0.18)]">
-          <svg viewBox="0 0 24 24" class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12h3l2-5 4 10 2-5h7"/></svg>
+      <div class="glow-card flex flex-col gap-3 p-5 sm:p-6 w-full max-w-[280px] mx-auto lg:col-span-2 reveal" style="transition-delay:.05s">
+        <div class="inline-flex h-9 w-9 items-center justify-center rounded-lg bg-white text-brand-700 ring-1 ring-ink-200/70 shadow-[0_1px_0_rgba(255,255,255,0.8)_inset,0_6px_14px_-10px_rgba(8,51,68,0.18)]">
+          <svg viewBox="0 0 24 24" class="h-[18px] w-[18px]" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12h3l2-5 4 10 2-5h7"/></svg>
         </div>
         <div class="flex items-center gap-2 text-[11px] font-mono uppercase tracking-[0.18em] text-brand-700">02 — Traçabilité</div>
-        <h4 class="font-display text-xl font-semibold tracking-crisp text-ink-900">Suivi GPS &amp; température en temps réel</h4>
-        <p class="text-[15px] leading-relaxed text-ink-600">
+        <h4 class="font-display text-[17px] font-semibold tracking-crisp text-ink-900 leading-snug">Suivi GPS &amp; température en temps réel</h4>
+        <p class="text-[13.5px] leading-relaxed text-ink-600">
           Chaque ordre reçoit un lien partageable, horodaté et exportable. Vos clients voient l'avancement, vous voyez l'écart, et la chaîne du froid laisse une trace consultable.
         </p>
       </div>
 
       <!-- 03 · Dédouanement -->
-      <div class="flex flex-col gap-4 reveal" style="transition-delay:.1s">
-        <div class="inline-flex h-11 w-11 items-center justify-center rounded-xl bg-white text-brand-700 ring-1 ring-ink-200/70 shadow-[0_1px_0_rgba(255,255,255,0.8)_inset,0_8px_18px_-12px_rgba(8,51,68,0.18)]">
-          <svg viewBox="0 0 24 24" class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><path d="M14 3v6h6"/><path d="M9 14l2 2 4-4"/></svg>
+      <div class="glow-card flex flex-col gap-3 p-5 sm:p-6 w-full max-w-[280px] mx-auto lg:col-span-2 reveal" style="transition-delay:.1s">
+        <div class="inline-flex h-9 w-9 items-center justify-center rounded-lg bg-white text-brand-700 ring-1 ring-ink-200/70 shadow-[0_1px_0_rgba(255,255,255,0.8)_inset,0_6px_14px_-10px_rgba(8,51,68,0.18)]">
+          <svg viewBox="0 0 24 24" class="h-[18px] w-[18px]" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><path d="M14 3v6h6"/><path d="M9 14l2 2 4-4"/></svg>
         </div>
         <div class="flex items-center gap-2 text-[11px] font-mono uppercase tracking-[0.18em] text-brand-700">03 — Formalités</div>
-        <h4 class="font-display text-xl font-semibold tracking-crisp text-ink-900">Dédouanement à l'export et à l'import</h4>
-        <p class="text-[15px] leading-relaxed text-ink-600">
+        <h4 class="font-display text-[17px] font-semibold tracking-crisp text-ink-900 leading-snug">Dédouanement à l'export et à l'import</h4>
+        <p class="text-[13.5px] leading-relaxed text-ink-600">
           Équipe agréée ADII : DUM, EUR.1, certificats sanitaires &amp; phytosanitaires, T1, CMR. Tout est rédigé, déposé et suivi en interne — pas d'intermédiaire en série.
         </p>
       </div>
 
-      <!-- 04 · Chaîne du froid -->
-      <div class="flex flex-col gap-4 reveal" style="transition-delay:.15s">
-        <div class="inline-flex h-11 w-11 items-center justify-center rounded-xl bg-white text-brand-700 ring-1 ring-ink-200/70 shadow-[0_1px_0_rgba(255,255,255,0.8)_inset,0_8px_18px_-12px_rgba(8,51,68,0.18)]">
-          <svg viewBox="0 0 24 24" class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2v20"/><path d="M4.2 7l15.6 10"/><path d="M4.2 17l15.6-10"/><path d="M9 4l3 3 3-3"/><path d="M9 20l3-3 3 3"/></svg>
+      <!-- 04 · Chaîne du froid — first card of row 2, offset by one cell so the pair centers -->
+      <div class="glow-card flex flex-col gap-3 p-5 sm:p-6 w-full max-w-[280px] mx-auto lg:col-span-2 lg:col-start-2 reveal" style="transition-delay:.15s">
+        <div class="inline-flex h-9 w-9 items-center justify-center rounded-lg bg-white text-brand-700 ring-1 ring-ink-200/70 shadow-[0_1px_0_rgba(255,255,255,0.8)_inset,0_6px_14px_-10px_rgba(8,51,68,0.18)]">
+          <svg viewBox="0 0 24 24" class="h-[18px] w-[18px]" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2v20"/><path d="M4.2 7l15.6 10"/><path d="M4.2 17l15.6-10"/><path d="M9 4l3 3 3-3"/><path d="M9 20l3-3 3 3"/></svg>
         </div>
         <div class="flex items-center gap-2 text-[11px] font-mono uppercase tracking-[0.18em] text-brand-700">04 — Chaîne du froid</div>
-        <h4 class="font-display text-xl font-semibold tracking-crisp text-ink-900">Frais &amp; surgelés, sous température dirigée</h4>
-        <p class="text-[15px] leading-relaxed text-ink-600">
+        <h4 class="font-display text-[17px] font-semibold tracking-crisp text-ink-900 leading-snug">Frais &amp; surgelés, sous température dirigée</h4>
+        <p class="text-[13.5px] leading-relaxed text-ink-600">
           Remorques bi-température (+2 / +6 °C et −18 / −24 °C), sondes calibrées chaque trimestre, alarmes au-delà d'une dérive de 1,5 °C. Vos agrumes, produits laitiers et surgelés arrivent intacts.
         </p>
       </div>
 
-      <!-- 05 · Industriel -->
-      <div class="flex flex-col gap-4 reveal" style="transition-delay:.2s">
-        <div class="inline-flex h-11 w-11 items-center justify-center rounded-xl bg-white text-brand-700 ring-1 ring-ink-200/70 shadow-[0_1px_0_rgba(255,255,255,0.8)_inset,0_8px_18px_-12px_rgba(8,51,68,0.18)]">
-          <svg viewBox="0 0 24 24" class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13 2L4 14h7l-1 8 9-12h-7z"/></svg>
+      <!-- 05 · Industriel — orphan on sm: span both columns so it stays centered -->
+      <div class="glow-card flex flex-col gap-3 p-5 sm:p-6 w-full max-w-[280px] mx-auto sm:col-span-2 lg:col-span-2 reveal" style="transition-delay:.2s">
+        <div class="inline-flex h-9 w-9 items-center justify-center rounded-lg bg-white text-brand-700 ring-1 ring-ink-200/70 shadow-[0_1px_0_rgba(255,255,255,0.8)_inset,0_6px_14px_-10px_rgba(8,51,68,0.18)]">
+          <svg viewBox="0 0 24 24" class="h-[18px] w-[18px]" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13 2L4 14h7l-1 8 9-12h-7z"/></svg>
         </div>
         <div class="flex items-center gap-2 text-[11px] font-mono uppercase tracking-[0.18em] text-brand-700">05 — Industriel</div>
-        <h4 class="font-display text-xl font-semibold tracking-crisp text-ink-900">Câblages, équipements électriques &amp; matériel sensible</h4>
-        <p class="text-[15px] leading-relaxed text-ink-600">
+        <h4 class="font-display text-[17px] font-semibold tracking-crisp text-ink-900 leading-snug">Câblages, équipements électriques &amp; matériel sensible</h4>
+        <p class="text-[13.5px] leading-relaxed text-ink-600">
           Bobines lourdes, transformateurs, armoires et palettes anti-statiques. Calage, sanglage et plan de chargement validés avant départ — assurance ad-valorem jusqu'à 480 k€.
         </p>
       </div>
@@ -646,296 +1229,128 @@
 </section>
 
 <!-- ======================== STATS / CAPACITY ======================== -->
-<section id="capacite" class="relative py-20 lg:py-28 bg-white border-y border-ink-200/70">
-  <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-    <div class="grid lg:grid-cols-12 gap-10 items-end mb-12">
-      <div class="lg:col-span-6 reveal">
-        <p class="text-[11px] font-mono uppercase tracking-[0.18em] text-brand-700">— Capacité opérationnelle</p>
-        <h2 class="mt-3 font-display text-3xl sm:text-5xl font-semibold tracking-tightest leading-[1.02]">
-          Les chiffres qui rassurent<br/>les directions logistiques.
+<section id="capacite" class="capacity-section relative py-12 lg:py-16 overflow-hidden isolate">
+  <div class="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <div class="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-5 lg:gap-10 mb-7 lg:mb-9">
+      <div class="max-w-2xl">
+        <p class="capacity-eyebrow">Capacité opérationnelle</p>
+        <h2 data-word-reveal class="mt-3 font-display text-[clamp(1.55rem,3.4vw,2.6rem)] font-semibold tracking-tightest leading-[1.08]">
+          Les chiffres qui rassurent les directions logistiques.
         </h2>
       </div>
-      <div class="lg:col-span-5 lg:col-start-8 reveal" style="transition-delay:.08s">
-        <p class="text-[15.5px] leading-relaxed text-ink-600">
-          Mesurés sur 2025 — vérifiables sur demande, à l'occasion d'un audit fournisseur ou d'un appel d'offres.
-        </p>
-      </div>
+      <p class="max-w-md text-[14px] leading-relaxed text-ink-600">
+        Mesurés sur 2025 — vérifiables sur demande, à l'occasion d'un audit fournisseur.
+      </p>
     </div>
 
-    <!-- divide-y/border-t style, no card boxes -->
-    <div class="grid grid-cols-2 lg:grid-cols-5 gap-y-10 gap-x-6 reveal">
-      <div class="border-t border-ink-200 pt-5">
-        <div class="num text-[40px] sm:text-[52px] font-semibold tracking-tightest text-ink-900 leading-none">47 820</div>
-        <div class="mt-3 text-[12px] uppercase tracking-[0.16em] text-ink-500 font-mono">Colis livrés en 2025</div>
-        <p class="mt-2 text-[13px] text-ink-600 max-w-[28ch]">Du carton de 12 kg à la palette EUR.1 complète.</p>
-      </div>
-      <div class="border-t border-ink-200 pt-5">
-        <div class="num text-[40px] sm:text-[52px] font-semibold tracking-tightest text-ink-900 leading-none">3,2 M</div>
-        <div class="mt-3 text-[12px] uppercase tracking-[0.16em] text-ink-500 font-mono">km parcourus / an</div>
-        <p class="mt-2 text-[13px] text-ink-600 max-w-[28ch]">Tracteurs Euro 6, conduite éco-responsable.</p>
-      </div>
-      <div class="border-t border-ink-200 pt-5">
-        <div class="num text-[40px] sm:text-[52px] font-semibold tracking-tightest text-ink-900 leading-none">84 500 t</div>
-        <div class="mt-3 text-[12px] uppercase tracking-[0.16em] text-ink-500 font-mono">Tonnes acheminées</div>
-        <p class="mt-2 text-[13px] text-ink-600 max-w-[28ch]">Dont 61 % en chaîne du froid contrôlée.</p>
-      </div>
-      <div class="border-t border-ink-200 pt-5">
-        <div class="num text-[40px] sm:text-[52px] font-semibold tracking-tightest text-ink-900 leading-none">247</div>
-        <div class="mt-3 text-[12px] uppercase tracking-[0.16em] text-ink-500 font-mono">Comptes actifs</div>
-        <p class="mt-2 text-[13px] text-ink-600 max-w-[28ch]">Producteurs, industriels, négoces, distributeurs.</p>
-      </div>
-      <div class="border-t border-ink-200 pt-5">
-        <div class="num text-[40px] sm:text-[52px] font-semibold tracking-tightest text-ink-900 leading-none">18 ans</div>
-        <div class="mt-3 text-[12px] uppercase tracking-[0.16em] text-ink-500 font-mono">D'expérience</div>
-        <p class="mt-2 text-[13px] text-ink-600 max-w-[28ch]">Au service du corridor Maghreb-Europe.</p>
+    <div class="capacity-glass reveal">
+      <div class="capacity-stats">
+        <div class="capacity-stat">
+          <div class="capacity-index"><span>01</span></div>
+          <div class="capacity-number" data-countup data-count-to="1273" data-count-format="comma" data-count-prefix="+">1,273</div>
+          <div class="capacity-label">Colis livrés</div>
+        </div>
+        <div class="capacity-stat">
+          <div class="capacity-index"><span>02</span></div>
+          <div class="capacity-number" data-countup data-count-to="473754" data-count-format="comma" data-count-prefix="+">473,754</div>
+          <div class="capacity-label">Km par an</div>
+        </div>
+        <div class="capacity-stat">
+          <div class="capacity-index"><span>03</span></div>
+          <div class="capacity-number" data-countup data-count-to="16" data-count-format="plain" data-count-prefix="+">16</div>
+          <div class="capacity-label">Années d'expérience</div>
+        </div>
+        <div class="capacity-stat">
+          <div class="capacity-index"><span>04</span></div>
+          <div class="capacity-number" data-countup data-count-to="719" data-count-format="plain" data-count-prefix="+">719</div>
+          <div class="capacity-label">Clients satisfaits</div>
+        </div>
+        <div class="capacity-stat">
+          <div class="capacity-index"><span>05</span></div>
+          <div class="capacity-number" data-countup data-count-to="4234" data-count-format="comma" data-count-prefix="+">4,234</div>
+          <div class="capacity-label">Tonnes de marchandises</div>
+        </div>
       </div>
     </div>
   </div>
 </section>
 
 <!-- ======================== ROUTE / NETWORK ======================== -->
-<section id="reseau" class="py-20 lg:py-28 relative overflow-hidden">
-  <div class="absolute inset-0 -z-10 bg-mesh opacity-70"></div>
-  <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-    <div class="grid lg:grid-cols-12 gap-10 lg:gap-12">
-
-      <div class="lg:col-span-5 reveal">
-        <p class="text-[11px] font-mono uppercase tracking-[0.18em] text-brand-700">— Notre réseau</p>
-        <h2 class="mt-3 font-display text-3xl sm:text-5xl font-semibold tracking-tightest leading-[1.02]">
-          Une ligne directe<br/>du détroit aux quais européens.
-        </h2>
-        <p class="mt-5 text-[15.5px] text-ink-600 max-w-[52ch] leading-relaxed">
-          Tanger Med est notre port-pivot. Nos rotations s'articulent autour des escales d'Algésiras et Marseille, avec une couverture régulière jusqu'à Rotterdam, Lyon, Madrid, Milan et Paris.
-        </p>
-
-        <ul class="mt-8 space-y-3.5 text-[14px]">
-          <li class="flex items-start gap-3">
-            <span class="mt-1 inline-flex h-5 w-5 items-center justify-center rounded-full bg-brand-50 text-brand-700">
-              <svg viewBox="0 0 24 24" class="h-3.5 w-3.5" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12l4 4L19 7"/></svg>
-            </span>
-            <span><strong class="text-ink-900">4 départs hebdomadaires</strong> vers la France et l'Espagne, deux vers l'Italie et le Benelux.</span>
-          </li>
-          <li class="flex items-start gap-3">
-            <span class="mt-1 inline-flex h-5 w-5 items-center justify-center rounded-full bg-brand-50 text-brand-700">
-              <svg viewBox="0 0 24 24" class="h-3.5 w-3.5" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12l4 4L19 7"/></svg>
-            </span>
-            <span><strong class="text-ink-900">Hub de cross-docking</strong> à Perpignan pour redistribution Europe du Sud sous 24 h.</span>
-          </li>
-          <li class="flex items-start gap-3">
-            <span class="mt-1 inline-flex h-5 w-5 items-center justify-center rounded-full bg-brand-50 text-brand-700">
-              <svg viewBox="0 0 24 24" class="h-3.5 w-3.5" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12l4 4L19 7"/></svg>
-            </span>
-            <span><strong class="text-ink-900">Accords ferries</strong> avec FRS, Balearia et GNV — réservations prioritaires en haute saison agrumes.</span>
-          </li>
-        </ul>
-
-        <a href="#contact" class="mt-9 inline-flex items-center gap-2 btn-primary rounded-xl px-5 py-3 text-[14px] font-medium">
-          Étudier votre flux régulier
-          <svg viewBox="0 0 24 24" class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
-        </a>
-      </div>
-
-      <!-- Map -->
-      <div class="lg:col-span-7 reveal" style="transition-delay:.1s">
-        <div class="relative rounded-3xl bg-white border border-ink-200/70 shadow-card p-5 sm:p-7">
-          <div class="flex items-center justify-between mb-4">
-            <div class="flex items-center gap-2 text-[11px] font-mono uppercase tracking-[0.18em] text-ink-500">
-              <span class="h-1.5 w-1.5 rounded-full bg-brand-500 live-dot"></span>
-              Réseau actif · S18-2026
-            </div>
-            <div class="hidden sm:flex items-center gap-3 text-[11px] text-ink-500 font-mono">
-              <span class="inline-flex items-center gap-1.5"><span class="h-2 w-3 rounded-sm bg-brand-600"></span> Régulier</span>
-              <span class="inline-flex items-center gap-1.5"><span class="h-2 w-3 rounded-sm border border-brand-400 border-dashed"></span> À la demande</span>
-            </div>
-          </div>
-
-          <svg viewBox="0 0 760 460" class="w-full h-auto" role="img" aria-label="Carte stylisée Maroc-Europe">
-            <defs>
-              <linearGradient id="land" x1="0" x2="0" y1="0" y2="1">
-                <stop offset="0%" stop-color="#eef4f5"/>
-                <stop offset="100%" stop-color="#e1ebee"/>
-              </linearGradient>
-              <linearGradient id="sea" x1="0" x2="0" y1="0" y2="1">
-                <stop offset="0%" stop-color="#f7fbfc"/>
-                <stop offset="100%" stop-color="#eaf6f9"/>
-              </linearGradient>
-            </defs>
-            <rect width="760" height="460" fill="url(#sea)"/>
-
-            <!-- Stylized Iberian peninsula -->
-            <path d="M120 90 L260 70 L360 100 L420 130 L470 200 L420 260 L300 290 L210 270 L130 220 Z" fill="url(#land)" stroke="#cfdde1" stroke-width="1"/>
-            <!-- France -->
-            <path d="M380 60 L520 40 L600 90 L640 160 L590 230 L500 250 L430 220 L400 160 Z" fill="url(#land)" stroke="#cfdde1" stroke-width="1"/>
-            <!-- Italy boot -->
-            <path d="M620 130 L660 110 L690 150 L700 230 L680 270 L660 300 L650 340 L640 360 L630 340 L620 290 Z" fill="url(#land)" stroke="#cfdde1" stroke-width="1"/>
-            <!-- North Africa / Morocco -->
-            <path d="M40 320 L150 300 L250 320 L360 340 L460 360 L520 390 L520 450 L40 450 Z" fill="url(#land)" stroke="#cfdde1" stroke-width="1"/>
-            <!-- Strait gap line -->
-            <line x1="180" y1="295" x2="200" y2="305" stroke="#bcd1d6" stroke-width="1" stroke-dasharray="2 3"/>
-
-            <!-- Routes from Tanger Med -->
-            <g class="route-dash" stroke-linecap="round" fill="none" stroke-dasharray="6 6">
-              <path d="M195 312 C 240 250, 290 200, 380 160" stroke="#0891b2" stroke-width="2.2"/>
-              <path d="M195 312 C 280 280, 380 230, 460 175" stroke="#0891b2" stroke-width="2.2"/>
-              <path d="M195 312 C 340 300, 470 250, 560 180" stroke="#0891b2" stroke-width="2.2"/>
-              <path d="M195 312 C 420 320, 560 270, 640 240" stroke="#0e7490" stroke-width="2.2"/>
-              <path d="M195 312 C 380 340, 520 360, 600 330" stroke="#22d3ee" stroke-width="2" stroke-dasharray="3 5"/>
-            </g>
-
-            <!-- Tanger Med (origin) -->
-            <g>
-              <circle cx="195" cy="312" r="8" fill="#06b6d4" opacity="0.18"/>
-              <circle cx="195" cy="312" r="4.5" fill="#0e7490" stroke="#fff" stroke-width="2"/>
-              <text x="170" y="338" font-family="Geist Mono" font-size="11" fill="#0a1414">Tanger Med</text>
-            </g>
-            <!-- Algeciras -->
-            <g><circle cx="225" cy="292" r="3.5" fill="#0a1414"/><text x="232" y="290" font-family="Geist Mono" font-size="10" fill="#395059">Algésiras</text></g>
-            <!-- Madrid -->
-            <g><circle cx="280" cy="200" r="3.5" fill="#0a1414"/><text x="288" y="198" font-family="Geist Mono" font-size="10" fill="#395059">Madrid</text></g>
-            <!-- Barcelona -->
-            <g><circle cx="380" cy="160" r="3.5" fill="#0a1414"/><text x="388" y="158" font-family="Geist Mono" font-size="10" fill="#395059">Barcelone</text></g>
-            <!-- Perpignan (hub) -->
-            <g>
-              <rect x="412" y="140" width="9" height="9" fill="#06b6d4" stroke="#fff" stroke-width="2"/>
-              <text x="427" y="148" font-family="Geist Mono" font-size="10.5" fill="#0a1414" font-weight="600">Perpignan · hub</text>
-            </g>
-            <!-- Marseille -->
-            <g><circle cx="460" cy="175" r="3.5" fill="#0a1414"/><text x="468" y="173" font-family="Geist Mono" font-size="10" fill="#395059">Marseille</text></g>
-            <!-- Lyon -->
-            <g><circle cx="490" cy="130" r="3.5" fill="#0a1414"/><text x="498" y="128" font-family="Geist Mono" font-size="10" fill="#395059">Lyon</text></g>
-            <!-- Paris -->
-            <g><circle cx="510" cy="80" r="3.5" fill="#0a1414"/><text x="518" y="78" font-family="Geist Mono" font-size="10" fill="#395059">Paris</text></g>
-            <!-- Milan -->
-            <g><circle cx="600" cy="115" r="3.5" fill="#0a1414"/><text x="608" y="113" font-family="Geist Mono" font-size="10" fill="#395059">Milan</text></g>
-            <!-- Rotterdam -->
-            <g><circle cx="560" cy="50" r="3.5" fill="#0a1414"/><text x="496" y="42" font-family="Geist Mono" font-size="10" fill="#395059">Rotterdam</text></g>
-            <!-- Genova / Genoa -->
-            <g><circle cx="560" cy="180" r="3.5" fill="#0a1414"/><text x="568" y="178" font-family="Geist Mono" font-size="10" fill="#395059">Gênes</text></g>
-
-            <!-- Compass -->
-            <g transform="translate(700,40)" opacity="0.7">
-              <circle r="14" fill="#fff" stroke="#cfdde1"/>
-              <path d="M0 -10 L3 0 L0 10 L-3 0 Z" fill="#0e7490"/>
-              <text x="-3" y="-16" font-family="Geist Mono" font-size="8.5" fill="#395059">N</text>
-            </g>
-          </svg>
-
-          <!-- Bottom data row -->
-          <div class="mt-5 grid grid-cols-2 sm:grid-cols-4 gap-4 pt-5 border-t border-ink-100">
-            <div><div class="num text-[18px] font-semibold">11 pays</div><div class="text-[11px] text-ink-500 mt-0.5 font-mono uppercase tracking-[0.16em]">Couverts</div></div>
-            <div><div class="num text-[18px] font-semibold">52 h</div><div class="text-[11px] text-ink-500 mt-0.5 font-mono uppercase tracking-[0.16em]">Vers Perpignan</div></div>
-            <div><div class="num text-[18px] font-semibold">14 routes</div><div class="text-[11px] text-ink-500 mt-0.5 font-mono uppercase tracking-[0.16em]">Régulières</div></div>
-            <div><div class="num text-[18px] font-semibold">7 / 7</div><div class="text-[11px] text-ink-500 mt-0.5 font-mono uppercase tracking-[0.16em]">Astreinte transit</div></div>
-          </div>
-        </div>
-      </div>
-    </div>
+<section id="reseau" class="relative overflow-hidden isolate">
+  <div class="services-shader absolute inset-0 -z-10" aria-hidden="true">
+    <canvas class="services-shader-canvas" data-services-wave></canvas>
+    <div class="services-shader-veil"></div>
+    <div class="services-shader-grain"></div>
   </div>
-</section>
 
-<!-- ======================== SPECIALIZATIONS / ZIGZAG ======================== -->
-<section id="a-propos" class="py-20 lg:py-28 bg-white border-t border-ink-200/70">
-  <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+  <div class="network-shell">
+    <div class="network-card relative w-full overflow-hidden reveal">
+      <div class="network-card__halo" aria-hidden="true"></div>
 
-    <div class="max-w-3xl reveal">
-      <p class="text-[11px] font-mono uppercase tracking-[0.18em] text-brand-700">— Spécialisations</p>
-      <h2 class="mt-3 font-display text-3xl sm:text-5xl font-semibold tracking-tightest leading-[1.02]">
-        Trois savoir-faire, calibrés depuis 2008.
-      </h2>
-    </div>
+      <div class="network-card__layout relative">
 
-    <!-- Zigzag 1 -->
-    <div class="mt-16 grid lg:grid-cols-12 gap-8 lg:gap-12 items-center">
-      <div class="lg:col-span-7 order-2 lg:order-1 reveal">
-        <div class="text-[11px] font-mono uppercase tracking-[0.18em] text-ink-500">01</div>
-        <h3 class="mt-2 font-display text-2xl sm:text-3xl font-semibold tracking-crisp leading-tight">Périssables &amp; produits frais</h3>
-        <p class="mt-4 text-[15.5px] text-ink-600 leading-relaxed max-w-[58ch]">
-          Agrumes du Souss, tomates de Dakhla, fromages d'Aïn Aouda, fleurs coupées de Casablanca — nos remorques bi-température maintiennent la chaîne du froid d'un quai à l'autre, avec relevés horodatés à chaque kilomètre.
-        </p>
-        <div class="mt-7 grid grid-cols-2 sm:grid-cols-3 gap-5 max-w-xl">
-          <div class="border-t border-ink-200 pt-3"><div class="num text-[18px] font-semibold">+2 / +6 °C</div><div class="text-[12px] text-ink-500">Frais</div></div>
-          <div class="border-t border-ink-200 pt-3"><div class="num text-[18px] font-semibold">−18 / −24 °C</div><div class="text-[12px] text-ink-500">Surgelé</div></div>
-          <div class="border-t border-ink-200 pt-3"><div class="num text-[18px] font-semibold">≤ 1,5 °C</div><div class="text-[12px] text-ink-500">Tolérance d'écart</div></div>
+        <!-- Text column -->
+        <div class="network-card__content text-left">
+          <p class="inline-flex items-center gap-2 text-[11px] font-mono uppercase tracking-[0.18em] text-brand-700">
+            <span class="h-1.5 w-1.5 rounded-full bg-brand-500 live-dot"></span>
+            Notre réseau · S18-2026
+          </p>
+
+          <h2 class="mt-4 font-display text-[1.95rem] sm:text-[2.35rem] md:text-[2.65rem] font-semibold tracking-tightest leading-[1.06]">
+            <span class="text-ink-900">Une ligne directe du détroit</span>
+            <span class="text-brand-600"> aux quais européens.</span>
+            <span class="block mt-3 font-sans text-[15px] sm:text-[15.5px] font-normal tracking-normal leading-relaxed text-ink-500 max-w-[54ch]">
+              Tanger Med est notre port-pivot. Rotations régulières via Algésiras et Marseille, jusqu'à Rotterdam, Lyon, Madrid, Milan et Paris — opérées par notre hub de cross-docking de Perpignan.
+            </span>
+          </h2>
+
+          <a href="#contact" class="mt-7 inline-flex items-center gap-2 rounded-full bg-ink-900 px-5 py-2.5 text-[13.5px] font-semibold text-brand-50 transition-colors hover:bg-ink-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2 focus-visible:ring-offset-white">
+            Étudier votre flux régulier
+            <svg viewBox="0 0 24 24" class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+          </a>
+
+          <dl class="mt-10 grid grid-cols-2 sm:grid-cols-4 gap-x-6 gap-y-5 pt-6 border-t border-ink-100">
+            <div>
+              <dt class="text-[10.5px] font-mono uppercase tracking-[0.18em] text-ink-500">Pays couverts</dt>
+              <dd class="num mt-1.5 text-[17px] font-semibold text-ink-900">11</dd>
+            </div>
+            <div>
+              <dt class="text-[10.5px] font-mono uppercase tracking-[0.18em] text-ink-500">Vers Perpignan</dt>
+              <dd class="num mt-1.5 text-[17px] font-semibold text-ink-900">52 h</dd>
+            </div>
+            <div>
+              <dt class="text-[10.5px] font-mono uppercase tracking-[0.18em] text-ink-500">Routes régulières</dt>
+              <dd class="num mt-1.5 text-[17px] font-semibold text-ink-900">14</dd>
+            </div>
+            <div>
+              <dt class="text-[10.5px] font-mono uppercase tracking-[0.18em] text-ink-500">Astreinte transit</dt>
+              <dd class="num mt-1.5 text-[17px] font-semibold text-ink-900">7 / 7</dd>
+            </div>
+          </dl>
         </div>
-      </div>
-      <div class="lg:col-span-5 order-1 lg:order-2 reveal" style="transition-delay:.06s">
-        <div class="relative rounded-3xl overflow-hidden border border-ink-200/70 aspect-[4/3]">
-          <img src="https://picsum.photos/seed/ad-cold-citrus-2026/720/540" alt="Caisses d'agrumes en chambre froide, prêtes au chargement" class="absolute inset-0 h-full w-full object-cover" loading="lazy" />
-          <div class="absolute inset-0 bg-gradient-to-t from-ink-950/55 to-transparent"></div>
-          <div class="absolute bottom-4 left-4 right-4 text-brand-50">
-            <div class="text-[11px] font-mono uppercase tracking-[0.18em] text-brand-200/90">Saison agrumes · S15-S22</div>
-            <div class="num text-[20px] mt-0.5">12 800 t / saison</div>
+
+        <!-- Globe column -->
+        <div class="network-globe-frame" aria-hidden="true">
+          <div class="network-globe" data-globe>
+            <canvas data-globe-canvas></canvas>
           </div>
         </div>
       </div>
     </div>
-
-    <!-- Zigzag 2 -->
-    <div class="mt-20 grid lg:grid-cols-12 gap-8 lg:gap-12 items-center">
-      <div class="lg:col-span-5 reveal">
-        <div class="relative rounded-3xl overflow-hidden border border-ink-200/70 aspect-[4/3]">
-          <img src="https://picsum.photos/seed/ad-electrical-cable-2026/720/540" alt="Bobines de câbles industriels arrimées sur remorque" class="absolute inset-0 h-full w-full object-cover" loading="lazy" />
-          <div class="absolute inset-0 bg-gradient-to-t from-ink-950/55 to-transparent"></div>
-          <div class="absolute bottom-4 left-4 right-4 text-brand-50">
-            <div class="text-[11px] font-mono uppercase tracking-[0.18em] text-brand-200/90">Industriel · sur-mesure</div>
-            <div class="num text-[20px] mt-0.5">jusqu'à 26 t / chargement</div>
-          </div>
-        </div>
-      </div>
-      <div class="lg:col-span-7 reveal" style="transition-delay:.06s">
-        <div class="text-[11px] font-mono uppercase tracking-[0.18em] text-ink-500">02</div>
-        <h3 class="mt-2 font-display text-2xl sm:text-3xl font-semibold tracking-crisp leading-tight">Câblages &amp; matériel électrique</h3>
-        <p class="mt-4 text-[15.5px] text-ink-600 leading-relaxed max-w-[58ch]">
-          Bobines lourdes, transformateurs, armoires de distribution — chaque chargement est documenté par un plan d'arrimage signé. Calage bois, sangles 4 t, et inspection contradictoire avant scellement.
-        </p>
-        <ul class="mt-7 grid sm:grid-cols-2 gap-x-8 gap-y-3 text-[14px] text-ink-700 max-w-xl">
-          <li class="flex items-center gap-2"><span class="h-1.5 w-1.5 rounded-full bg-brand-500"></span> Plan de chargement validé</li>
-          <li class="flex items-center gap-2"><span class="h-1.5 w-1.5 rounded-full bg-brand-500"></span> Hayon hydraulique 2,5 t</li>
-          <li class="flex items-center gap-2"><span class="h-1.5 w-1.5 rounded-full bg-brand-500"></span> Assurance ad-valorem</li>
-          <li class="flex items-center gap-2"><span class="h-1.5 w-1.5 rounded-full bg-brand-500"></span> Convoi exceptionnel sur demande</li>
-        </ul>
-      </div>
-    </div>
-
-    <!-- Zigzag 3 -->
-    <div class="mt-20 grid lg:grid-cols-12 gap-8 lg:gap-12 items-center">
-      <div class="lg:col-span-7 order-2 lg:order-1 reveal">
-        <div class="text-[11px] font-mono uppercase tracking-[0.18em] text-ink-500">03</div>
-        <h3 class="mt-2 font-display text-2xl sm:text-3xl font-semibold tracking-crisp leading-tight">Dédouanement &amp; conformité</h3>
-        <p class="mt-4 text-[15.5px] text-ink-600 leading-relaxed max-w-[58ch]">
-          Notre cellule agréée ADII pré-saisit les déclarations dès la préparation du chargement : DUM, EUR.1, certificats sanitaires et phytosanitaires, T1, CMR. Vos camions ne perdent pas une heure sur le port.
-        </p>
-        <div class="mt-7 rounded-2xl border border-ink-200 bg-paper p-5 max-w-xl">
-          <div class="flex items-center gap-2 text-[11px] uppercase tracking-[0.18em] font-mono text-ink-500">Indicateur opérationnel</div>
-          <div class="mt-3 flex items-baseline gap-3">
-            <div class="num text-[34px] font-semibold text-ink-900">96 %</div>
-            <div class="text-[13px] text-ink-600">de dossiers libérés sous 24 h, sans réserve.</div>
-          </div>
-          <div class="mt-4 h-1.5 rounded-full bg-ink-100 overflow-hidden">
-            <div class="h-full w-[96%] bg-gradient-to-r from-brand-500 to-brand-700 rounded-full"></div>
-          </div>
-        </div>
-      </div>
-      <div class="lg:col-span-5 order-1 lg:order-2 reveal" style="transition-delay:.06s">
-        <div class="relative rounded-3xl overflow-hidden border border-ink-200/70 aspect-[4/3]">
-          <img src="https://picsum.photos/seed/ad-customs-port-tanger-2026/720/540" alt="Vue du port de Tanger Med au lever du jour" class="absolute inset-0 h-full w-full object-cover" loading="lazy" />
-          <div class="absolute inset-0 bg-gradient-to-t from-ink-950/55 to-transparent"></div>
-          <div class="absolute bottom-4 left-4 right-4 text-brand-50">
-            <div class="text-[11px] font-mono uppercase tracking-[0.18em] text-brand-200/90">Tanger Med · port pivot</div>
-            <div class="num text-[20px] mt-0.5">9,8 M EVP traités / an</div>
-          </div>
-        </div>
-      </div>
-    </div>
-
   </div>
 </section>
 
 <!-- ======================== TESTIMONIALS / REFERENCES ======================== -->
-<section id="references" class="py-20 lg:py-28 bg-paper">
-  <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+<section id="references" class="py-14 lg:py-20 relative overflow-hidden isolate">
+  <div class="services-shader absolute inset-0 -z-10" aria-hidden="true">
+    <canvas class="services-shader-canvas" data-services-wave></canvas>
+    <div class="services-shader-veil"></div>
+    <div class="services-shader-grain"></div>
+  </div>
 
-    <div class="grid lg:grid-cols-12 gap-10 items-end mb-12">
+  <div class="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+
+    <div class="grid lg:grid-cols-12 gap-8 items-end mb-8">
       <div class="lg:col-span-7 reveal">
         <p class="text-[11px] font-mono uppercase tracking-[0.18em] text-brand-700">— Ils nous confient leurs flux</p>
         <h2 class="mt-3 font-display text-3xl sm:text-5xl font-semibold tracking-tightest leading-[1.02]">
@@ -950,7 +1365,7 @@
     </div>
 
     <!-- Logos line (text-set, no fake brand assets) -->
-    <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-y-6 gap-x-8 items-center mb-16 reveal">
+    <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-y-5 gap-x-8 items-center mb-10 reveal">
       <div class="font-display text-[18px] font-semibold tracking-crisp text-ink-700">Marotrans</div>
       <div class="font-display text-[18px] font-semibold tracking-crisp text-ink-700">Fromagerie Bel Maroc</div>
       <div class="font-display text-[18px] font-semibold tracking-crisp text-ink-700">Lymouna&middot;Matysha</div>
@@ -962,12 +1377,12 @@
     <!-- Quotes — staggered, not 3-equal -->
     <div class="grid lg:grid-cols-12 gap-5 lg:gap-6">
 
-      <figure class="lg:col-span-7 lg:row-span-2 rounded-3xl bg-white border border-ink-200/70 shadow-card p-7 sm:p-9 reveal">
+      <figure class="lg:col-span-7 lg:row-span-2 rounded-3xl bg-white border border-ink-200/70 shadow-card p-5 sm:p-6 reveal">
         <svg viewBox="0 0 24 24" class="h-7 w-7 text-brand-500" fill="currentColor"><path d="M9 7c-3 0-5 2-5 5v6h6v-6H7c0-2 1-3 3-3V7zm9 0c-3 0-5 2-5 5v6h6v-6h-3c0-2 1-3 3-3V7z"/></svg>
-        <blockquote class="mt-5 font-display text-[22px] sm:text-[26px] leading-[1.25] tracking-crisp text-ink-900 max-w-[42ch]">
+        <blockquote class="mt-4 font-display text-[22px] sm:text-[26px] leading-[1.25] tracking-crisp text-ink-900 max-w-[42ch]">
           « Sur la saison agrumes, AD a tenu 98 % de nos départs à l'heure. Pas une réclamation client, pas une rupture de chaîne du froid — c'est ce qu'on attend d'un partenaire long terme. »
         </blockquote>
-        <figcaption class="mt-7 flex items-center gap-3.5">
+        <figcaption class="mt-5 flex items-center gap-3.5">
           <div class="h-11 w-11 rounded-full bg-gradient-to-br from-brand-700 to-brand-950 grid place-items-center text-brand-50 font-mono text-sm">KE</div>
           <div>
             <div class="font-medium text-[14px] text-ink-900">Kamal Elhaimer</div>
@@ -976,7 +1391,7 @@
         </figcaption>
       </figure>
 
-      <figure class="lg:col-span-5 rounded-3xl bg-white border border-ink-200/70 shadow-card p-6 sm:p-7 reveal" style="transition-delay:.05s">
+      <figure class="lg:col-span-5 rounded-3xl bg-white border border-ink-200/70 shadow-card p-5 sm:p-6 reveal" style="transition-delay:.05s">
         <blockquote class="font-display text-[18px] leading-snug tracking-crisp text-ink-900">
           « L'équipe douane d'AD pré-instruit nos DUM et nos EUR.1 avant même que le camion arrive au port. Nos délais ont chuté de 30 %. »
         </blockquote>
@@ -989,7 +1404,7 @@
         </figcaption>
       </figure>
 
-      <figure class="lg:col-span-5 rounded-3xl bg-ink-900 text-brand-50 p-6 sm:p-7 reveal" style="transition-delay:.1s">
+      <figure class="lg:col-span-5 rounded-3xl bg-ink-900 text-brand-50 p-5 sm:p-6 reveal" style="transition-delay:.1s">
         <blockquote class="font-display text-[18px] leading-snug tracking-crisp">
           « Les bobines de 7,2 t arrivent à Lyon parfaitement arrimées, plan de chargement à l'appui. Aucun autre transporteur ne nous propose ce niveau de rigueur sur le corridor. »
         </blockquote>
@@ -1004,7 +1419,7 @@
     </div>
 
     <!-- Certifications -->
-    <div class="mt-16 grid lg:grid-cols-12 gap-6 items-center reveal">
+    <div class="mt-10 grid lg:grid-cols-12 gap-5 items-center reveal">
       <div class="lg:col-span-4">
         <p class="text-[11px] font-mono uppercase tracking-[0.18em] text-ink-500">Certifications &amp; agréments</p>
         <p class="mt-3 text-[14px] text-ink-700 max-w-[40ch] leading-relaxed">
@@ -1034,7 +1449,7 @@
 </section>
 
 <!-- ======================== CONTACT / CTA ======================== -->
-<section id="contact" class="py-20 lg:py-28 relative overflow-hidden">
+<section id="contact" class="py-14 lg:py-20 relative overflow-hidden">
   <div class="absolute inset-0 -z-10 bg-gradient-to-br from-brand-950 via-ink-900 to-brand-900"></div>
   <div class="absolute inset-0 -z-10 opacity-30">
     <svg class="w-full h-full" preserveAspectRatio="none" viewBox="0 0 1400 600" aria-hidden="true">
@@ -1048,20 +1463,20 @@
   </div>
 
   <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-    <div class="grid lg:grid-cols-12 gap-10 items-start text-brand-50">
+    <div class="grid lg:grid-cols-12 gap-8 items-start text-brand-50">
 
       <div class="lg:col-span-6 reveal">
         <p class="text-[11px] font-mono uppercase tracking-[0.18em] text-brand-300">— Parlons fret</p>
-        <h2 class="mt-3 font-display text-3xl sm:text-5xl font-semibold tracking-tightest leading-[1.02]">
+        <h2 class="mt-2.5 font-display text-3xl sm:text-5xl font-semibold tracking-tightest leading-[1.02]">
           Décrivez-nous votre flux.<br/>
           On revient vers vous<br/>
           <span class="text-brand-300">en moins de 4 h ouvrées.</span>
         </h2>
-        <p class="mt-5 text-[15.5px] text-brand-100/85 max-w-[52ch] leading-relaxed">
+        <p class="mt-4 text-[15.5px] text-brand-100/85 max-w-[52ch] leading-relaxed">
           Cotation, audit de chaîne logistique existante, ou simple échange — nos chargés de compte parlent français, arabe, espagnol et anglais.
         </p>
 
-        <ul class="mt-8 space-y-4 text-[14.5px]">
+        <ul class="mt-6 space-y-3 text-[14.5px]">
           <li class="flex items-start gap-3">
             <span class="mt-0.5 inline-flex h-9 w-9 rounded-xl bg-brand-50/10 items-center justify-center">
               <svg viewBox="0 0 24 24" class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M3 5l3-2 4 5-3 2a14 14 0 0 0 7 7l2-3 5 4-2 3a3 3 0 0 1-3 1A18 18 0 0 1 2 8a3 3 0 0 1 1-3z"/></svg>
@@ -1146,9 +1561,9 @@
 </section>
 
 <!-- ======================== FOOTER ======================== -->
-<footer class="bg-ink-900 text-brand-100/80 pt-16 pb-10">
+<footer class="bg-ink-900 text-brand-100/80 pt-12 pb-8">
   <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-    <div class="grid grid-cols-2 lg:grid-cols-12 gap-10">
+    <div class="grid grid-cols-2 lg:grid-cols-12 gap-8">
       <div class="col-span-2 lg:col-span-5">
         <a href="#top" class="flex items-center gap-3">
           <span class="grid place-items-center h-11 w-11 rounded-xl bg-brand-50 text-ink-900 font-display font-semibold">AD</span>
@@ -1157,12 +1572,12 @@
             <span class="block text-[11px] uppercase tracking-[0.2em] text-brand-200/60 font-mono">Transport international &amp; consignation</span>
           </span>
         </a>
-        <p class="mt-5 text-[14px] leading-relaxed max-w-[44ch]">
+        <p class="mt-4 text-[14px] leading-relaxed max-w-[44ch]">
           Opérateur logistique basé à Tanger Med, spécialisé dans le fret routier Maroc–Europe, la chaîne du froid et le dédouanement.
         </p>
 
         <!-- Languages -->
-        <div class="mt-6 flex items-center gap-2 text-[12px] font-mono">
+        <div class="mt-5 flex items-center gap-2 text-[12px] font-mono">
           <span class="text-brand-200/50">Langues :</span>
           <span class="rounded-full border border-brand-50/15 px-2 py-1">Français</span>
           <span class="rounded-full border border-brand-50/15 px-2 py-1">العربية</span>
@@ -1173,7 +1588,7 @@
 
       <div class="lg:col-span-3">
         <div class="text-[11px] font-mono uppercase tracking-[0.18em] text-brand-200/60">Services</div>
-        <ul class="mt-4 space-y-2.5 text-[14px]">
+        <ul class="mt-3 space-y-2 text-[14px]">
           <li><a class="hover:text-brand-50" href="#services">Fret routier &amp; groupage</a></li>
           <li><a class="hover:text-brand-50" href="#services">Suivi &amp; traçabilité</a></li>
           <li><a class="hover:text-brand-50" href="#services">Dédouanement</a></li>
@@ -1184,8 +1599,7 @@
 
       <div class="lg:col-span-2">
         <div class="text-[11px] font-mono uppercase tracking-[0.18em] text-brand-200/60">Société</div>
-        <ul class="mt-4 space-y-2.5 text-[14px]">
-          <li><a class="hover:text-brand-50" href="#a-propos">À propos</a></li>
+        <ul class="mt-3 space-y-2 text-[14px]">
           <li><a class="hover:text-brand-50" href="#references">Références</a></li>
           <li><a class="hover:text-brand-50" href="#reseau">Réseau</a></li>
           <li><a class="hover:text-brand-50" href="#contact">Carrières</a></li>
@@ -1194,7 +1608,7 @@
 
       <div class="lg:col-span-2">
         <div class="text-[11px] font-mono uppercase tracking-[0.18em] text-brand-200/60">Contact</div>
-        <ul class="mt-4 space-y-2.5 text-[14px]">
+        <ul class="mt-3 space-y-2 text-[14px]">
           <li><a class="num hover:text-brand-50" href="tel:+212539312487">+212 539 31 24 87</a></li>
           <li><a class="hover:text-brand-50 break-words" href="mailto:operations@adlogistique-sarl.com">operations@adlogistique-sarl.com</a></li>
           <li class="text-brand-200/70">Tanger Med · Ksar Sghir<br/>90120 Tanger, Maroc</li>
@@ -1202,7 +1616,7 @@
       </div>
     </div>
 
-    <div class="mt-14 pt-6 border-t border-brand-50/10 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 text-[12px] text-brand-200/60">
+    <div class="mt-10 pt-5 border-t border-brand-50/10 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 text-[12px] text-brand-200/60">
       <div class="num">© 2026 AD Logistique SARL — RC Tanger 47.821</div>
       <div class="flex items-center gap-4">
         <a class="hover:text-brand-50" href="#">Mentions légales</a>
@@ -1215,11 +1629,113 @@
 
 <!-- ======================== SCRIPTS ======================== -->
 <script>
+  // Make the liquid-glass nav readable once it leaves the dark hero.
+  (() => {
+    const nav = document.querySelector('.top-glass-nav');
+    if (!nav) return;
+    const syncNavTone = () => {
+      nav.classList.toggle('is-scrolled', window.scrollY > 12);
+    };
+    syncNavTone();
+    window.addEventListener('scroll', syncNavTone, { passive: true });
+  })();
+
   // Reveal on scroll (respects reduced-motion automatically via CSS)
   const io = new IntersectionObserver((entries) => {
     entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
   }, { rootMargin: '0px 0px -8% 0px', threshold: 0.08 });
   document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+  // Word-by-word heading reveal: stagger each word from y:20 → 0 with a spring-ish ease.
+  (() => {
+    const headings = document.querySelectorAll('[data-word-reveal]');
+    if (!headings.length) return;
+
+    headings.forEach((h) => {
+      const words = h.textContent.trim().split(/\s+/);
+      h.textContent = '';
+      words.forEach((word, i) => {
+        const span = document.createElement('span');
+        span.className = 'word-reveal__w';
+        span.style.setProperty('--i', i);
+        span.textContent = word;
+        h.appendChild(span);
+        if (i < words.length - 1) h.appendChild(document.createTextNode(' '));
+      });
+    });
+
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (reduce || !('IntersectionObserver' in window)) {
+      headings.forEach((h) => h.classList.add('in'));
+      return;
+    }
+
+    const wrObserver = new IntersectionObserver((entries) => {
+      entries.forEach((e) => {
+        if (e.isIntersecting) {
+          e.target.classList.add('in');
+          wrObserver.unobserve(e.target);
+        }
+      });
+    }, { rootMargin: '0px 0px -100px 0px', threshold: 0.1 });
+
+    headings.forEach((h) => wrObserver.observe(h));
+  })();
+
+  // Capacity counters: final values remain in the HTML for no-JS, then count up on view.
+  (() => {
+    const counters = Array.from(document.querySelectorAll('[data-countup]'));
+    if (!counters.length) return;
+
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const easeOutQuint = (t) => 1 - Math.pow(1 - t, 5);
+    const formatValue = (value, format) => {
+      const rounded = Math.round(value);
+      if (format === 'comma') return rounded.toLocaleString('en-US');
+      if (format === 'dot') return rounded.toLocaleString('de-DE');
+      return String(rounded);
+    };
+    const setFinal = (el) => {
+      el.textContent = formatValue(Number(el.dataset.countTo || 0), el.dataset.countFormat);
+      el.dataset.counted = 'true';
+    };
+    const animate = (el) => {
+      if (el.dataset.counted === 'true') return;
+      const target = Number(el.dataset.countTo || 0);
+      const format = el.dataset.countFormat;
+      const duration = Number(el.dataset.countDuration || 2400);
+      const startedAt = performance.now();
+
+      const tick = (now) => {
+        const progress = Math.min(1, (now - startedAt) / duration);
+        el.textContent = formatValue(target * easeOutQuint(progress), format);
+        if (progress < 1) {
+          requestAnimationFrame(tick);
+        } else {
+          setFinal(el);
+        }
+      };
+
+      requestAnimationFrame(tick);
+    };
+
+    if (reduce || !('IntersectionObserver' in window)) {
+      counters.forEach(setFinal);
+      return;
+    }
+
+    counters.forEach((el) => { el.textContent = '0'; });
+
+    const counterObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        animate(entry.target);
+        counterObserver.unobserve(entry.target);
+      });
+    }, { rootMargin: '0px 0px -12% 0px', threshold: 0.35 });
+
+    counters.forEach((el) => counterObserver.observe(el));
+  })();
 
   // Spotlight cursor for tracking card
   document.querySelectorAll('[data-spotlight]').forEach(card => {
@@ -1233,59 +1749,100 @@
     });
   });
 
-  // Hero entrance animation (respects reduced-motion)
+  // Global pointer tracker → fuels the spotlight on every .glow-card
+  // (cards use background-attachment: fixed, so a single set of viewport-
+  // relative coords is enough; we publish them on the root element).
   (() => {
-    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if (reduce) return;
-    const content = document.querySelector('.hero-content');
-    if (!content) return;
-    content.style.opacity = '0';
-    content.style.transform = 'translateY(28px)';
-    content.style.transition = 'opacity .9s ease, transform .9s ease';
-    requestAnimationFrame(() => {
-      setTimeout(() => {
-        content.style.opacity = '1';
-        content.style.transform = 'translateY(0)';
-      }, 200);
-    });
+    const root = document.documentElement;
+    // Initial position: center of viewport so cards aren't blank pre-move.
+    const init = () => {
+      root.style.setProperty('--x', (window.innerWidth / 2).toFixed(2));
+      root.style.setProperty('--y', (window.innerHeight / 2).toFixed(2));
+      root.style.setProperty('--xp', '0.5');
+      root.style.setProperty('--yp', '0.5');
+    };
+    init();
+    window.addEventListener('resize', init, { passive: true });
+    window.addEventListener('pointermove', (e) => {
+      root.style.setProperty('--x', e.clientX.toFixed(2));
+      root.style.setProperty('--y', e.clientY.toFixed(2));
+      root.style.setProperty('--xp', (e.clientX / window.innerWidth).toFixed(3));
+      root.style.setProperty('--yp', (e.clientY / window.innerHeight).toFixed(3));
+    }, { passive: true });
   })();
 
-  // Services dynamic wave canvas background — animated per-pixel renderer
+  // Hero text effect: vanilla adaptation of the TextEffect word/line reveal.
+  (() => {
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const heroContent = document.querySelector('.hero-content');
+    if (reduce) {
+      heroContent?.classList.add('hero-effect-ready');
+      return;
+    }
+
+    document.querySelectorAll('[data-text-effect]').forEach((el) => {
+      const mode = el.dataset.textEffect || 'word';
+      const delay = Number(el.dataset.effectDelay || 0);
+      const stagger = Number(el.dataset.effectStagger || 60);
+
+      if (mode === 'line') {
+        const sourceLines = Array.from(el.children)
+          .map((child) => child.textContent.trim())
+          .filter(Boolean);
+        const lines = sourceLines.length ? sourceLines : el.textContent.split('\n').map((line) => line.trim()).filter(Boolean);
+
+        el.setAttribute('aria-label', lines.join(' '));
+        el.textContent = '';
+        const fragment = document.createDocumentFragment();
+
+        lines.forEach((line, index) => {
+          const wrapper = document.createElement('span');
+          const inner = document.createElement('span');
+
+          wrapper.className = 'hero-effect-line';
+          wrapper.setAttribute('aria-hidden', 'true');
+          inner.className = 'hero-effect-line-inner';
+          inner.style.setProperty('--effect-delay', `${delay + index * stagger}ms`);
+          inner.textContent = line;
+
+          wrapper.appendChild(inner);
+          fragment.appendChild(wrapper);
+        });
+        el.appendChild(fragment);
+        return;
+      }
+
+      const text = el.textContent.trim();
+      const words = text.split(/\s+/).filter(Boolean);
+      el.setAttribute('aria-label', text);
+      el.textContent = '';
+      const fragment = document.createDocumentFragment();
+
+      words.forEach((segment, index) => {
+        const span = document.createElement('span');
+        span.className = 'hero-effect-word';
+        span.setAttribute('aria-hidden', 'true');
+        span.style.setProperty('--effect-delay', `${delay + index * stagger}ms`);
+        span.textContent = segment;
+        fragment.appendChild(span);
+
+        if (index < words.length - 1) {
+          fragment.appendChild(document.createTextNode(' '));
+        }
+      });
+      el.appendChild(fragment);
+    });
+
+    heroContent?.classList.add('hero-effect-ready');
+  })();
+
+  // Dynamic wave canvas backgrounds — animated per-pixel renderer
   // Adapted to the site's cyan/teal brand palette (instead of the demo's purple/blue).
   (() => {
-    const canvas = document.querySelector('[data-services-wave]');
-    if (!canvas) return;
-    const ctx = canvas.getContext('2d', { alpha: false });
-    if (!ctx) return;
-
     const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     const SCALE = 4; // lower-res internal buffer, upscaled to canvas size — ~16x fewer pixels
 
-    let cw = 0, ch = 0, w = 0, h = 0, imageData = null, data = null;
-
-    const resize = () => {
-      const parent = canvas.parentElement;
-      const rect = parent.getBoundingClientRect();
-      cw = Math.max(1, Math.floor(rect.width));
-      ch = Math.max(1, Math.floor(rect.height));
-      canvas.width = cw;
-      canvas.height = ch;
-      w = Math.max(1, Math.floor(cw / SCALE));
-      h = Math.max(1, Math.floor(ch / SCALE));
-      imageData = ctx.createImageData(w, h);
-      data = imageData.data;
-      // Pre-fill alpha
-      for (let i = 3; i < data.length; i += 4) data[i] = 255;
-    };
-    resize();
-
-    if ('ResizeObserver' in window) {
-      new ResizeObserver(resize).observe(canvas.parentElement);
-    } else {
-      window.addEventListener('resize', resize);
-    }
-
-    // Trig lookup tables
+    // Trig lookup tables, shared across every section canvas.
     const SIN = new Float32Array(1024);
     const COS = new Float32Array(1024);
     for (let i = 0; i < 1024; i++) {
@@ -1297,86 +1854,204 @@
     const fSin = (x) => SIN[(((x / TAU) * 1024) | 0) & 1023];
     const fCos = (x) => COS[(((x / TAU) * 1024) | 0) & 1023];
 
-    const startTime = performance.now();
-    let visible = true;
-    let running = false;
+    document.querySelectorAll('[data-services-wave]').forEach((canvas) => {
+      const ctx = canvas.getContext('2d', { alpha: false });
+      const parent = canvas.parentElement;
+      if (!ctx || !parent) return;
 
-    const renderFrame = () => {
-      const t = (performance.now() - startTime) * 0.001;
+      let cw = 0, ch = 0, w = 0, h = 0, imageData = null, data = null;
 
-      for (let y = 0; y < h; y++) {
-        const u_y = (2 * y - h) / h;
-        for (let x = 0; x < w; x++) {
-          const u_x = (2 * x - w) / h;
+      const resize = () => {
+        const rect = parent.getBoundingClientRect();
+        cw = Math.max(1, Math.floor(rect.width));
+        ch = Math.max(1, Math.floor(rect.height));
+        canvas.width = cw;
+        canvas.height = ch;
+        w = Math.max(1, Math.floor(cw / SCALE));
+        h = Math.max(1, Math.floor(ch / SCALE));
+        imageData = ctx.createImageData(w, h);
+        data = imageData.data;
+        // Pre-fill alpha.
+        for (let i = 3; i < data.length; i += 4) data[i] = 255;
+      };
+      resize();
 
-          let a = 0, d = 0;
-          for (let i = 0; i < 4; i++) {
-            a += fCos(i - d + t * 0.5 - a * u_x);
-            d += fSin(i * u_y + a);
-          }
-
-          const wave = (fSin(a) + fCos(d)) * 0.5;
-          const intensity = 0.32 + 0.55 * wave;
-          const baseVal = 0.10 + 0.18 * fCos(u_x + u_y + t * 0.3);
-          const cyanAccent = 0.28 * fSin(a * 1.5 + t * 0.2);
-          const tealAccent = 0.20 * fCos(d * 2 + t * 0.1);
-
-          // Light-mode mapping: same wave field, but used as a cyan/teal tint
-          // *subtracted* from a paper background so the animation reads as
-          // flowing brand-colored shadows on #f6f9fa rather than glow on black.
-          let waveB = (baseVal + cyanAccent * 1.30 + tealAccent * 0.65) * intensity;
-          if (waveB < 0) waveB = 0; else if (waveB > 1) waveB = 1;
-
-          // Paper base (matches body / hero fade-out): rgb(246,249,250)
-          // R drops most → leaves cyan; G mid; B nearly untouched → keeps lightness.
-          let r = 0.965 - waveB * 0.52 - cyanAccent * 0.04;
-          let g = 0.976 - waveB * 0.13 + tealAccent * 0.015;
-          let b = 0.984 - waveB * 0.03 + cyanAccent * 0.02;
-
-          if (r < 0) r = 0; else if (r > 1) r = 1;
-          if (g < 0) g = 0; else if (g > 1) g = 1;
-          if (b < 0) b = 0; else if (b > 1) b = 1;
-
-          const idx = (y * w + x) * 4;
-          data[idx]     = (r * 255) | 0;
-          data[idx + 1] = (g * 255) | 0;
-          data[idx + 2] = (b * 255) | 0;
-        }
+      if ('ResizeObserver' in window) {
+        new ResizeObserver(resize).observe(parent);
+      } else {
+        window.addEventListener('resize', resize);
       }
 
-      // Paint small buffer at (0,0) then upscale to fill canvas.
-      ctx.putImageData(imageData, 0, 0);
-      ctx.imageSmoothingEnabled = true;
-      ctx.imageSmoothingQuality = 'low';
-      ctx.drawImage(canvas, 0, 0, w, h, 0, 0, cw, ch);
-    };
+      const startTime = performance.now();
+      let visible = false;
+      let running = false;
 
+      const renderFrame = () => {
+        const t = (performance.now() - startTime) * 0.001;
+
+        for (let y = 0; y < h; y++) {
+          const u_y = (2 * y - h) / h;
+          for (let x = 0; x < w; x++) {
+            const u_x = (2 * x - w) / h;
+
+            let a = 0, d = 0;
+            for (let i = 0; i < 4; i++) {
+              a += fCos(i - d + t * 0.5 - a * u_x);
+              d += fSin(i * u_y + a);
+            }
+
+            const wave = (fSin(a) + fCos(d)) * 0.5;
+            const intensity = 0.32 + 0.55 * wave;
+            const baseVal = 0.10 + 0.18 * fCos(u_x + u_y + t * 0.3);
+            const cyanAccent = 0.28 * fSin(a * 1.5 + t * 0.2);
+            const tealAccent = 0.20 * fCos(d * 2 + t * 0.1);
+
+            // Light-mode mapping: same wave field, but used as a cyan/teal tint
+            // *subtracted* from a paper background so the animation reads as
+            // flowing brand-colored shadows on #f6f9fa rather than glow on black.
+            let waveB = (baseVal + cyanAccent * 1.30 + tealAccent * 0.65) * intensity;
+            if (waveB < 0) waveB = 0; else if (waveB > 1) waveB = 1;
+
+            // Paper base (matches body / hero fade-out): rgb(246,249,250)
+            // R drops most, leaves cyan; G mid; B nearly untouched, keeps lightness.
+            let r = 0.965 - waveB * 0.52 - cyanAccent * 0.04;
+            let g = 0.976 - waveB * 0.13 + tealAccent * 0.015;
+            let b = 0.984 - waveB * 0.03 + cyanAccent * 0.02;
+
+            if (r < 0) r = 0; else if (r > 1) r = 1;
+            if (g < 0) g = 0; else if (g > 1) g = 1;
+            if (b < 0) b = 0; else if (b > 1) b = 1;
+
+            const idx = (y * w + x) * 4;
+            data[idx] = (r * 255) | 0;
+            data[idx + 1] = (g * 255) | 0;
+            data[idx + 2] = (b * 255) | 0;
+          }
+        }
+
+        // Paint small buffer at (0,0) then upscale to fill canvas.
+        ctx.putImageData(imageData, 0, 0);
+        ctx.imageSmoothingEnabled = true;
+        ctx.imageSmoothingQuality = 'low';
+        ctx.drawImage(canvas, 0, 0, w, h, 0, 0, cw, ch);
+      };
+
+      const tick = () => {
+        if (!visible) { running = false; return; }
+        renderFrame();
+        requestAnimationFrame(tick);
+      };
+      const start = () => {
+        if (running || reduce) return;
+        running = true;
+        tick();
+      };
+
+      // Pause when offscreen for performance.
+      if ('IntersectionObserver' in window) {
+        const io = new IntersectionObserver((entries) => {
+          visible = entries[0].isIntersecting;
+          if (visible) start();
+        }, { rootMargin: '120px' });
+        io.observe(parent);
+      } else {
+        visible = true;
+      }
+
+      if (reduce) {
+        // Single static frame for reduced-motion users.
+        renderFrame();
+      } else if (!('IntersectionObserver' in window)) {
+        start();
+      }
+    });
+  })();
+</script>
+
+<!-- COBE globe — réseau AD Logistique -->
+<script type="module">
+  (async () => {
+    const canvas = document.querySelector('[data-globe-canvas]');
+    if (!canvas) return;
+
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    let createGlobe;
+    try {
+      ({ default: createGlobe } = await import('https://cdn.jsdelivr.net/npm/cobe@2.0.1/+esm'));
+    } catch (err) {
+      // Globe is purely decorative — fail silently if the module can't load.
+      console.warn('Globe disabled:', err);
+      return;
+    }
+
+    const globeShell = canvas.closest('[data-globe]');
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    let phi = -0.68;
+    let width = Math.max(1, globeShell?.clientWidth || canvas.offsetWidth || 1);
+    let pointerInteracting = null;
+    let pointerInteractionMovement = 0;
+    let rotation = 0;
+    const theta = 0.32;
+
+    const onResize = () => {
+      width = Math.max(1, globeShell?.clientWidth || canvas.offsetWidth || width);
+    };
+    window.addEventListener('resize', onResize, { passive: true });
+
+    const globe = createGlobe(canvas, {
+      devicePixelRatio: dpr,
+      width: width * dpr,
+      height: width * dpr,
+      phi,
+      theta,
+      dark: 0,
+      diffuse: 1.2,
+      scale: 1,
+      mapSamples: 16000,
+      mapBrightness: 1.65,
+      mapBaseBrightness: 0.08,
+      baseColor: [1, 1, 1],
+      markerColor: [251 / 255, 100 / 255, 21 / 255],
+      glowColor: [1, 1, 1],
+      markerElevation: 0,
+      markers: [],
+    });
     const tick = () => {
-      if (!visible) { running = false; return; }
-      renderFrame();
+      if (pointerInteracting === null && !reduce) phi += 0.0022;
+      const currentPhi = phi + rotation;
+      globe.update({
+        phi: currentPhi,
+        theta,
+        width: width * dpr,
+        height: width * dpr,
+      });
       requestAnimationFrame(tick);
     };
-    const start = () => {
-      if (running || reduce) return;
-      running = true;
-      tick();
+    tick();
+
+    requestAnimationFrame(() => { canvas.style.opacity = '1'; });
+
+    canvas.addEventListener('pointerdown', (e) => {
+      canvas.setPointerCapture?.(e.pointerId);
+      pointerInteracting = e.clientX - pointerInteractionMovement;
+      canvas.style.cursor = 'grabbing';
+    });
+    const releasePointer = (e) => {
+      if (e?.pointerId !== undefined) canvas.releasePointerCapture?.(e.pointerId);
+      pointerInteracting = null;
+      canvas.style.cursor = 'grab';
     };
-
-    // Pause when offscreen for performance
-    if ('IntersectionObserver' in window) {
-      const io = new IntersectionObserver((entries) => {
-        visible = entries[0].isIntersecting;
-        if (visible) start();
-      }, { rootMargin: '120px' });
-      io.observe(canvas.parentElement);
-    }
-
-    if (reduce) {
-      // Single static frame for reduced-motion users
-      renderFrame();
-    } else {
-      start();
-    }
+    canvas.addEventListener('pointerup', releasePointer);
+    canvas.addEventListener('pointercancel', releasePointer);
+    canvas.addEventListener('pointerleave', releasePointer);
+    canvas.addEventListener('pointermove', (e) => {
+      if (pointerInteracting !== null) {
+        const delta = e.clientX - pointerInteracting;
+        pointerInteractionMovement = delta;
+        rotation = delta / 200;
+      }
+    });
   })();
 </script>
 
